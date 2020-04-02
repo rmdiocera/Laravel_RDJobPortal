@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+// Basic Pages
+Route::get('/', 'PagesController@index');
+Route::get('/about', 'PagesController@about');
+Route::get('/contact-us', 'PagesController@contact_us');
+
+// Job Posts
+Route::get('/job-search', 'JobPostsController@index');
+Route::get('/job-post/{id}', 'JobPostsController@show');
+Route::get('/create-job-post', 'JobPostsController@create');
+Route::post('/job-search', 'JobPostsController@store');
+Route::get('/job-post/{id}/edit', 'JobPostsController@edit');
+Route::put('/job-post/{id}', 'JobPostsController@update');
+Route::delete('/destroy/{id}', 'JobPostsController@destroy');
+
