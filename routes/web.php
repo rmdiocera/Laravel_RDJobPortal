@@ -26,3 +26,15 @@ Route::get('/job-post/{id}/edit', 'JobPostsController@edit');
 Route::put('/job-post/{id}', 'JobPostsController@update');
 Route::delete('/destroy/{id}', 'JobPostsController@destroy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Employers
+Route::prefix('employer')->group(function()
+{
+    Route::get('/login', 'Auth\EmployerLoginController@showLoginForm')->name('employer.login');
+    Route::post('login', 'Auth\EmployerLoginController@login')->name('employer.login.submit');
+    Route::get('/', 'EmployersController@index')->name('employer.dashboard');
+});
