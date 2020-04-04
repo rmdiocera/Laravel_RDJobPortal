@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Arr;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,6 +52,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // Catch AuthenticationException and redirect back to somewhere else...
+        if($exception instanceof AuthenticationException) {
+            $guard = Arr::get($exception->guards(), 0);
+            switch($guard){
+                case 'employer':
+                    return redirect(route('employer.login'));
+                    break;
+                default:
+                    return redirect(route('login'));
+                    break;
+            }
+        }
+
         return parent::render($request, $exception);
     }
 }
