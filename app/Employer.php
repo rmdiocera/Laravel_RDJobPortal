@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Employer extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes;
+    // use SoftDeletes;x
 
     protected $guard = 'employer';
     /**

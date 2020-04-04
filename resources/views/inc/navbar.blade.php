@@ -32,6 +32,11 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
+                    @if (Request::is('/'))
+                        <li class="nav-item">
+                            <a href="/employer/login" class="nav-link">For Employers</a>
+                        </li>    
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
