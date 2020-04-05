@@ -30,6 +30,7 @@ Route::delete('/destroy/{id}', 'JobPostsController@destroy');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Employers
 Route::prefix('employer')->group(function()
@@ -39,4 +40,5 @@ Route::prefix('employer')->group(function()
     Route::get('/register', 'Auth\EmployerRegisterController@showRegistrationForm')->name('employer.register');
     Route::post('register', 'Auth\EmployerRegisterController@register')->name('employer.register.submit');
     Route::get('/', 'EmployersController@index')->name('employer.dashboard');
+    Route::post('/logout', 'Auth\EmployerLoginController@logout')->name('employer.logout');
 });

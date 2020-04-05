@@ -10,7 +10,7 @@ class EmployerLoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:employer');   
+        $this->middleware('guest:employer', ['except' => ['logout']]);   
     }
 
     public function showLoginForm()
@@ -31,6 +31,19 @@ class EmployerLoginController extends Controller
 
         return redirect()->back()->withInput($request->only('email', 'remember'));
         
+    }
+
+    public function logout()
+    {
+        Auth::guard('employer')->logout();
+        return redirect('/');
+        // if ($response = $this->loggedOut($request)) {
+        //     return $response;
+        // }
+
+        // return $request->wantsJson()
+        //     ? new Response('', 204)
+        //     : redirect('/');
     }
 
 }
