@@ -39,6 +39,8 @@ Route::prefix('employer')->group(function()
     Route::post('login', 'Auth\EmployerLoginController@login')->name('employer.login.submit');
     Route::get('/register', 'Auth\EmployerRegisterController@showRegistrationForm')->name('employer.register');
     Route::post('register', 'Auth\EmployerRegisterController@register')->name('employer.register.submit');
+    Route::get('/create-profile', 'EmployersController@showCreateEmployerProfile')->name('employer.create_profile');
+    Route::post('/create-profile', 'EmployersController@saveEmployerProfile')->name('employer.create_profile.submit');
     Route::get('/', 'EmployersController@index')->name('employer.dashboard');
     Route::post('/logout', 'Auth\EmployerLoginController@logout')->name('employer.logout');
 });
