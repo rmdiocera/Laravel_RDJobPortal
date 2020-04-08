@@ -32,11 +32,19 @@ class EmployersController extends Controller
      */
     public function index()
     {
+        if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
+            return redirect(route('employer.create-profile'));
+        }
+
         return view('employers.home');
     }
 
     public function showCreateEmployerProfile()
     {
+        if (EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
+            return redirect(route('employer.dashboard'));
+        }
+
         $industries = Industry::all();
 
         return view('profile.create_emp_profile')->with('industries', $industries);
@@ -75,5 +83,12 @@ class EmployersController extends Controller
         $emp_profile->save();
         
         return redirect('/employer')->with('success', 'Congratulations! You completed your employer profile.');
+    }
+
+    public function showEmployerProfile()
+    {
+        $emp_profile = EmployerInfo::where('comp_id', Auth::user()->id)->first();
+        
+        return view('employers.employer_profile')->with('profile', $emp_profile);
     }
 }
