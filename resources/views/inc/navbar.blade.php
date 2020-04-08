@@ -32,27 +32,39 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    @if (Request::is('/'))
+                    @if (Request::is('/') || Request::is('login'))
                         <li class="nav-item">
-                            <a href="/employer/login" class="nav-link">For Employers</a>
+                            <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
                         </li>    
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <a href="{{route('login')}}" class="nav-link">For Applicants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('employer.login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employer.register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
                     @endif
                 @else
                 @if ((Auth::guard('web')->check()) && (Request::is('employer/login')))    
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('employer.login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('employer.register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else
@@ -62,7 +74,7 @@
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->id }} <span class="caret"></span>
+                            {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 
                         @if ((Auth::guard('employer')->check()) && (Request::is('employer/*') || Request::is('employer')))
