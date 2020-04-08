@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
+// use Illuminate\Support\Facades\Validator;
+// use App\Providers\RouteServiceProvider;
 
 class EmployerRegisterController extends Controller
 {
+
+    // protected $redirectTo = RouteServiceProvider::HOME;
+
     public function __construct()
     {
         $this->middleware('guest:employer');   
@@ -31,9 +36,11 @@ class EmployerRegisterController extends Controller
          
         $data = $request->all();
  
-        $check = $this->create($data);
+        $employer = $this->create($data);
        
-        return redirect()->route('employer.dashboard');
+        $this->guard()->login($employer);
+
+        return redirect()->route('employer.create_profile');
     }
 
     public function create(array $data)
@@ -43,5 +50,10 @@ class EmployerRegisterController extends Controller
         'email' => $data['email'],
         'password' => Hash::make($data['password'])
       ]);
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('employer');
     }
 }
