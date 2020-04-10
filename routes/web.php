@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact-us', 'PagesController@contact_us');
+Route::get('/test', 'PagesController@test');
+Route::get('/test2', 'PagesController@test2');
 
 // Job Posts
 Route::get('/job-search', 'JobPostsController@index');
@@ -29,7 +32,8 @@ Route::delete('/destroy/{id}', 'JobPostsController@destroy');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('user.dashboard');
+Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')->name('user.create_profile');
 Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Employers
