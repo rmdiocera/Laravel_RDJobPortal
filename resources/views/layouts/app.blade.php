@@ -48,6 +48,14 @@
             var test = $('#country-select').val();
             console.log(test);
         });
+
+        $('#present').on('click', function(){
+            if ($(this).is(':checked')) {
+                $('#end_date').attr('disabled', true);
+            } else {
+                $('#end_date').attr('disabled', false);
+            }
+        });
     </script>
 </body>
 </html>
