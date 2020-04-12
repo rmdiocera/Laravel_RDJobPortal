@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- {!! Form::open(['action' => 'EmployersController@saveEmployerProfile', 'method' => 'POST']) !!}     --}}
-        <div class="row">
+    {!! Form::open(['action' => 'HomeController@saveApplicantProfile', 'method' => 'POST']) !!}    
+        <div class="row mb-2">
             <div class="col-md-12">
                 <h1>Build Your Profile</h1>
                 <div class="form-group">
@@ -12,8 +12,12 @@
                     {{Form::text('last_name', '', ['class' => 'form-control', 'placeholder' => 'Last Name'])}}
                     {{Form::label('age', 'Age', ['class' => 'mt-2'])}}
                     {{Form::text('age', '', ['class' => 'form-control', 'placeholder' => 'Age'])}}
-                    {{Form::label('age', 'Gender', ['class' => 'mt-2'])}}
-                    {{Form::text('age', '', ['class' => 'form-control', 'placeholder' => 'Gender'])}}
+                    {{Form::label('gender', 'Gender', ['class' => 'mt-2'])}}
+                    <select class="selectpicker form-control" name="gender" id="" title="Select your gender">
+                        @foreach ($data['genders'] as $gender)
+                            <option value="{{$gender->id}}">{{$gender->gender}}</option>
+                        @endforeach
+                    </select>
                     {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
                     {{Form::text('address', '', ['class' => 'form-control', 'placeholder' => 'Address'])}}
                     {{Form::label('country', 'Country', ['class' => 'mt-2'])}}
@@ -29,7 +33,8 @@
                             <option value="{{$nationality->id}}">{{$nationality->nationality}}</option>
                         @endforeach
                     </select>
-                    
+                    {{Form::label('mobile_phone_no', 'Mobile Number', ['class' => 'mt-2'])}}
+                    {{Form::text('mobile_phone_no', '', ['class' => 'form-control', 'placeholder' => 'Mobile Number'])}}     
                 </div>
                 
             </div>
@@ -58,16 +63,35 @@
                         {{Form::text('salary', '', ['class' => 'form-control', 'placeholder' => 'Salary'])}}
                     </div>
                     {{Form::label('tasks', 'Tasks')}}
-                    {{Form::textarea('tasks', '', ['class' => 'form-control', 'placeholder' => 'List down your tasks and responsibilities here.', 'rows' => 20])}}
+                    {{Form::textarea('tasks', '', ['class' => 'form-control', 'placeholder' => 'List down your tasks and responsibilities here.', 'rows' => 10])}}
                 </div>
-                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
             </div>
             <div class="col-md-12">
                 <h1>Educational Background</h1>
                 <div class="form-group">
-                    
+                    {{Form::label('university', 'College/University')}}
+                    {{Form::text('university', '', ['class' => 'form-control', 'placeholder' => 'College/University'])}}
+                    {{Form::label('degree', 'Degree')}}
+                    <select class="selectpicker form-control" name="degree" id="" data-live-search="true" title="Select highest degree">
+                        <option value="" selected>Select an option</option>
+                        @foreach ($data['degrees'] as $degree)
+                            <option value="{{$degree->id}}">{{$degree->degree}}</option>
+                        @endforeach
+                    </select>
+                    {{Form::label('course', 'Course')}}
+                    <select class="selectpicker form-control" name="course" id="" data-live-search="true" title="Select a course">
+                        <option value="" selected>Select an option</option>
+                        @foreach ($data['courses'] as $course)
+                            <option value="{{$course->id}}">{{$course->course}}</option>
+                        @endforeach
+                    </select>
+                    {{Form::label('univ_start_date', 'Start Date', ['class' => 'mt-2'])}}
+                    {{Form::date('univ_start_date', '', ['class' => 'form-control'])}}
+                    {{Form::label('univ_end_date', 'Date of Graduation', ['class' => 'mt-2'])}}
+                    {{Form::date('univ_end_date', '', ['class' => 'form-control'])}}
                 </div>
+                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
             </div>
         </div>
-    {{-- {!! Form::close() !!} --}}
+    {!! Form::close() !!}
 @endsection

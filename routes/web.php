@@ -34,6 +34,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('user.dashboard');
 Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')->name('user.create_profile');
+Route::post('/create-profile', 'HomeController@saveApplicantProfile')->name('user.create_profile.submit');
 Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Employers
