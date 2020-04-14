@@ -31,14 +31,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            return redirect(route('user.create_profile'));
+        }
+
         return view('home');
     }
 
     public function showCreateApplicantProfile()
     {
-        // if (ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-        //     return redirect(route('user.dashboard'));
-        // }
+        if (ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            return redirect(route('user.dashboard'));
+        }
 
         $genders = Gender::all();
         $countries = Country::all();
@@ -102,7 +106,7 @@ class HomeController extends Controller
         $app_profile->age = $request->input('age');
         $app_profile->gender = $gender->gender;
         $app_profile->address = $request->input('address');
-        $app_profile->country = $country->country_name  ;
+        $app_profile->country = $country->country_name;
         $app_profile->nationality = $nationality->nationality;
         $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
         $app_profile->job_title = $request->input('job_title');
@@ -123,5 +127,18 @@ class HomeController extends Controller
         $app_profile->save();
         
         return redirect('/home')->with('success', 'Congratulations! You completed your employer profile.');
+    }
+
+    public function showApplicantProfile()
+    {
+        if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            return redirect(route('user.create_profile'));
+        }
+
+        $app_profile = ApplicantInfo::where('user_id', Auth::user()->id)->first();
+        $country_code = Country::where('country_name', $app_profile->country)->first();
+
+        return view('applicant_profile')->with('profile', $app_profile)
+                                        ->with('country_code', $country_code);
     }
 }
