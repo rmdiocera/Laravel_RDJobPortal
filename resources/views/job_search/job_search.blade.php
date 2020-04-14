@@ -11,10 +11,12 @@
                 <p>Employment Type: {{$job_post->emp_type}}</p>
                 <p>Job Level: {{$job_post->job_level}}</p>
                 <p>{{$job_post->created_at}}</p>
+                @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
                 <a href="/job-post/{{$job_post->id}}/edit" class="btn btn-primary">Edit Job Post</a>
-                {!! Form::open(['action' => ['JobPostsController@destroy', $job_post->id], 'method' => 'DELETE']) !!}
-                    {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                {!! Form::close() !!}
+                    {!! Form::open(['action' => ['JobPostsController@destroy', $job_post->id], 'method' => 'DELETE']) !!}
+                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                    {!! Form::close() !!}
+                @endif
             </div>
         @endforeach    
     @endif
