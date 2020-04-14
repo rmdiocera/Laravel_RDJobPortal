@@ -33,7 +33,7 @@ class EmployersController extends Controller
     public function index()
     {
         if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
-            return redirect(route('employer.create-profile'));
+            return redirect(route('employer.create_profile'));
         }
 
         return view('employers.home');
@@ -87,6 +87,10 @@ class EmployersController extends Controller
 
     public function showEmployerProfile()
     {
+        if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
+            return redirect(route('employer.create_profile'));
+        }
+
         $emp_profile = EmployerInfo::where('comp_id', Auth::user()->id)->first();
         
         return view('employers.employer_profile')->with('profile', $emp_profile);
