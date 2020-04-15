@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\EmpType;
 use App\Industry;
 use App\JobLevel;
-use Illuminate\Http\Request;
 use App\JobPost;
-use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class JobPostsController extends Controller
 {
@@ -29,6 +31,7 @@ class JobPostsController extends Controller
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                         ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
                         ->whereNull('job_posts.deleted_at')
+                        ->orderBy('created_at', 'desc')
                         ->get();
         
         return view('job_search.job_search')->with('job_posts', $job_posts);
@@ -71,7 +74,7 @@ class JobPostsController extends Controller
         ]);
 
         $job_post = new JobPost;
-        $job_post->comp_id = 1;
+        $job_post->comp_id = Auth::user()->id;
         $job_post->industry_id = $request->input('industry');
         $job_post->emp_type_id = $request->input('emp_type');
         $job_post->level_id = $request->input('level');
