@@ -13,20 +13,44 @@
 
             </ul> --}}
 
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/job-search">Job Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact-us">Contact Us</a>
-                </li>
-            </ul>
+            @if (Auth::guard('web')->check())
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/job-search">Job Search</a>
+                    </li>
+                </ul>
+            @elseif (Auth::guard('employer')->check())
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/job-posts">View Job Posts</a>
+                    </li>    
+                </ul>
+            @else
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/job-search">Job Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact-us">Contact Us</a>
+                    </li>
+                </ul>
+            @endif
+
+            {{-- @auth('employer')
+                @if (Auth::guard('employer')->check())
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/job-posts">View Job Posts</a>
+                        </li>
+                    </ul>
+                @endif
+            @endauth --}}
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
@@ -68,6 +92,7 @@
                         </li>
                     @endif
                 @else
+                    @if ((Auth::guard('employer')->check()) && (Request::is('employer/*') || Request::is('employer')))
                     <li class="nav-item">
                         <a href="/create-job-post" class="nav-link">Create Job Post</a>
                     </li>
@@ -77,7 +102,7 @@
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 
-                        @if ((Auth::guard('employer')->check()) && (Request::is('employer/*') || Request::is('employer')))
+                        
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('employer.logout') }}"
                             onclick="event.preventDefault();
@@ -90,6 +115,11 @@
                             </form>
                         </div>
                         @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->username }} <span class="caret"></span>
+                            </a>
+
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('user.logout') }}"
                             onclick="event.preventDefault();
