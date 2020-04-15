@@ -9,6 +9,7 @@ use App\Currency;
 use App\Degree;
 use App\Gender;
 use App\Nationality;
+use App\SavedJobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -140,5 +141,20 @@ class HomeController extends Controller
 
         return view('applicant_profile')->with('profile', $app_profile)
                                         ->with('country_code', $country_code);
+    }
+
+    public function saveJobPost($job_post_id)
+    {
+        // Check if user logged in
+
+        // Check if job post already saved in saved_job_posts db
+
+        // Save to db
+        $saved_job_post = new SavedJobPost;
+        $saved_job_post->user_id = Auth::id();
+        $saved_job_post->job_post_id = $job_post_id;
+        $saved_job_post->save();
+
+        return redirect('/job-search')->with('success', 'The job post has been saved.');
     }
 }

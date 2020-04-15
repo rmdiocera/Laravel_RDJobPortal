@@ -11,12 +11,16 @@
                 <p>Employment Type: {{$job_post->emp_type}}</p>
                 <p>Job Level: {{$job_post->job_level}}</p>
                 <p>{{$job_post->created_at}}</p>
-                @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
-                <a href="/job-post/{{$job_post->id}}/edit" class="btn btn-primary">Edit Job Post</a>
-                    {!! Form::open(['action' => ['JobPostsController@destroy', $job_post->id], 'method' => 'DELETE']) !!}
-                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-                    {!! Form::close() !!}
-                @endif
+                <div class="form-inline d-flex mb-2">
+                    @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
+                        <a href="/job-post/{{$job_post->id}}/edit"><button class="btn btn-sm btn-primary" type="button" >Edit Job Post</button></a>
+                        {!! Form::open(['action' => ['JobPostsController@destroy', $job_post->id], 'method' => 'DELETE']) !!}
+                            {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger ml-2'])}}
+                        {!! Form::close() !!}
+                    @else
+                        <a href="/job-post/{{$job_post->id}}/save"><button class="btn btn-sm btn-primary" type="button" >Save Job Post</button></a>
+                    @endif
+                </div>
             </div>
         @endforeach    
     @endif
