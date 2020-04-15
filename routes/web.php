@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 // Basic Pages
 Route::get('/', 'PagesController@index');
 Route::get('/about', 'PagesController@about');
-Route::get('/contact-us', 'PagesController@contact_us');
-Route::get('/test', 'PagesController@test');
-Route::get('/test2', 'PagesController@test2');
+Route::get('/contact-us', 'PagesController@contactUs');
+Route::get('/job-search', 'PagesController@showJobPosts');
+
 
 // Job Posts
-Route::get('/job-search', 'JobPostsController@index');
+Route::get('/job-posts', 'JobPostsController@index');
 Route::get('/job-post/{id}', 'JobPostsController@show');
 Route::get('/create-job-post', 'JobPostsController@create');
 Route::post('/job-search', 'JobPostsController@store');
@@ -35,6 +35,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('user.dashboard');
 Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')->name('user.create_profile');
 Route::post('/create-profile', 'HomeController@saveApplicantProfile')->name('user.create_profile.submit');
+Route::get('/home/show-profile', 'HomeController@showApplicantProfile')->name('user.show_profile');
+Route::post('/job-post/{id}/apply', 'HomeController@storeApplicantJobPostApplication')->name('user.apply_to_job_post');
+Route::get('/job-post/{id}/save', 'HomeController@saveJobPost')->name('user.save_job_post');
 Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Employers
