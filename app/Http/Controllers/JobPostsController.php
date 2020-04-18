@@ -138,7 +138,7 @@ class JobPostsController extends Controller
         ]);
 
         $job_post = JobPost::find($id);
-        $job_post->comp_id = 1;
+        $job_post->comp_id = Auth::id();
         $job_post->industry_id = $request->input('industry');
         $job_post->emp_type_id = $request->input('emp_type');
         $job_post->level_id = $request->input('level');
