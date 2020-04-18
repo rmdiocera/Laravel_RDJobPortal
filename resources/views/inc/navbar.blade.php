@@ -18,6 +18,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/job-search">Job Search</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/active-applications">View Active Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/saved-job-posts">Saved Job Posts</a>
+                    </li>
                 </ul>
             @elseif (Auth::guard('employer')->check())
                 <ul class="navbar-nav mr-auto">
@@ -103,6 +109,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('employer.show_profile') }}" class="dropdown-item">Profile</a>
                             <a class="dropdown-item" href="{{ route('employer.logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -120,6 +127,7 @@
                             </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('user.show_profile') }}" class="dropdown-item">Profile</a>
                             <a class="dropdown-item" href="{{ route('user.logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
