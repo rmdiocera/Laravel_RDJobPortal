@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +37,12 @@ Route::get('/home', 'HomeController@index')->name('user.dashboard');
 Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')->name('user.create_profile');
 Route::post('/create-profile', 'HomeController@saveApplicantProfile')->name('user.create_profile.submit');
 Route::get('/home/show-profile', 'HomeController@showApplicantProfile')->name('user.show_profile');
-Route::post('/job-post/{id}/apply', 'HomeController@storeApplicantJobPostApplication')->name('user.apply_to_job_post');
-Route::get('/job-post/{id}/save', 'HomeController@saveJobPost')->name('user.save_job_post');
+Route::get('/home/{id}/edit', 'HomeController@editApplicantProfile')->name('user.edit_profile');
+Route::put('/update/{id}/{uid}', 'HomeController@updateApplicantProfile')->name('user.update_profile');
+Route::get('/job-post/{id}/{cid}/apply', 'HomeController@storeApplicantJobPostApplication')->name('user.apply_to_job_post');
+Route::get('/job-post/{id}/{cid}/save', 'HomeController@saveJobPost')->name('user.save_job_post');
+Route::get('/job-post/{id}/unsave', 'HomeController@unsaveJobPost')->name('user.unsave_job_post');
+Route::get('saved-job-posts', 'HomeController@showSavedJobPosts')->name('user.show_saved_job_posts');
 Route::post('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Employers
@@ -50,6 +55,8 @@ Route::prefix('employer')->group(function()
     Route::get('/create-profile', 'EmployersController@showCreateEmployerProfile')->name('employer.create_profile');
     Route::post('/create-profile', 'EmployersController@saveEmployerProfile')->name('employer.create_profile.submit');
     Route::get('/show-profile', 'EmployersController@showEmployerProfile')->name('employer.show_profile');
+    Route::get('/{id}/edit', 'EmployersController@editEmployerProfile')->name('employer.edit_profile');
+    Route::put('/update/{cid}', 'EmployersController@updateEmployerProfile')->name('employer.update_profile');
     Route::get('/', 'EmployersController@index')->name('employer.dashboard');
     Route::post('/logout', 'Auth\EmployerLoginController@logout')->name('employer.logout');
 });
