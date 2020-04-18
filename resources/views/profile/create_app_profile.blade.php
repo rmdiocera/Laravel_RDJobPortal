@@ -90,7 +90,7 @@
                     {{Form::label('univ_end_date', 'Date of Graduation', ['class' => 'mt-2'])}}
                     {{Form::date('univ_end_date', '', ['class' => 'form-control'])}}
                 </div>
-                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
+                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}}
             </div>
         </div>
     {!! Form::close() !!}
