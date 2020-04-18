@@ -18,10 +18,13 @@
                             {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger ml-2'])}}
                         {!! Form::close() !!}
                     @else
-                        <a href="/job-post/{{$job_post->id}}/save"><button class="btn btn-sm btn-primary" type="button" >Save Job Post</button></a>
+                        <a href="/job-post/{{$job_post->id}}/{{$job_post->comp_id}}/save"><button class="btn btn-sm btn-primary" type="button" >Save Job Post</button></a>
+                        <a href="/job-post/{{$job_post->id}}/{{$job_post->comp_id}}/apply"><button class="btn btn-sm btn-primary ml-2" type="button">Apply to Job Post</button></a>
                     @endif
                 </div>
             </div>
-        @endforeach    
+        @endforeach
+    @else
+        <p>There doesn't seem to be anything here.</p>
     @endif
 @endsection
