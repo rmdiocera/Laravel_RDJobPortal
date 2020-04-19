@@ -262,6 +262,46 @@ class HomeController extends Controller
         return redirect('/job-search')->with('success', 'Your application to this job post has been sent successfully.');
     }
 
+    public function showActiveApplications()
+    {
+        if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            return redirect(route('user.create_profile'));
+        }
+
+        $active_applications = DB::table('job_post_applications')
+                            ->select('job_post_applications.*', 'job_posts.title' ,'employer_infos.company_name', 'job_application_statuses.status')
+                            ->join('job_posts', 'job_post_applications.job_post_id', '=', 'job_posts.id')
+                            ->join('employer_infos', 'job_post_applications.comp_id', '=', 'employer_infos.comp_id')
+                            ->join('job_application_statuses', 'job_post_applications.application_status', '=', 'job_application_statuses.id')
+                            ->where('user_id', Auth::id())
+                            ->get();
+        
+        // return $active_applications;
+        return view('active_applications')->with('applications', $active_applications);
+    }
+
+    public static function getJobPostApplicantsCount($job_post_id, $comp_id)
+    {
+        $applicants_count = DB::table('job_post_applications')
+                            ->where('job_post_id', $job_post_id)
+                            ->where('comp_id', $comp_id)
+                            ->count();
+
+        return $applicants_count;
+    }
+
+    public function removeApplicantJobPostApplication($job_post_app_id)
+    {
+        if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            return redirect(route('user.create_profile'));
+        }
+
+        $application = JobPostApplication::where(['id' => $job_post_app_id, 'user_id' => Auth::id()])->first();
+        $application->delete();
+
+        return redirect('/active-applications')->with('success', 'Your application has been withdrawn.');
+    }
+
     public function saveJobPost($job_post_id, $company_id)
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
