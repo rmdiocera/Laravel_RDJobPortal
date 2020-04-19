@@ -69,7 +69,7 @@ class EmployersController extends Controller
         $emp_profile = new EmployerInfo;
         $emp_profile->comp_id = Auth::user()->id;
         $emp_profile->company_name = $request->input('company_name');
-        $emp_profile->industry = $request->input('industry');
+        $emp_profile->industry_id = $request->input('industry');
         $emp_profile->address = $request->input('address');
         $emp_profile->website_link = $request->input('website_link');
         $emp_profile->company_size = $request->input('company_size');
@@ -92,6 +92,7 @@ class EmployersController extends Controller
         $emp_profile = DB::table('employer_infos')
                         ->select('employer_infos.*', 'industries.industry')
                         ->join('industries', 'employer_infos.industry_id', '=', 'industries.id')
+                        ->where('comp_id', Auth::id())
                         ->get();
         
         return view('employers.employer_profile')->with('profile', $emp_profile);
