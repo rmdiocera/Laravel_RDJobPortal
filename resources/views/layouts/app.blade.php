@@ -17,11 +17,16 @@
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
     
     {{-- CSS --}}
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {{-- Bootstrap Select --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    {{-- Bootstrap Tables --}}
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    {{-- Emoji CSS --}}
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
 
     <!-- Fonts -->
@@ -37,6 +42,7 @@
         <div class="container mt-4">
             @include('inc.alerts')
             @yield('content')
+            @include('components.who')
         </div>
     </div>
     <script>
