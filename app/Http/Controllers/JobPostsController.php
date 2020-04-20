@@ -30,6 +30,7 @@ class JobPostsController extends Controller
                         ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                         ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                        ->where('comp_id', Auth::id())
                         ->whereNull('job_posts.deleted_at')
                         ->orderBy('created_at', 'desc')
                         ->get();
