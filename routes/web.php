@@ -30,6 +30,11 @@ Route::get('/job-post/{id}/edit', 'JobPostsController@edit');
 Route::put('/job-post/{id}', 'JobPostsController@update');
 Route::delete('/destroy/{id}', 'JobPostsController@destroy');
 
+Route::get('/job-post/{id}/view', 'EmployersController@viewJobPostApplicants');
+Route::put('/invite/{id}', 'EmployersController@inviteApplicantToInterview');
+Route::put('/reject/{id}', 'EmployersController@rejectApplicantApplication');
+
+
 
 Auth::routes();
 
