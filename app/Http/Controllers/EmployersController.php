@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+
 // use App\Providers\RouteServiceProvider;
 // use App\Employer;
 // use Illuminate\Foundation\Auth\RegistersUsers;
 // use Illuminate\Support\Facades\Hash;
 // use Illuminate\Support\Facades\Validator;
 
+use App\JobPost;
+use App\JobPostApplication;
 use App\EmployerInfo;
 use App\Industry;
 use Illuminate\Http\Request;
@@ -144,5 +147,40 @@ class EmployersController extends Controller
         $emp_profile->save();
         
         return redirect('/employer')->with('success', 'Nice! You updated your employer profile.');
+    }
+
+    public function viewJobPostApplicants($job_post_id)
+    {
+        $job_post_applicants = DB::table('job_post_applications')
+                            ->select('job_post_applications.*', 'applicant_infos.first_name', 'applicant_infos.last_name', 'job_application_statuses.status')
+                            ->join('applicant_infos', 'job_post_applications.user_id', '=', 'applicant_infos.user_id')
+                            ->join('job_application_statuses', 'job_post_applications.app_status_id', '=', 'job_application_statuses.id')
+                            ->where('job_post_id', $job_post_id)
+                            ->orderBy('created_at', 'asc')
+                            ->get();
+
+        $job_post = JobPost::where('id', $job_post_id)->first();
+
+        // return $job_post_applicants;
+        return view('employers.view_job_post_applicants')->with('applicants', $job_post_applicants)
+                                                         ->with('job_post', $job_post);
+    }
+
+    public function inviteApplicantToInterview($job_post_app_id)
+    {
+        $application = JobPostApplication::find($job_post_app_id);
+        $application->app_status_id = 2;
+        $application->save();
+        
+        return redirect()->back()->with('success', 'Applicant has been invited to the interview.');
+    }
+
+    public function rejectApplicantApplication($job_post_app_id)
+    {
+        $application = JobPostApplication::find($job_post_app_id);
+        $application->app_status_id = 3;
+        $application->save();
+        
+        return redirect()->back()->with('success', "Applicant's application has been rejected.");
     }
 }
