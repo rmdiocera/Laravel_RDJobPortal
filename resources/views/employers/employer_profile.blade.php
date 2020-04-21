@@ -5,10 +5,20 @@
     <div class="row my-3">
         <div class="card col-md-12">
             <h1>Company Information</h1>
-            @foreach ($profile as $profile_info)
-                <h3>{{$profile_info->company_name}}</h3>
-                <p>{{$profile_info->industry}}</p>
-                <p>{{$profile_info->address}}</p>
+                @foreach ($profile as $profile_info)
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="/storage/emp_profile_pictures/{{$profile_info->profile_picture}}" style="width: 100%;" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$profile_info->company_name}}</h5>
+                            <h6 class="card-subtitle">{{$profile_info->industry}}</h6>
+                            <p class="card-text">{{$profile_info->address}}</p>
+                            <a href="{{$profile_info->website_link}}" class="card-link" target="_blank">{{$profile_info->website_link}}</a>
+                        </div>
+                    </div>
+                </div>
                 <br>
                 <h1>Other Information</h1>
                 <span>Company Size</span>
