@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['action' => 'EmployersController@saveEmployerProfile', 'method' => 'POST']) !!}    
+    {!! Form::open(['action' => 'EmployersController@saveEmployerProfile', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}    
         <div class="row">
             <div class="col-md-12">
                 <h1>Build Your Profile</h1>
@@ -20,7 +20,10 @@
                     {{-- {{Form::label('description', 'Description')}}
                     {{Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}} --}}
                 </div>
-                
+                <div class="form-group">
+                    {{Form::label('profile_picture', 'Add Company Logo', ['class' => 'mt-2'])}}
+                    {{Form::file('profile_picture')}}
+                </div>
             </div>
             <div class="col-md-12">
                 <h1>Other Information</h1>

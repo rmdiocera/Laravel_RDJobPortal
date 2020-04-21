@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['action' => ['EmployersController@updateEmployerProfile', $data['emp_profile']['comp_id']], 'method' => 'PUT']) !!}    
+    {!! Form::open(['action' => ['EmployersController@updateEmployerProfile', $data['emp_profile']['comp_id']], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}    
         <div class="row">
             <div class="col-md-12">
                 <h1>Build Your Profile</h1>
@@ -21,6 +21,10 @@
                     </select>
                     {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
                     {{Form::text('address', $data['emp_profile']['address'], ['class' => 'form-control', 'placeholder' => 'Address'])}}
+                </div>
+                <div class="form-group">
+                    {{Form::label('profile_picture', 'Change Company Logo', ['class' => 'mt-2'])}}
+                    {{Form::file('profile_picture')}}
                 </div>
             </div>
             <div class="col-md-12">

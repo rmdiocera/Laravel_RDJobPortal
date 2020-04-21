@@ -60,6 +60,7 @@ class EmployersController extends Controller
             'company_name' => 'required',
             'industry' => 'required',
             'address' => 'required',
+            'profile_picture' => 'image|nullable|max:1999',
             'website_link' => 'required|url',
             'company_size' => 'required',
             'benefits' => 'required',
@@ -69,11 +70,28 @@ class EmployersController extends Controller
             'avg_processing_time' => 'required',
         ]);
 
+        // Image Upload
+        if ($request->hasFile('profile_picture')) {
+            // Get original file name (on upload)
+            $img_orig_filename = $request->file('profile_picture')->getClientOriginalName();
+            // Get original file name without extension
+            $filename = pathinfo($img_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $img_filename = $filename.'_'.time().'.'.$extension;
+            // Upload profile picture
+            $path = $request->file('profile_picture')->storeAs('public/emp_profile_pictures', $img_filename);
+        } else {
+            $img_filename = 'noimage.jpg';
+        }
+
         $emp_profile = new EmployerInfo;
         $emp_profile->comp_id = Auth::user()->id;
         $emp_profile->company_name = $request->input('company_name');
         $emp_profile->industry_id = $request->input('industry');
         $emp_profile->address = $request->input('address');
+        $emp_profile->profile_picture = $img_filename;
         $emp_profile->website_link = $request->input('website_link');
         $emp_profile->company_size = $request->input('company_size');
         $emp_profile->benefits = $request->input('benefits');
@@ -124,6 +142,7 @@ class EmployersController extends Controller
             'company_name' => 'required',
             'industry' => 'required',
             'address' => 'required',
+            'profile_picture' => 'image|nullable|max:1999',
             'website_link' => 'required|url',
             'company_size' => 'required',
             'benefits' => 'required',
@@ -133,10 +152,29 @@ class EmployersController extends Controller
             'avg_processing_time' => 'required',
         ]);
 
+        // Image Upload
+        if ($request->hasFile('profile_picture')) {
+            // Get original file name (on upload)
+            $img_orig_filename = $request->file('profile_picture')->getClientOriginalName();
+            // Get original file name without extension
+            $filename = pathinfo($img_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $img_filename = $filename.'_'.time().'.'.$extension;
+            // Upload profile picture
+            $path = $request->file('profile_picture')->storeAs('public/emp_profile_pictures', $img_filename);
+        }
+
         $emp_profile = EmployerInfo::where('comp_id', $comp_id)->first();
         $emp_profile->company_name = $request->input('company_name');
         $emp_profile->industry_id = $request->input('industry');
         $emp_profile->address = $request->input('address');
+
+        if ($request->hasFile('profile_picture')) {
+            $emp_profile->profile_picture = $img_filename;
+        }
+
         $emp_profile->website_link = $request->input('website_link');
         $emp_profile->company_size = $request->input('company_size');
         $emp_profile->benefits = $request->input('benefits');
