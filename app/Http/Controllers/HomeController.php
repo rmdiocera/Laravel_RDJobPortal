@@ -82,6 +82,8 @@ class HomeController extends Controller
                 'size: 11',
                 'regex:/^(?!(?:09[0][1-4]|[8][34678]|[9][01])[0-9]{7}$)\d+/'
             ),
+            'profile_picture' => 'image|nullable|max:1999',
+            'resume' => 'mimes:pdf|nullable|max:2048',
             'job_title' => 'required',
             'company_name' => 'required',
             'start_date' => 'required',
@@ -95,16 +97,47 @@ class HomeController extends Controller
             'univ_end_date' => 'required',
         ]);
 
+        // Image Upload
+        if ($request->hasFile('profile_picture')) {
+            // Get original file name (on upload)
+            $img_orig_filename = $request->file('profile_picture')->getClientOriginalName();
+            // Get original file name without extension
+            $filename = pathinfo($img_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $img_filename = $filename.'_'.time().'.'.$extension;
+            // Upload profile picture
+            $path = $request->file('profile_picture')->storeAs('public/app_profile_pictures', $img_filename);
+        } else {
+            $img_filename = 'noimage.jpg';
+        }
+
+        if ($request->hasFile('resume')) {
+            // Get original file name (on upload)
+            $pdf_orig_filename = $request->file('resume')->getClientOriginalName();
+            // Get original file name without extension
+            $filename_pdf = pathinfo($pdf_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension_pdf = $request->file('resume')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $pdf_filename = $filename_pdf.'_'.time().'.'.$extension_pdf;
+            // Upload profile picture
+            $path_pdf = $request->file('resume')->storeAs('public/app_resume', $pdf_filename);
+        }
+
         $app_profile = new ApplicantInfo;
         $app_profile->user_id = Auth::user()->id;
         $app_profile->first_name = $request->input('first_name');
         $app_profile->last_name = $request->input('last_name');
         $app_profile->age = $request->input('age');
-        $app_profile->gender_id = $request->input('gender');;
+        $app_profile->gender_id = $request->input('gender');
         $app_profile->address = $request->input('address');
-        $app_profile->country_id = $request->input('country');;
-        $app_profile->nationality_id = $request->input('nationality');;
+        $app_profile->country_id = $request->input('country');
+        $app_profile->nationality_id = $request->input('nationality');
         $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
+        $app_profile->profile_picture = $img_filename;
+        $app_profile->resume = $pdf_filename;
         $app_profile->job_title = $request->input('job_title');
         $app_profile->company_name = $request->input('company_name');
         $app_profile->start_date = $request->input('start_date');
@@ -193,6 +226,8 @@ class HomeController extends Controller
                 'size: 11',
                 'regex:/^(?!(?:09[0][1-4]|[8][34678]|[9][01])[0-9]{7}$)\d+/'
             ],
+            'profile_picture' => 'image|nullable|max:1999',
+            'resume' => 'mimes:pdf|nullable|max:2048',
             'job_title' => 'required',
             'company_name' => 'required',
             'start_date' => 'required',
@@ -206,6 +241,33 @@ class HomeController extends Controller
             'univ_end_date' => 'required',
         ]);
 
+        // Image Upload
+        if ($request->hasFile('profile_picture')) {
+            // Get original file name (on upload)
+            $img_orig_filename = $request->file('profile_picture')->getClientOriginalName();
+            // Get original file name without extension
+            $filename = pathinfo($img_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension = $request->file('profile_picture')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $img_filename = $filename.'_'.time().'.'.$extension;
+            // Upload profile picture
+            $path = $request->file('profile_picture')->storeAs('public/app_profile_pictures', $img_filename);
+        }
+
+        if ($request->hasFile('resume')) {
+            // Get original file name (on upload)
+            $pdf_orig_filename = $request->file('resume')->getClientOriginalName();
+            // Get original file name without extension
+            $filename_pdf = pathinfo($pdf_orig_filename, PATHINFO_FILENAME);
+            // Get original file name extension
+            $extension_pdf = $request->file('resume')->getClientOriginalExtension();
+            // Filename to be stored (filename + timestamp + extension)
+            $pdf_filename = $filename_pdf.'_'.time().'.'.$extension_pdf;
+            // Upload profile picture
+            $path_pdf = $request->file('resume')->storeAs('public/app_resume', $pdf_filename);
+        }
+
         $app_profile = ApplicantInfo::where('user_id', $user_id)->first();
         $app_profile->first_name = $request->input('first_name');
         $app_profile->last_name = $request->input('last_name');
@@ -214,9 +276,19 @@ class HomeController extends Controller
         $app_profile->address = $request->input('address');
         $app_profile->country_id = $request->input('country');
         $app_profile->nationality_id = $request->input('nationality');
+        
         if ($app_profile->mobile_phone_no !== $request->input('mobile_phone_no')) {
             $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
         }
+        
+        if ($request->hasFile('profile_picture')) {
+            $app_profile->profile_picture = $img_filename;
+        }
+
+        if ($request->hasFile('resume')) {
+            $app_profile->resume = $pdf_filename;
+        }
+        
         $app_profile->job_title = $request->input('job_title');
         $app_profile->company_name = $request->input('company_name');
         $app_profile->start_date = $request->input('start_date');
@@ -274,6 +346,7 @@ class HomeController extends Controller
                             ->join('employer_infos', 'job_post_applications.comp_id', '=', 'employer_infos.comp_id')
                             ->join('job_application_statuses', 'job_post_applications.app_status_id', '=', 'job_application_statuses.id')
                             ->where('user_id', Auth::id())
+                            ->orderBy('created_at', 'desc')
                             ->get();
         
         // return $active_applications;
@@ -336,6 +409,7 @@ class HomeController extends Controller
                             ->join('job_posts', 'saved_job_posts.job_post_id', '=', 'job_posts.id')
                             ->join('employer_infos', 'saved_job_posts.comp_id', '=', 'employer_infos.comp_id')
                             ->where('user_id', Auth::id())
+                            ->orderBy('created_at', 'desc')
                             ->get();
 
         return view('saved_jobs')->with('job_posts', $saved_job_posts);

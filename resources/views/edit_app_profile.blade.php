@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['action' => ['HomeController@updateApplicantProfile', $data['app_profile']['id'], $data['app_profile']['user_id']], 'method' => 'PUT']) !!}    
+    {!! Form::open(['action' => ['HomeController@updateApplicantProfile', $data['app_profile']['id'], $data['app_profile']['user_id']], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}    
         <div class="row mb-2">
             <div class="col-md-12">
                 <h1>Edit Profile</h1>
@@ -48,7 +48,12 @@
                     {{Form::label('mobile_phone_no', 'Mobile Number', ['class' => 'mt-2'])}}
                     {{Form::text('mobile_phone_no', $data['app_profile']['mobile_phone_no'], ['class' => 'form-control', 'placeholder' => 'Mobile Number'])}}     
                 </div>
-                
+                <div class="form-group">
+                    {{Form::label('profile_picture', 'Change Profile Picture', ['class' => 'mt-2'])}}
+                    {{Form::file('profile_picture')}}
+                    {{Form::label('resume', 'Change Resume/CV', ['class' => 'mt-2'])}}
+                    {{Form::file('resume')}}
+                </div>
             </div>
             <div class="col-md-12">
                 <h1>Work Experience</h1>
