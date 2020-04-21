@@ -7,13 +7,20 @@
             {{-- Replace this with span-inlines --}}
             <h1>Applicant Information</h1>
             @foreach ($profile as $profile_info)
-                <h3>{{$profile_info->first_name." ".$profile_info->last_name}}</h3>
-                <span>{{$profile_info->mobile_phone_no}}</span>
-                <p>Age: {{$profile_info->age}}</p>
-                <p>Gender: {{$profile_info->gender}}</p>
-                <p>Address: {{$profile_info->address}}</p>
-                <p>Country: <i class="em em-flag-{{$profile_info->country_code}}" aria-role="presentation" aria-label="{{$profile_info->country_name}} Flag"></i><span class="align-middle pl-2">{{$profile_info->country_name}}</span></p>
-                <p>Nationality: {{$profile_info->nationality}}</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="/storage/app_profile_pictures/{{$profile_info->profile_picture}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-8">
+                    <h3>{{$profile_info->first_name." ".$profile_info->last_name}}</h3>
+                    <span>{{$profile_info->mobile_phone_no}}</span>
+                    <p>Age: {{$profile_info->age}}</p>
+                    <p>Gender: {{$profile_info->gender}}</p>
+                    <p>Address: {{$profile_info->address}}</p>
+                    <p>Country: <i class="em em-flag-{{$profile_info->country_code}}" aria-role="presentation" aria-label="{{$profile_info->country_name}} Flag"></i><span class="align-middle pl-2">{{$profile_info->country_name}}</span></p>
+                    <p>Nationality: {{$profile_info->nationality}}</p>
+                </div>
+            </div>
                 <br>
                 <h1>Work Experience</h1>
                 <span>Job Title</span>
@@ -25,11 +32,11 @@
                     @if (is_null($profile_info->end_date))
                         Present
                     @else
-                        {{$profile_info->end_date}}
+                        {{Carbon\Carbon::parse($profile_info->end_date)->format('F j, Y')}}
                     @endif
                 </p>
                 <span>Monthly Salary</span>
-                <p>{{$profile_info->salary}}</p>
+                <p>{{$profile_info->currency.' '.$profile_info->salary}}</p>
                 <span>Tasks</span>
                 <p>{{$profile_info->tasks}}</p>
                 <br>
