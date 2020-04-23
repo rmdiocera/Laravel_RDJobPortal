@@ -363,6 +363,26 @@ class HomeController extends Controller
         return $applicants_count;
     }
 
+    public function acceptInterviewInvitation($job_post_app_id)
+    {
+        $application = JobPostApplication::find($job_post_app_id);
+        $application->app_status_id = 4;
+        // return $application;
+        $application->save();
+        
+        return redirect()->back()->with('success', 'Congrats! Your interview appointment has been confirmed.');
+    }
+
+    public function declineInterviewInvitation($job_post_app_id)
+    {
+        $application = JobPostApplication::find($job_post_app_id);
+        $application->app_status_id = 5;
+        // return $application;
+        $application->save();
+        
+        return redirect()->back()->with('success', 'You have declined the interview invitation.');
+    }
+
     public function removeApplicantJobPostApplication($job_post_app_id)
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
