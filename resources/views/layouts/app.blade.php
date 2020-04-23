@@ -62,6 +62,32 @@
                 $('#end_date').attr('disabled', false);
             }
         });
+
+        $(function(){
+            $(document).on('click', '.show_app_info', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+            
+            $('#applicantInfoModal').modal('show');
+            $.ajax({
+                    type: 'ajax',
+                    method: 'get',
+                    url: '/app-info/'+id,
+                    dataType: 'json',
+                    success: function(html) {
+                        $('.app-info').append('<img src="/storage/app_profile_pictures/' + html.applicant.profile_picture + '" class="img-fluid">');
+                    },
+                    error: function() {
+                        alert('There\'s an unexpected error.');
+                    }
+                });
+            });
+
+            $('#applicantInfoModal').on('hidden.bs.modal', function (e) {
+                $('.app-info').empty();
+            });
+        });
+        
     </script>
 </body>
 </html>

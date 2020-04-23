@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 // use Illuminate\Support\Facades\Hash;
 // use Illuminate\Support\Facades\Validator;
 
+use App\ApplicantInfo;
 use App\JobPost;
 use App\JobPostApplication;
 use App\EmployerInfo;
@@ -190,7 +191,7 @@ class EmployersController extends Controller
     public function viewJobPostApplicants($job_post_id)
     {
         $job_post_applicants = DB::table('job_post_applications')
-                            ->select('job_post_applications.*', 'applicant_infos.first_name', 'applicant_infos.last_name', 'job_application_statuses.status')
+                            ->select('job_post_applications.*', 'applicant_infos.user_id as app_id', 'applicant_infos.first_name', 'applicant_infos.last_name', 'applicant_infos.resume', 'job_application_statuses.status')
                             ->join('applicant_infos', 'job_post_applications.user_id', '=', 'applicant_infos.user_id')
                             ->join('job_application_statuses', 'job_post_applications.app_status_id', '=', 'job_application_statuses.id')
                             ->where('job_post_id', $job_post_id)
@@ -202,6 +203,15 @@ class EmployersController extends Controller
         // return $job_post_applicants;
         return view('employers.view_job_post_applicants')->with('applicants', $job_post_applicants)
                                                          ->with('job_post', $job_post);
+    }
+
+    public function viewApplicantInfo($applicant_id)
+    {
+        if(request()->ajax())
+        {
+            $job_post_applicant = ApplicantInfo::where('user_id', $applicant_id)->first();
+            return response()->json(['applicant' => $job_post_applicant]);
+        }
     }
 
     public function inviteApplicantToInterview($job_post_app_id)

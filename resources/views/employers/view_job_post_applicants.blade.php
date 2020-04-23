@@ -1,7 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{$job_post->title}}</h1>
+{{-- Edit Modal --}}
+<div id="applicantInfoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Edit Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-center app-info">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>{{$job_post->title}}</h1>
     <table data-toggle="table">
         <thead>
             <tr>
@@ -14,8 +35,10 @@
         <tbody>
             @foreach ($applicants as $applicant)
                 <tr>
-                    <td>{{$applicant->first_name." ".$applicant->last_name}}</td>
-                    <td><a href="">Resume Link</a></td>
+                    <td><a href="" id="{{$applicant->app_id}}" class="show_app_info">{{$applicant->first_name." ".$applicant->last_name}}</a></td>
+                    <td class="d-flex justify-content-center">
+                        <a href="/storage/app_resume/{{$applicant->resume}}" download><button class="btn btn-sm btn-primary" type="button">Download</button></a>
+                    </td>
                     <td>{{$applicant->status}}</td>
                     <td class="d-flex justify-content-around">
                         {!! Form::open(['action' => ['EmployersController@inviteApplicantToInterview', $applicant->id], 'method' => 'PUT']) !!}
