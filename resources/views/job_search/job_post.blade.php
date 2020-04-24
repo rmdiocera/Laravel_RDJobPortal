@@ -10,7 +10,11 @@
             <p>Job Level: {{$job_post->job_level}}</p>
             <p>{{$job_post->created_at}}</p>
             <div>
-                <a href="/job-search" class="btn btn-sm btn-primary float-right mb-2">Go Back</a>
+                @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
+                    <a href="/job-posts" class="btn btn-sm btn-primary float-right mb-2">Go Back</a>
+                @else
+                    <a href="/job-search" class="btn btn-sm btn-primary float-right mb-2">Go Back</a>
+                @endif
             </div>
         </div>
     </div>
