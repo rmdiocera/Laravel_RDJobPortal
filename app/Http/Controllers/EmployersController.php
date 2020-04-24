@@ -14,6 +14,7 @@ use App\JobPost;
 use App\JobPostApplication;
 use App\EmployerInfo;
 use App\Industry;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -209,8 +210,18 @@ class EmployersController extends Controller
     {
         if(request()->ajax())
         {
-            $job_post_applicant = ApplicantInfo::where('user_id', $applicant_id)->first();
-            return response()->json(['applicant' => $job_post_applicant]);
+            $applicant_info = DB::table('applicant_infos')
+                            ->select('applicant_infos.*', 'users.email', 'currencies.currency', 'degrees.degree', 'courses.course')
+                            ->join('users', 'applicant_infos.user_id', '=', 'users.id')
+                            ->join('currencies', 'applicant_infos.currency_id', '=', 'currencies.id')
+                            ->join('degrees', 'applicant_infos.degree_id', '=', 'degrees.id')
+                            ->join('courses', 'applicant_infos.course_id', '=', 'courses.id')
+                            ->where('user_id', $applicant_id)
+                            ->get();
+            // $job_post_applicant = ApplicantInfo::where('user_id', $applicant_id)->first();
+            // $applicant_email = User::where('id', $applicant_id)->pluck('email');
+
+            return response()->json(['applicant' => $applicant_info]);
         }
     }
 

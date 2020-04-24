@@ -6,18 +6,28 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Edit Post</h5>
+                <h5 class="modal-title" id="">Applicant Information</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12 d-flex justify-content-center app-info">
-                        
-                    </div>
+                    <div class="col-md-6 d-flex justify-content-center app-img"></div>
+                    <div class="col-md-6 app-main-info"></div>
+                </div>
+                <hr class="modal-divider">
+                <div class="row">
+                    <div class="col-md-12 app-work-exp"></div>
+                </div>
+                <hr class="modal-divider">
+                <div class="row">
+                    <div class="col-md-12 app-educ-bg"></div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
         </div>
     </div>
 </div>
