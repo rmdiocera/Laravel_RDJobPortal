@@ -311,14 +311,14 @@ class HomeController extends Controller
         return redirect('/home')->with('success', 'Nice! You updated your profile.');
     }
 
-    public function storeApplicantJobPostApplication($job_post_id, $company_id)
+    public function storeApplicantJobPostApplication(Request $request)
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
             return redirect(route('user.create_profile'));
         }
 
         // Check if job post already saved in job_posts_applications db
-        $apply_jp_status = JobPostApplication::where(['user_id' => Auth::id(), 'comp_id' => $company_id, 'job_post_id' => $job_post_id])->first();
+        $apply_jp_status = JobPostApplication::where(['user_id' => Auth::id(), 'job_post_id' => $request->input('job_post_id'), 'comp_id' => $request->input('comp_id')])->first();
 
         if ($apply_jp_status) {
             return redirect('/job-search')->with('error', 'You already applied to this job post.');
@@ -327,8 +327,8 @@ class HomeController extends Controller
         // Save to db
         $apply_to_job_post = new JobPostApplication;
         $apply_to_job_post->user_id = Auth::id();
-        $apply_to_job_post->comp_id = $company_id;
-        $apply_to_job_post->job_post_id = $job_post_id;
+        $apply_to_job_post->job_post_id = $request->input('job_post_id');
+        $apply_to_job_post->comp_id = $request->input('comp_id');
         $apply_to_job_post->save();    
 
         return redirect('/job-search')->with('success', 'Your application to this job post has been sent successfully.');
@@ -395,14 +395,14 @@ class HomeController extends Controller
         return redirect('/active-applications')->with('success', 'Your application has been withdrawn.');
     }
 
-    public function saveJobPost($job_post_id, $company_id)
+    public function saveJobPost(Request $request)
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
             return redirect(route('user.create_profile'));
         }
 
         // Check if job post already saved in saved_job_posts db
-        $save_jp_status = SavedJobPost::where(['user_id' => Auth::id(), 'comp_id' => $company_id, 'job_post_id' => $job_post_id])->first();
+        $save_jp_status = SavedJobPost::where(['user_id' => Auth::id(), 'job_post_id' => $request->input('job_post_id'), 'comp_id' => $request->input('comp_id')])->first();
 
         if ($save_jp_status) {
             return redirect('/job-search')->with('error', 'You already saved this job post.');
@@ -411,8 +411,9 @@ class HomeController extends Controller
         // Save to db
         $saved_job_post = new SavedJobPost;
         $saved_job_post->user_id = Auth::id();
-        $saved_job_post->comp_id = $company_id;
-        $saved_job_post->job_post_id = $job_post_id;
+        $saved_job_post->job_post_id = $request->input('job_post_id');
+        $saved_job_post->comp_id = $request->input('comp_id');
+        // return $saved_job_post;
         $saved_job_post->save();    
 
         return redirect('/job-search')->with('success', 'The job post has been saved.');
