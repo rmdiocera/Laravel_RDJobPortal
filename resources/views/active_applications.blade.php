@@ -22,7 +22,10 @@
                                     {{Form::submit('Reject Interview Invitation', ['class' => 'btn btn-sm btn-danger ml-2'])}}
                                 {!! Form::close() !!}
                             @endif
-                            <a href="/job-post/{{$application->id}}/withdraw"><button class="btn btn-sm btn-primary" type="button" >Withdraw Application</button></a>
+                            {!! Form::open(['action' => ['HomeController@removeApplicantJobPostApplication', $application->id], 'method' => 'DELETE']) !!}
+                                {{Form::submit('Withdraw Application', ['class' => 'btn btn-sm btn-danger'])}}
+                            {!! Form::close() !!}
+                            {{-- <a href="/job-post/{{$application->id}}/withdraw"><button class="btn btn-sm btn-primary" type="button" >Withdraw Application</button></a> --}}
                         </div>                            
                     </div>
                 </div>
