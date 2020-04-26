@@ -44,29 +44,204 @@
         @include('inc.navbar')
         <div class="container mt-4">
             @include('inc.alerts')
+            @include('inc.modals')
             @yield('content')
             @include('components.who')
         </div>
     </div>
     <script>
+        
+        // Setting Selectpicker Bootstrap ver.
         $.fn.selectpicker.Constructor.BootstrapVersion = '4';
-
-        $('#country-select').attr('data-iconBase', 'em');
-
-        $('#country-select').on('change', function() {
-            var test = $('#country-select').val();
-            console.log(test);
-        });
-
-        $('#present').on('click', function(){
-            if ($(this).is(':checked')) {
-                $('#end_date').attr('disabled', true);
-            } else {
-                $('#end_date').attr('disabled', false);
-            }
-        });
-
+        
         $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Setting Emoji CSS as iconBase
+            $('#country-select').attr('data-iconBase', 'em');
+
+            // For disabling end date input when present checkbox checked
+            $('#present').on('click', function(){
+                if ($(this).is(':checked')) {
+                    $('#end_date').attr('disabled', true);
+                } else {
+                    $('#end_date').attr('disabled', false);
+                }
+            });
+
+            // Actions Modal
+            let job_post_id;
+            let comp_id;
+
+            // Confirm Save
+            let urlSave = '{{ route('user.save_job_post') }}';
+            $(document).on('click', '.save-jp', function(){
+                job_post_id = $(this).data('jp-id');
+                comp_id = $(this).data('comp-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Save Job Post');
+                $('.modal-body').text('Are you sure you want to save this job post?');
+                $('.modal-btn').attr('id', 'save');
+            });
+
+            $(document).on('click', '#save', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    method: 'POST',
+                    url: urlSave,
+                    data: { 
+                        job_post_id: job_post_id, 
+                        comp_id: comp_id
+                    },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            $('#actionsModal').modal('hide');
+                            window.scrollTo(0, 0);
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+
+                        if (data.error) {
+                            // console.log(data.error);
+                            $('#actionsModal').modal('hide');
+                            window.scrollTo(0, 0);
+                            html = '<div class="alert alert-warning">' + data.error + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Confirm Unsave
+            let saved_job_post_id;
+            $(document).on('click', '.unsave-jp', function(){
+                saved_job_post_id = $(this).data('saved-jp-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Unsave Job Post');
+                $('.modal-body').text('Are you sure you want to unsave this job post?');
+                $('.modal-btn').attr('id', 'unsave');
+            });
+
+            $(document).on('click', '#unsave', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/job-post/' + saved_job_post_id + '/unsave',
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Remove element
+                            $('[data-card-id="' + saved_job_post_id + '"]').fadeOut(function(){ $(this).remove(); });
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Confirm Applying to Job Post
+            let urlApply = '{{ route('user.apply_to_job_post') }}';
+            $(document).on('click', '.apply-to-jp', function(){
+                job_post_id = $(this).data('jp-id');
+                comp_id = $(this).data('comp-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Apply to Job Post');
+                $('.modal-body').text('Are you sure you want to apply to this job post?');
+                $('.modal-btn').attr('id', 'apply');
+            });
+
+            $(document).on('click', '#apply', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    method: 'POST',
+                    url: urlApply,
+                    data: { 
+                        job_post_id: job_post_id, 
+                        comp_id: comp_id
+                    },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            $('#actionsModal').modal('hide');
+                            window.scrollTo(0, 0);
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+
+                        if (data.error) {
+                            // console.log(data.error);
+                            $('#actionsModal').modal('hide');
+                            window.scrollTo(0, 0);
+                            html = '<div class="alert alert-warning">' + data.error + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Confirm Withdrawing Application
+            let job_post_app_id;
+            $(document).on('click', '.withdraw-jp', function(){
+                job_post_app_id = $(this).data('jp-app-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Unsave Job Post');
+                $('.modal-body').text('Are you sure you want to unsave this job post?');
+                $('.modal-btn').attr('id', 'withdraw');
+            });
+
+            $(document).on('click', '#withdraw', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/job-post/' + job_post_app_id + '/withdraw',
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Remove element
+                            $('[data-card-id="' + job_post_app_id + '"]').fadeOut(function(){ $(this).remove(); });
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            
+
+            // View Applicant Info
             $(document).on('click', '.show_app_info', function(e){
             e.preventDefault();
             var id = $(this).attr('id');
