@@ -5,7 +5,7 @@
     @if (count($applications) > 0)
         <div class="row">
             @foreach ($applications as $application)
-            <div class="col-md-6 py-2">
+            <div class="col-md-6 py-2" data-card-id="{{$application->id}}">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">{{$application->title}}</h3>
@@ -22,9 +22,10 @@
                                     {{Form::submit('Reject Interview Invitation', ['class' => 'btn btn-sm btn-danger ml-2'])}}
                                 {!! Form::close() !!}
                             @endif
-                            {!! Form::open(['action' => ['HomeController@removeApplicantJobPostApplication', $application->id], 'method' => 'DELETE']) !!}
+                            {{-- {!! Form::open(['action' => ['HomeController@removeApplicantJobPostApplication', $application->id], 'method' => 'DELETE']) !!}
                                 {{Form::submit('Withdraw Application', ['class' => 'btn btn-sm btn-danger'])}}
-                            {!! Form::close() !!}
+                            {!! Form::close() !!} --}}
+                            <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-danger withdraw-jp" type="button" >Withdraw Application</button>
                             {{-- <a href="/job-post/{{$application->id}}/withdraw"><button class="btn btn-sm btn-primary" type="button" >Withdraw Application</button></a> --}}
                         </div>                            
                     </div>
