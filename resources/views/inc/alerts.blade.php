@@ -18,4 +18,4 @@
     </div>
 @endif
 
-<div id="edit-alert"></div>
+<div id="modal_alert"></div>
