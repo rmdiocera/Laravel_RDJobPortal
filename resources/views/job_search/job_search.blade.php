@@ -19,16 +19,18 @@
                             {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger ml-2'])}}
                         {!! Form::close() !!}
                     @else
-                        {!! Form::open(['action' => ['HomeController@saveJobPost'], 'method' => 'POST']) !!}
+                        {{-- {!! Form::open(['action' => ['HomeController@saveJobPost'], 'method' => 'POST']) !!}
                             {{Form::hidden('job_post_id', $job_post->id)}}
                             {{Form::hidden('comp_id', $job_post->comp_id)}}
-                            {{Form::submit('Save Job Post', ['class' => 'btn btn-sm btn-primary'])}}
-                        {!! Form::close() !!}
-                        {!! Form::open(['action' => ['HomeController@storeApplicantJobPostApplication'], 'method' => 'POST']) !!}
+                            {{Form::submit('Save Job Post', ['class' => 'btn btn-sm btn-primary save-jp'])}}
+                        {!! Form::close() !!} --}}
+                        <button data-jp-id="{{$job_post->id}}" data-comp-id="{{$job_post->comp_id}}" class="btn btn-sm btn-primary save-jp" type="button" >Save Job Post</button>
+                        {{-- {!! Form::open(['action' => ['HomeController@storeApplicantJobPostApplication'], 'method' => 'POST']) !!}
                             {{Form::hidden('job_post_id', $job_post->id)}}
                             {{Form::hidden('comp_id', $job_post->comp_id)}}
                             {{Form::submit('Apply to Job Post', ['class' => 'btn btn-sm btn-primary ml-2'])}}
-                        {!! Form::close() !!}
+                        {!! Form::close() !!} --}}
+                        <button data-jp-id="{{$job_post->id}}" data-comp-id="{{$job_post->comp_id}}" class="btn btn-sm btn-primary ml-2 apply-to-jp" type="button" >Apply to Job Post</button>
                         {{-- <a href="/job-post/{{$job_post->id}}/{{$job_post->comp_id}}/save"><button class="btn btn-sm btn-primary" type="button" >Save Job Post</button></a> --}}
                         {{-- <a href="/job-post/{{$job_post->id}}/{{$job_post->comp_id}}/apply"><button class="btn btn-sm btn-primary ml-2" type="button">Apply to Job Post</button></a> --}}
                     @endif
