@@ -8,6 +8,7 @@ use App\Course;
 use App\Currency;
 use App\Degree;
 use App\Gender;
+use App\JobApplicationStatus;
 use App\JobPostApplication;
 use App\Nationality;
 use App\SavedJobPost;
@@ -370,22 +371,32 @@ class HomeController extends Controller
 
     public function acceptInterviewInvitation($job_post_app_id)
     {
-        $application = JobPostApplication::find($job_post_app_id);
-        $application->app_status_id = 4;
-        // return $application;
-        $application->save();
-        
-        return redirect()->back()->with('success', 'Congrats! Your interview appointment has been confirmed.');
+        if(request()->ajax())
+        {
+            $application = JobPostApplication::find($job_post_app_id);
+            $application->app_status_id = 4;
+            $application->save();
+            
+            $app_status = JobApplicationStatus::where('id', $application->app_status_id)->pluck('status');
+
+            return response()->json(['success' => 'Congrats! Your interview appointment has been confirmed.', 'status' => $app_status[0]]);
+            // return redirect()->back()->with('success', 'Congrats! Your interview appointment has been confirmed.');
+        }
     }
 
     public function declineInterviewInvitation($job_post_app_id)
     {
-        $application = JobPostApplication::find($job_post_app_id);
-        $application->app_status_id = 5;
-        // return $application;
-        $application->save();
-        
-        return redirect()->back()->with('success', 'You have declined the interview invitation.');
+        if(request()->ajax())
+        {
+            $application = JobPostApplication::find($job_post_app_id);
+            $application->app_status_id = 5;
+            $application->save();
+            
+            $app_status = JobApplicationStatus::where('id', $application->app_status_id)->pluck('status');
+
+            return response()->json(['success' => 'You have declined the interview invitation.', 'status' => $app_status[0]]);
+            // return redirect()->back()->with('success', 'You have declined the interview invitation.');
+        }
     }
 
     public function removeApplicantJobPostApplication($job_post_app_id)
