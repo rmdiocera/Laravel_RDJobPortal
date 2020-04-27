@@ -14,6 +14,7 @@ use App\JobPost;
 use App\JobPostApplication;
 use App\EmployerInfo;
 use App\Industry;
+use App\JobApplicationStatus;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -227,19 +228,31 @@ class EmployersController extends Controller
 
     public function inviteApplicantToInterview($job_post_app_id)
     {
-        $application = JobPostApplication::find($job_post_app_id);
-        $application->app_status_id = 2;
-        $application->save();
-        
-        return redirect()->back()->with('success', 'Applicant has been invited to the interview.');
+        if(request()->ajax())
+        {
+            $application = JobPostApplication::find($job_post_app_id);
+            $application->app_status_id = 2;
+            $application->save();
+
+            $app_status = JobApplicationStatus::where('id', $application->app_status_id)->pluck('status');
+
+            return response()->json(['success' => 'Applicant has been invited to the interview.', 'status' => $app_status[0]]);
+            // return redirect()->back()->with('success', 'Applicant has been invited to the interview.');
+        }
     }
 
     public function rejectApplicantApplication($job_post_app_id)
     {
-        $application = JobPostApplication::find($job_post_app_id);
-        $application->app_status_id = 3;
-        $application->save();
-        
-        return redirect()->back()->with('success', "Applicant's application has been rejected.");
+        if(request()->ajax())
+        {
+            $application = JobPostApplication::find($job_post_app_id);
+            $application->app_status_id = 3;
+            $application->save();
+            
+            $app_status = JobApplicationStatus::where('id', $application->app_status_id)->pluck('status');
+
+            return response()->json(['success' => 'Applicant\'s application has been rejected.', 'status' => $app_status[0]]);
+            // return redirect()->back()->with('success', "Applicant's application has been rejected.");
+        }
     }
 }
