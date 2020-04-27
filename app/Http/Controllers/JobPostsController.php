@@ -83,7 +83,7 @@ class JobPostsController extends Controller
         $job_post->desc = $request->input('description');
         $job_post->save();
 
-        return redirect('/job-search')->with('success', 'Your job listing has been posted.');
+        return redirect('/job-posts')->with('success', 'Your job listing has been posted.');
     }
 
     /**
@@ -94,7 +94,14 @@ class JobPostsController extends Controller
      */
     public function show($id)
     {
-        $job_post = JobPost::find($id);
+        $job_post = DB::table('job_posts')
+                ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
+                ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
+                ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                ->where('job_posts.id', $id)
+                ->get();
+
         return view('job_search.job_post')->with('job_post', $job_post);
     }
 
@@ -147,7 +154,7 @@ class JobPostsController extends Controller
         $job_post->desc = $request->input('description');
         $job_post->save();
 
-        return redirect('/job-search')->with('success', 'Your job listing has been updated.');
+        return redirect('/job-posts')->with('success', 'Your job listing has been updated.');
     }
 
     /**
@@ -158,9 +165,13 @@ class JobPostsController extends Controller
      */
     public function destroy($id)
     {
-        $job_post = JobPost::find($id);
-        $job_post->delete();
+        if(request()->ajax())
+        {
+            $job_post = JobPost::find($id);
+            $job_post->delete();
 
-        return redirect('/job-search')->with('success', 'Your job listing has been deleted.');
+            return response()->json(['success' => 'Your job listing has been deleted.']);
+            // return redirect('/job-posts')->with('success', 'Your job listing has been deleted.');
+        }
     }
 }
