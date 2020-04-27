@@ -73,10 +73,13 @@
                 }
             });
 
-            // Actions Modal
+            // Modal variables
             let job_post_id;
             let comp_id;
+            let job_post_app_id;
+            let saved_job_post_id;
 
+            // Applicant Actions Modal
             // Confirm Save
             let urlSave = '{{ route('user.save_job_post') }}';
             $(document).on('click', '.save-jp', function(){
@@ -121,7 +124,6 @@
             });
 
             // Confirm Unsave
-            let saved_job_post_id;
             $(document).on('click', '.unsave-jp', function(){
                 saved_job_post_id = $(this).data('saved-jp-id');
 
@@ -202,7 +204,6 @@
             });
 
             // Confirm Withdrawing Application
-            let job_post_app_id;
             $(document).on('click', '.withdraw-jp', function(){
                 job_post_app_id = $(this).data('jp-app-id');
 
@@ -239,7 +240,193 @@
                 });
             });
 
+            // Confirm Accepting Interview Invitation
+            $(document).on('click', '.accept-int', function(){
+                job_post_app_id = $(this).data('jp-app-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Accept Interview Invitation');
+                $('.modal-body').text('Are you sure you want to accept the interview invitation?');
+                $('.modal-btn').attr('id', 'accept');
+            });
+
+            $(document).on('click', '#accept', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'PUT',
+                    url: '/accept/' + job_post_app_id,
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    dataType: 'json',
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Change status on span element
+                            $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
             
+            // Confirm Rejecting Interview Invitation
+            $(document).on('click', '.decline-int', function(){
+                job_post_app_id = $(this).data('jp-app-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Reject Interview Invitation');
+                $('.modal-body').text('Are you sure you want to reject the interview invitation?');
+                $('.modal-btn').attr('id', 'decline');
+            });
+
+            $(document).on('click', '#decline', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'PUT',
+                    url: '/decline/' + job_post_app_id,
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    dataType: 'json',
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Change status on span element
+                            $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Employer Actions Modal
+            // Delete Job Post
+            $(document).on('click', '.delete-jp', function(){
+                job_post_id = $(this).data('jp-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Delete Job Post');
+                $('.modal-body').text('Are you sure you want to delete this job post?');
+                $('.modal-btn').attr('id', 'destroy');
+            });
+
+            $(document).on('click', '#destroy', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/destroy/' + job_post_id,
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Remove element
+                            $('[data-card-id="' + job_post_id + '"]').fadeOut(function(){ $(this).remove(); });
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Confirm Inviting Applicant to Interview
+            $(document).on('click', '.invite-app', function(){
+                job_post_app_id = $(this).data('jp-app-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Invite Applicant to Interview');
+                $('.modal-body').text('Are you sure you want to invite this applicant for the interview?');
+                $('.modal-btn').attr('id', 'invite');
+            });
+
+            $(document).on('click', '#invite', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'PUT',
+                    url: '/invite/' + job_post_app_id,
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Change status on table cell
+                            $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
+
+            // Confirm Rejecting Applicant's Application
+            $(document).on('click', '.reject-app', function(){
+                job_post_app_id = $(this).data('jp-app-id');
+
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Reject Application');
+                $('.modal-body').text('Are you sure you want to reject this applicant\'s application?');
+                $('.modal-btn').attr('id', 'reject');
+            });
+
+            $(document).on('click', '#reject', function(e){
+                e.preventDefault();
+                
+                $.ajax({
+                    type: 'PUT',
+                    url: '/reject/' + job_post_app_id,
+                    // headers: {
+                    // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    success: function(data) {
+                        let html = '';
+                        
+                        if (data.success) {
+                            // Change status on table cell
+                            $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                            // Hide modal
+                            $('#actionsModal').modal('hide');
+                            // Bring to top
+                            window.scrollTo(0, 0);
+                            // Show alert
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#modal_alert').html(html);
+                        }
+                    }
+                });
+            });
 
             // View Applicant Info
             $(document).on('click', '.show_app_info', function(e){
