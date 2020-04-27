@@ -11,11 +11,11 @@
                         <h3 class="card-title">{{$job_post->title}}</h3>
                         <h5 class="card-title">{{$job_post->company_name}}</h5>
                         <p class="card-text">Saved on {{ Carbon\Carbon::parse($job_post->created_at)->format('F j, Y')}}</p>
-                        <button data-saved-jp-id="{{$job_post->id}}" class="btn btn-sm btn-danger unsave-jp" type="button" >Unsave Job Post</button>
+                        <button data-saved-jp-id="{{$job_post->id}}" class="btn btn-sm btn-danger unsave-jp" type="button">Unsave Job Post</button>
                         {{-- {!! Form::open(['action' => ['HomeController@unsaveJobPost', $job_post->id], 'method' => 'DELETE']) !!}
                             {{Form::submit('Unsave Job Post', ['class' => 'btn btn-sm btn-danger'])}}
                         {!! Form::close() !!} --}}
-                        {{-- <a href="/job-post/{{$job_post->id}}/unsave"><button class="btn btn-sm btn-primary" type="button" >Unsave Job Post</button></a> --}}
+                        {{-- <a href="/job-post/{{$job_post->id}}/unsave"><button class="btn btn-sm btn-primary" type="button">Unsave Job Post</button></a> --}}
                     </div>
                 </div>
             </div>
