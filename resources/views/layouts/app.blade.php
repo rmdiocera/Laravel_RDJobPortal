@@ -22,6 +22,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
     
+    <!-- CKEditor 4 -->
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+
     {{-- CSS --}}
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -50,7 +53,9 @@
         </div>
     </div>
     <script>
-        
+        // Initialize CKEditor
+        CKEDITOR.replace( 'multi_editor' );
+
         // Setting Selectpicker Bootstrap ver.
         $.fn.selectpicker.Constructor.BootstrapVersion = '4';
         
