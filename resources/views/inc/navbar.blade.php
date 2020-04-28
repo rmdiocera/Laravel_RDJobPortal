@@ -61,7 +61,82 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
+                @auth('employer')
+                    <li class="nav-item">
+                        <a href="/create-job-post" class="nav-link">Create Job Post</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->username }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('employer.show_profile') }}" class="dropdown-item">Profile</a>
+                            <a class="dropdown-item" href="{{ route('employer.logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('employer.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endauth
+
+                @auth('web')
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->username }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('user.show_profile') }}" class="dropdown-item">Profile</a>
+                            <a class="dropdown-item" href="{{ route('user.logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endauth
+
+
                 @guest
+                    @if (Request::is('/') || Request::is('login'))
+                        <li class="nav-item">
+                            <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
+                        </li>    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <a href="{{route('login')}}" class="nav-link">For Applicants</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('employer.login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employer.register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @endif
+                @endguest
+
+                {{-- @guest
                     @if (Request::is('/') || Request::is('login'))
                         <li class="nav-item">
                             <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
@@ -142,7 +217,7 @@
                     </li>
                 @endif
                     
-                @endguest
+                @endguest --}}
             </ul>
         </div>
     </div>
