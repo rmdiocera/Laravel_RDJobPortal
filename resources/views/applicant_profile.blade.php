@@ -38,7 +38,7 @@
                 <span>Monthly Salary</span>
                 <p>{{$profile_info->currency.' '.$profile_info->salary}}</p>
                 <span>Tasks</span>
-                <p>{{$profile_info->tasks}}</p>
+                <p>{!! $profile_info->tasks !!}</p>
                 <br>
                 <h1>Educational Background</h1>
                 <span>College/University</span>

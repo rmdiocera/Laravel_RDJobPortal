@@ -6,7 +6,7 @@
         @foreach ($job_posts as $job_post)
             <div class="card col-md-12 mb-2 pt-2" data-card-id="{{$job_post->id}}">
                 <h3><a href="/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
-                <p>{{$job_post->desc}}</p>
+                <p>{!! $job_post->desc !!}</p>
                 <p>Industry: {{$job_post->industry}}</p>
                 <p>Employment Type: {{$job_post->emp_type}}</p>
                 <p>Job Level: {{$job_post->job_level}}</p>
