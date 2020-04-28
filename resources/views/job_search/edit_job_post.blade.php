@@ -45,7 +45,7 @@
             {{Form::label('title', 'Title')}}
             {{Form::text('title', $data['job_post']['title'], ['class' => 'form-control', 'placeholder' => 'Enter your job title here'])}}
             {{Form::label('description', 'Description')}}
-            {{Form::textarea('description', $data['job_post']['desc'], ['class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
+            {{Form::textarea('description', $data['job_post']['desc'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
     {!! Form::close() !!}

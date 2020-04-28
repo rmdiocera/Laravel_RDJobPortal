@@ -92,7 +92,7 @@
                         {{Form::text('salary', $data['app_profile']['salary'], ['class' => 'form-control', 'placeholder' => 'Salary'])}}
                     </div>
                     {{Form::label('tasks', 'Tasks')}}
-                    {{Form::textarea('tasks', $data['app_profile']['tasks'], ['class' => 'form-control', 'placeholder' => 'List down your tasks and responsibilities here.', 'rows' => 10])}}
+                    {{Form::textarea('tasks', $data['app_profile']['tasks'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'List down your tasks and responsibilities here.', 'rows' => 10])}}
                 </div>
             </div>
             <div class="col-md-12">

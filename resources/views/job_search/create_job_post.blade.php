@@ -33,7 +33,7 @@
             {{Form::label('title', 'Title')}}
             {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Enter your job title here'])}}
             {{Form::label('description', 'Description')}}
-            {{Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
+            {{Form::textarea('description', '', ['id' => 'multi_editor','class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
     {!! Form::close() !!}
