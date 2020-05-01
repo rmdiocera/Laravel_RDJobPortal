@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Country;
-use App\Course;
-use App\Currency;
-use Illuminate\Support\Facades\Auth;
+use App\EmpType;
+use App\Industry;
+use App\JobLevel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use Rap2hpoutre\FastExcel\FastExcel;
-
+// Uninstall this
+// use Rap2hpoutre\FastExcel\FastExcel;
 
 class PagesController extends Controller
 {
@@ -19,17 +17,72 @@ class PagesController extends Controller
         return view('pages.index');
     }
 
-    public function showJobPosts()
+    public function showJobPosts(Request $request)
     {
-        $job_posts = DB::table('job_posts')
+        $industries = Industry::all();
+        $emp_types = EmpType::all();
+        $job_levels = JobLevel::all();
+
+        $search_query = $request->input('search');
+
+        if ($search_query) {  
+            if ($search_query && $search_query != "") {
+                $results = DB::table('job_posts')
+                            ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                            ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
+                            ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
+                            ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                            ->where('title', 'LIKE', '%'.$search_query.'%')
+                            ->whereNull('job_posts.deleted_at')
+                            ->get();
+            
+                if (count($results) > 0) {
+                    return view('job_search.job_search')->with('results', $results)
+                                                        ->with('search', $search_query); 
+                }
+    
+                return redirect()->back()->with('error', 'Your search has no results found. Please try again.');
+            } 
+        } else {
+            $job_posts = DB::table('job_posts')
                         ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
                         ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                         ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
                         ->whereNull('job_posts.deleted_at')
                         ->get();
+            
+            return view('job_search.job_search')->with('job_posts', $job_posts);
+        }
+        // return redirect()->back()->with('error', 'You didn\'t enter anything on the search bar.');
         
-        return view('job_search.job_search')->with('job_posts', $job_posts);
+    }
+
+    public function showSearchResults(Request $request)
+    {
+        $search_query = $request->input('search');
+        
+        if ($search_query == "") {
+            return redirect('/')->with('error', 'Your search contains no keywords. Please try again.');
+        }
+
+        $results = DB::table('job_posts')
+                        ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                        ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
+                        ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
+                        ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                        ->where('title', 'LIKE', '%'.$search_query.'%')
+                        ->whereNull('job_posts.deleted_at')
+                        ->get();
+        
+        if (count($results) > 0) {
+            return view('pages.search_results')->with('results', $results); 
+        }
+
+        // return view('pages.search_results');
+        return view('pages.search_results')->withMessage('error', 'Your search has no results found. Please try again.');
+        
+        
     }
 
     public function about()
