@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 // Basic Pages
 Route::get('/', 'PagesController@index');
+// Route::get('/search', 'PagesController@showSearchResults');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact-us', 'PagesController@contactUs');
 Route::get('/job-search', 'PagesController@showJobPosts');
-
 
 // Job Posts
 Route::get('/job-posts', 'JobPostsController@index');
