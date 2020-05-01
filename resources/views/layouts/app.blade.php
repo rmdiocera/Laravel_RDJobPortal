@@ -168,13 +168,18 @@
             // Confirm Applying to Job Post
             let urlApply = '{{ route('user.apply_to_job_post') }}';
             $(document).on('click', '.apply-to-jp', function(){
-                job_post_id = $(this).data('jp-id');
-                comp_id = $(this).data('comp-id');
+                let status = '{{Auth::guard('web')->check()}}';
+                if (!status) {
+                    window.location.href = '{{route('login')}}';
+                } else {
+                    job_post_id = $(this).data('jp-id');
+                    comp_id = $(this).data('comp-id');
 
-                $('#actionsModal').modal('show');
-                $('.modal-title').text('Apply to Job Post');
-                $('.modal-body').text('Are you sure you want to apply to this job post?');
-                $('.modal-btn').attr('id', 'apply');
+                    $('#actionsModal').modal('show');
+                    $('.modal-title').text('Apply to Job Post');
+                    $('.modal-body').text('Are you sure you want to apply to this job post?');
+                    $('.modal-btn').attr('id', 'apply');
+                }
             });
 
             $(document).on('click', '#apply', function(e){
