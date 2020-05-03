@@ -26,11 +26,12 @@ class JobPostsController extends Controller
     public function index()
     {
         $job_posts = DB::table('job_posts')
-                        ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                        ->select('job_posts.*', 'employer_infos.company_name', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                        ->join('employer_infos', 'job_posts.comp_id', '=', 'employer_infos.comp_id')
                         ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                         ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
-                        ->where('comp_id', Auth::id())
+                        ->where('job_posts.comp_id', Auth::id())
                         ->whereNull('job_posts.deleted_at')
                         ->orderBy('created_at', 'desc')
                         ->get();
