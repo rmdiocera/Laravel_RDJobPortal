@@ -16,11 +16,14 @@
         @foreach ($results as $result)
             <div class="card col-md-12 mb-2 pt-2" data-card-id="{{$result->id}}">
                 <h3><a href="/job-post/{{$result->id}}">{{$result->title}}</a></h3>
-                <p>{!! $result->desc !!}</p>
-                <p>Industry: {{$result->industry}}</p>
-                <p>Employment Type: {{$result->emp_type}}</p>
-                <p>Job Level: {{$result->job_level}}</p>
-                <p>{{$result->created_at}}</p>
+                <p class="font-weight-bold">{{$result->company_name}}</p>
+                <div class="job-desc">{!! Str::words($result->desc, 100, '...')!!}</div>
+                <div class="form-inline">
+                    <p>Industry: <span class="badge badge-primary align-middle">{{$result->industry}}</span></p>
+                    <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$result->emp_type}}</span></p>
+                    <p class="ml-2">Job Level: <span class="badge badge-primary align-middle">{{$result->job_level}}</span></p>
+                </div>
+                <span>{{ Carbon\Carbon::parse($result->created_at)->format('F j, Y')}}</span>
                 <div class="form-inline d-flex mb-2">
                     @if (Auth::guard('employer')->check() && Auth::user()->id === $result->comp_id)
                         <a href="/job-post/{{$result->id}}/view"><button class="btn btn-sm btn-primary" type="button">View Applicants</button></a>
@@ -56,11 +59,16 @@
         @foreach ($job_posts as $job_post)
             <div class="card col-md-12 mb-2 pt-2" data-card-id="{{$job_post->id}}">
                 <h3><a href="/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
-                <p>{!! $job_post->desc !!}</p>
-                <p>Industry: {{$job_post->industry}}</p>
-                <p>Employment Type: {{$job_post->emp_type}}</p>
-                <p>Job Level: {{$job_post->job_level}}</p>
-                <p>{{$job_post->created_at}}</p>
+                <p class="font-weight-bold">{{$job_post->company_name}}</p>
+                <div class="job-desc">
+                    {!! Str::words($job_post->desc, 100, '...')!!}
+                </div>
+                <div class="form-inline">
+                    <p>Industry: <span class="badge badge-primary align-middle">{{$job_post->industry}}</span></p>
+                    <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$job_post->emp_type}}</span></p>
+                    <p class="ml-2">Job Level: <span class="badge badge-primary align-middle">{{$job_post->job_level}}</span></p>
+                </div>
+                <span>{{ Carbon\Carbon::parse($job_post->created_at)->format('F j, Y')}}</span>
                 <div class="form-inline d-flex mb-2">
                     @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
                         <a href="/job-post/{{$job_post->id}}/view"><button class="btn btn-sm btn-primary" type="button">View Applicants</button></a>
