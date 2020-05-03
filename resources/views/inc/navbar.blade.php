@@ -68,7 +68,7 @@
 
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->username }} <span class="caret"></span>
+                            {{ Auth::guard('employer')->user()->username }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -109,17 +109,19 @@
 
 
                 @guest
-                    @if (Request::is('/') || Request::is('login'))
-                        <li class="nav-item">
-                            <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
-                        </li>    
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
+                    @if (Request::is('/') || Request::is('login') || Request::is('about') || Request::is('contact-us'))
+                        @if (!Auth::guard('employer')->check())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
+                            </li>    
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
                         @endif
                     @else
                         <li class="nav-item">
