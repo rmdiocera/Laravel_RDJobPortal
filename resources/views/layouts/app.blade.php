@@ -114,7 +114,7 @@
                             $('#actionsModal').modal('hide');
                             window.scrollTo(0, 0);
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
 
                         if (data.error) {
@@ -122,7 +122,7 @@
                             $('#actionsModal').modal('hide');
                             window.scrollTo(0, 0);
                             html = '<div class="alert alert-warning">' + data.error + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -159,7 +159,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -199,7 +199,7 @@
                             $('#actionsModal').modal('hide');
                             window.scrollTo(0, 0);
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
 
                         if (data.error) {
@@ -207,7 +207,7 @@
                             $('#actionsModal').modal('hide');
                             window.scrollTo(0, 0);
                             html = '<div class="alert alert-warning">' + data.error + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -219,7 +219,7 @@
 
                 $('#actionsModal').modal('show');
                 $('.modal-title').text('Unsave Job Post');
-                $('.modal-body').text('Are you sure you want to unsave this job post?');
+                $('.modal-body').text('Are you sure you want to withdraw your application to this job post?');
                 $('.modal-btn').attr('id', 'withdraw');
             });
 
@@ -244,7 +244,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -282,7 +282,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -320,7 +320,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -358,7 +358,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -395,7 +395,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
@@ -432,7 +432,7 @@
                             window.scrollTo(0, 0);
                             // Show alert
                             html = '<div class="alert alert-success">' + data.success + '</div>';
-                            $('#modal_alert').html(html);
+                            $('#modal_alert').html(html).show().fadeOut(3000);
                         }
                     }
                 });
