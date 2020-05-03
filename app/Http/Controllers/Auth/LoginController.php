@@ -43,8 +43,22 @@ class LoginController extends Controller
     {
         if(!session()->has('url.intended'))
         {
-            session(['url.intended' => url()->previous()]);
+            $url_prev = url()->previous();
+            // $url_check = url()->route('site.main').'/';
+
+            switch($url_prev) {
+                case url()->route('site.main').'/':
+                    break;
+                case url()->route('site.about_us'):
+                    break;
+                case url()->route('site.contact_us'):
+                    break;
+                default:
+                    session(['url.intended' => url()->previous()]);       
+            }
         }
+
+        
         return view('auth.login');
     }
 
