@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Session;
 */
 // Basic Pages
 Route::get('/', 'PagesController@index')->name('site.main');
-// Route::get('/search', 'PagesController@showSearchResults');
 Route::get('/about', 'PagesController@about')->name('site.about_us');
 Route::get('/contact-us', 'PagesController@contactUs')->name('site.contact_us');
 Route::get('/job-search', 'PagesController@showJobPosts');
+Route::get('/emp-info/{id}', 'PagesController@viewCompanyProfile');
 
 // Job Posts
 Route::get('/job-posts', 'JobPostsController@index');
