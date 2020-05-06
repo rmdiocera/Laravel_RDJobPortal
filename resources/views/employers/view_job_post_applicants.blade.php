@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- Edit Modal --}}
+{{-- Applicant Info Modal --}}
 <div id="applicantInfoModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
