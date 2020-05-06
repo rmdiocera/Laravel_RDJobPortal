@@ -12,7 +12,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group ml-2">
                 {{Form::label('emp_type', 'Employment Type')}}
                 <select name="emp_type" id="">
                     @foreach ($data['emp_types'] as $emp_type)
@@ -20,7 +20,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group ml-2">
                 {{Form::label('level', 'Job Level')}}
                 <select name="level" id="">
                     @foreach ($data['levels'] as $level)
