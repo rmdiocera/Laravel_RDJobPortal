@@ -17,13 +17,65 @@ class PagesController extends Controller
         return view('pages.index');
     }
 
+    public function testSort(Request $request)
+    {
+        $industries = Industry::all();
+        $emp_types = EmpType::all();
+        $job_levels = JobLevel::all();
+
+        $sort_by = [
+            'industries' => $industries,
+            'emp_types' => $emp_types,
+            'levels' => $job_levels 
+        ];
+
+        $industry = $request->input('industry');
+        $emp_type = $request->input('emp_type');
+        $level = $request->input('level');
+
+        $results = DB::table('job_posts')
+                    ->select('job_posts.*', 'employer_infos.company_name', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                    ->join('employer_infos', 'job_posts.comp_id', '=', 'employer_infos.comp_id')
+                    ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
+                    ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
+                    ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                    ->when($industry, function ($query, $industry) {
+                        return $query->where('job_posts.industry_id', $industry);
+                    })
+                    ->when($emp_type, function ($query, $emp_type) {
+                        return $query->where('job_posts.emp_type_id', $emp_type);
+                    })
+                    ->when($level, function ($query, $level) {
+                        return $query->where('job_posts.level_id', $level);
+                    })
+                    ->whereNull('job_posts.deleted_at')
+                    ->get();
+        
+        return view('job_search.job_search')->with('results', $results)
+                                            ->with('sort_by', $sort_by)
+                                            ->with('industry_id', $industry)
+                                            ->with('emp_type_id', $emp_type)
+                                            ->with('level_id', $level);
+    }
+
     public function showJobPosts(Request $request)
     {
         $industries = Industry::all();
         $emp_types = EmpType::all();
         $job_levels = JobLevel::all();
 
+        $sort_by = [
+            'industries' => $industries,
+            'emp_types' => $emp_types,
+            'levels' => $job_levels 
+        ];
+
         $search_query = $request->input('search');
+
+        $industry = $request->input('industry');
+        $emp_type = $request->input('emp_type');
+        $level = $request->input('level');
+
 
         if ($search_query) {  
             if ($search_query && $search_query != "") {
@@ -33,13 +85,26 @@ class PagesController extends Controller
                             ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                             ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                             ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                            ->when($industry, function ($query, $industry) {
+                                return $query->where('job_posts.industry_id', $industry);
+                            })
+                            ->when($emp_type, function ($query, $emp_type) {
+                                return $query->where('job_posts.emp_type_id', $emp_type);
+                            })
+                            ->when($level, function ($query, $level) {
+                                return $query->where('job_posts.level_id', $level);
+                            })
                             ->where('title', 'LIKE', '%'.$search_query.'%')
                             ->whereNull('job_posts.deleted_at')
                             ->get();
             
                 if (count($results) > 0) {
-                    return view('job_search.job_search')->with('results', $results)
-                                                        ->with('search', $search_query); 
+                    return view('job_search.job_search')->with('sort_by', $sort_by)
+                                                        ->with('results', $results)
+                                                        ->with('search', $search_query)
+                                                        ->with('industry_id', $industry)
+                                                        ->with('emp_type_id', $emp_type)
+                                                        ->with('level_id', $level); 
                 }
     
                 return redirect()->back()->with('error', 'Your search has no results found. Please try again.');
@@ -51,11 +116,25 @@ class PagesController extends Controller
                         ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
                         ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                        ->when($industry, function ($query, $industry) {
+                            return $query->where('job_posts.industry_id', $industry);
+                        })
+                        ->when($emp_type, function ($query, $emp_type) {
+                            return $query->where('job_posts.emp_type_id', $emp_type);
+                        })
+                        ->when($level, function ($query, $level) {
+                            return $query->where('job_posts.level_id', $level);
+                        })
                         ->whereNull('job_posts.deleted_at')
                         ->get();
-            
-            return view('job_search.job_search')->with('job_posts', $job_posts);
+
+            return view('job_search.job_search')->with('sort_by', $sort_by)
+                                                ->with('job_posts', $job_posts)
+                                                ->with('industry_id', $industry)
+                                                ->with('emp_type_id', $emp_type)
+                                                ->with('level_id', $level);
         }
+
         // return redirect()->back()->with('error', 'You didn\'t enter anything on the search bar.');
         
     }
@@ -82,9 +161,21 @@ class PagesController extends Controller
         }
 
         // return view('pages.search_results');
-        return view('pages.search_results')->withMessage('error', 'Your search has no results found. Please try again.');
-        
-        
+        return view('pages.search_results')->withMessage('error', 'Your search has no results found. Please try again.');   
+    }
+
+    public function viewCompanyProfile($comp_id)
+    {
+        if(request()->ajax())
+        {
+            $company_profile = DB::table('employer_infos')
+                            ->select('employer_infos.*', 'industries.industry')
+                            ->join('industries', 'employer_infos.industry_id', '=', 'industries.id')
+                            ->where('comp_id', $comp_id)
+                            ->get();
+            
+            return response()->json(['company' => $company_profile]);
+        }
     }
 
     public function about()
