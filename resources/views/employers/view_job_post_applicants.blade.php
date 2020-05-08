@@ -33,7 +33,7 @@
 </div>
 
 <h1>{{$job_post->title}}</h1>
-    <table data-toggle="table">
+    <table id="app-table">
         <thead>
             <tr>
                 <th>Applicant Name</th>
