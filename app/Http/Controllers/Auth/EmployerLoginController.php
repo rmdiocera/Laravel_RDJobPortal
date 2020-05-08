@@ -15,6 +15,15 @@ class EmployerLoginController extends Controller
 
     public function showLoginForm()
     {
+        if(!session()->has('url.intended'))
+        {
+            $url_prev = url()->previous();
+
+            if ($url_prev == url()->route('site.job_search')) {
+                session(['url.intended' => url()->route('employer.job_posts')]);   
+            }
+        }
+        
         return view('auth.employer-login');
     }
 
