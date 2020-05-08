@@ -310,6 +310,12 @@
             });
         });
 
+        let table = $('#app-table').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [1, 2, 3] }
+            ]
+        });
+
         // Confirm Inviting Applicant to Interview
         $(document).on('click', '.invite-app', function(){
             job_post_app_id = $(this).data('jp-app-id');
@@ -333,7 +339,9 @@
                     let html = '';
                     
                     if (data.success) {
-                        // Change status on table cell
+                        // Reload table
+                        // table.ajax.reload(null, false);
+                        // // Change status on table cell
                         $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
                         // Hide modal
                         $('#actionsModal').modal('hide');
@@ -370,6 +378,8 @@
                     let html = '';
                     
                     if (data.success) {
+                        // Reload table
+                        // table.ajax.reload(null, false);
                         // Change status on table cell
                         $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
                         // Hide modal
@@ -406,7 +416,7 @@
                         let app_phone = '<p><i class="fas fa-mobile-alt mr-1"></i> Phone Number: ' + applicant.mobile_phone_no  + '</p>';
                         $('.app-main-info').append(app_name, app_address, app_email, app_phone);
 
-                        let app_work_heading = '<h5>Recent Work Experience</h5>';
+                        let app_work_heading = '<h5>Most Recent Work Experience</h5>';
                         let app_job_title = '<p><i class="fas fa-user-tie mr-1"></i>Job Title: ' + applicant.job_title  + '</p>';
                         let app_company_name = '<p><i class="fas fa-building mr-1"></i>Company Name: ' + applicant.company_name  + '</p>';
                         let app_emp_date;
@@ -416,8 +426,8 @@
                             app_emp_date = '<p><i class="fas fa-calendar mr-1"></i>Date of Employment: ' + moment(applicant.start_date).format('LL') + " - " + moment(applicant.end_date).format('LL') + '</p>';
                         }
                         let app_salary = '<p><i class="fas fa-money-bill mr-1"></i>Salary: ' + applicant.currency + " " + applicant.salary  + '</p>';
-
-                        $('.app-work-exp').append(app_work_heading, app_job_title, app_company_name, app_emp_date, app_salary);
+                        let app_tasks = '<div><i class="fas fa-tasks mr-1"></i>Tasks/Responsibilities: ' + applicant.tasks  + '</div>';
+                        $('.app-work-exp').append(app_work_heading, app_job_title, app_company_name, app_emp_date, app_salary, app_tasks);
 
                         let app_educ_heading = '<h5>University/College Attended</h5>';
                         let app_univ ='<p><i class="fas fa-university mr-1"></i>College/University: ' + applicant.university  + '</p>';
