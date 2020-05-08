@@ -352,6 +352,7 @@ class HomeController extends Controller
                             ->join('employer_infos', 'job_post_applications.comp_id', '=', 'employer_infos.comp_id')
                             ->join('job_application_statuses', 'job_post_applications.app_status_id', '=', 'job_application_statuses.id')
                             ->where('user_id', Auth::id())
+                            ->whereNull('job_posts.deleted_at')
                             ->orderBy('created_at', 'desc')
                             ->get();
         
@@ -455,6 +456,7 @@ class HomeController extends Controller
                             ->join('job_posts', 'saved_job_posts.job_post_id', '=', 'job_posts.id')
                             ->join('employer_infos', 'saved_job_posts.comp_id', '=', 'employer_infos.comp_id')
                             ->where('user_id', Auth::id())
+                            ->whereNull('job_posts.deleted_at')
                             ->orderBy('created_at', 'desc')
                             ->get();
 
