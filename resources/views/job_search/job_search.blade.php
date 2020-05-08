@@ -29,6 +29,7 @@
 </div>
 
 <h1>Job Posts</h1>
+    @if (!Auth::guard('employer')->check())
     {!! Form::open(['action' => 'PagesController@showJobPosts', 'method' => 'GET']) !!}
         {{-- @isset($industry_id)
             {{$industry_id}}
@@ -106,6 +107,7 @@
             </div>
         </div>
     {!! Form::close() !!}
+    @endif
     @isset($results)
         @if (count($results) > 0)
             @isset($search)
@@ -123,14 +125,14 @@
                     </div>
                     <span>{{ Carbon\Carbon::parse($result->created_at)->format('F j, Y')}}</span>
                     <div class="form-inline d-flex mb-2">
-                        @if (Auth::guard('employer')->check() && Auth::user()->id === $result->comp_id)
+                        {{-- @if (Auth::guard('employer')->check() && Auth::user()->id === $result->comp_id)
                             <a href="/job-post/{{$result->id}}/view"><button class="btn btn-sm btn-primary" type="button">View Applicants</button></a>
                             <a href="/job-post/{{$result->id}}/edit"><button class="btn btn-sm btn-primary ml-2" type="button">Edit Job Post</button></a>
-                            {{-- {!! Form::open(['action' => ['JobPostsController@destroy', $result->id], 'method' => 'DELETE']) !!}
+                            {!! Form::open(['action' => ['JobPostsController@destroy', $result->id], 'method' => 'DELETE']) !!}
                                 {{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger ml-2'])}}
-                            {!! Form::close() !!} --}}
+                            {!! Form::close() !!}
                             <button data-jp-id="{{$result->id}}" class="btn btn-sm btn-danger ml-2 delete-jp" type="button">Delete</button>
-                        @else
+                        @else --}}
                             {{-- {!! Form::open(['action' => ['HomeController@saveJobPost'], 'method' => 'POST']) !!}
                                 {{Form::hidden('job_post_id', $result->id)}}
                                 {{Form::hidden('comp_id', $result->comp_id)}}
@@ -143,12 +145,15 @@
                                 {{Form::submit('Apply to Job Post', ['class' => 'btn btn-sm btn-primary ml-2'])}}
                             {!! Form::close() !!} --}}
                             <button data-jp-id="{{$result->id}}" data-comp-id="{{$result->comp_id}}" class="btn btn-sm btn-primary ml-2 apply-to-jp" type="button">Apply to Job Post</button>
-                            {{-- <a href="/job-post/{{$result->id}}/{{$result->comp_id}}/save"><button class="btn btn-sm btn-primary" type="button">Save Job Post</button></a> --}}
-                            {{-- <a href="/job-post/{{$result->id}}/{{$result->comp_id}}/apply"><button class="btn btn-sm btn-primary ml-2" type="button">Apply to Job Post</button></a> --}}
-                        @endif
+                            {{-- <a href="/job-post/{{$result->id}}/{{$result->comp_id}}/save"><button class="btn btn-sm btn-primary" type="button">Save Job Post</button></a>
+                            <a href="/job-post/{{$result->id}}/{{$result->comp_id}}/apply"><button class="btn btn-sm btn-primary ml-2" type="button">Apply to Job Post</button></a>
+                        @endif --}}
                     </div>
                 </div>
             @endforeach
+            @if (!Auth::guard('employer')->check())
+                {{ $results->links() }}
+            @endif
         @else
             <p>No results have been found.</p>
         @endif
@@ -196,6 +201,9 @@
                     </div>
                 </div>
             @endforeach
+            {{-- @if (!Auth::guard('employer')->check()) --}}
+                {{ $job_posts->links() }}
+            {{-- @endif --}}
         @else
             <p>There doesn't seem to be anything here.</p>
         @endif    

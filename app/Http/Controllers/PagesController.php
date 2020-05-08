@@ -96,7 +96,7 @@ class PagesController extends Controller
                             })
                             ->where('title', 'LIKE', '%'.$search_query.'%')
                             ->whereNull('job_posts.deleted_at')
-                            ->get();
+                            ->paginate(5);
             
                 if (count($results) > 0) {
                     return view('job_search.job_search')->with('sort_by', $sort_by)
@@ -126,7 +126,7 @@ class PagesController extends Controller
                             return $query->where('job_posts.level_id', $level);
                         })
                         ->whereNull('job_posts.deleted_at')
-                        ->get();
+                        ->paginate(5);
 
             return view('job_search.job_search')->with('sort_by', $sort_by)
                                                 ->with('job_posts', $job_posts)
