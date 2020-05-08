@@ -20,7 +20,6 @@
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
     
     <!-- CKEditor 4 -->
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
@@ -30,8 +29,8 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     {{-- Bootstrap Select --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
-    {{-- Bootstrap Tables --}}
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     {{-- Emoji CSS --}}
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
 
@@ -52,6 +51,7 @@
             @include('components.who')
         </div>
     </div>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
     @include('inc.script');
 </body>
 </html>
