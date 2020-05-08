@@ -34,7 +34,7 @@ class JobPostsController extends Controller
                         ->where('job_posts.comp_id', Auth::id())
                         ->whereNull('job_posts.deleted_at')
                         ->orderBy('created_at', 'desc')
-                        ->get();
+                        ->paginate(5);
         
         return view('job_search.job_search')->with('job_posts', $job_posts);
     }
