@@ -15,7 +15,7 @@
                     {{Form::label('gender', 'Gender', ['class' => 'mt-2'])}}
                     <select class="selectpicker form-control" name="gender" id="" title="Select your gender">
                         @foreach ($data['genders'] as $gender)
-                            <option value="{{$gender->id}}">{{$gender->gender}}</option>
+                            <option value="{{$gender->id}}" @if (old('gender') == $gender->id) selected="selected" @endif >{{$gender->gender}}</option>
                         @endforeach
                     </select>
                     {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
