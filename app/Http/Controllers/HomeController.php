@@ -99,8 +99,7 @@ class HomeController extends Controller
         ]);
 
         if (!$validated) {
-            return back()->withErrors($validated)->withInput()
-                                                 ->compact('remember_age');
+            return back()->withErrors($validated)->withInput();
         }
 
         // Image Upload
