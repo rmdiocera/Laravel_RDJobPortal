@@ -69,7 +69,7 @@ class HomeController extends Controller
 
     public function saveApplicantProfile(Request $request)
     {
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
             'age' => 'required',
@@ -97,6 +97,11 @@ class HomeController extends Controller
             'univ_start_date' => 'required',
             'univ_end_date' => 'required',
         ]);
+
+        if (!$validated) {
+            return back()->withErrors($validated)->withInput()
+                                                 ->compact('remember_age');
+        }
 
         // Image Upload
         if ($request->hasFile('profile_picture')) {
@@ -186,8 +191,18 @@ class HomeController extends Controller
     
     public function editApplicantProfile($user_id)
     {
+        // echo auth()->user()->id;
+        // echo $user_id; 
+
+        // if (auth()->user()->id != 2) {
+        //     echo "not equal";
+        // }
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
             return redirect(route('user.create_profile'));
+        }
+
+        if (auth()->user()->id != $user_id) {
+            return redirect('home/show-profile')->with('error', 'You are not authorized to view this page.');
         }
 
         $app_profile = ApplicantInfo::where('user_id', $user_id)->first();
@@ -277,10 +292,7 @@ class HomeController extends Controller
         $app_profile->address = $request->input('address');
         $app_profile->country_id = $request->input('country');
         $app_profile->nationality_id = $request->input('nationality');
-        
-        if ($app_profile->mobile_phone_no !== $request->input('mobile_phone_no')) {
-            $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
-        }
+        $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
         
         if ($request->hasFile('profile_picture')) {
             $app_profile->profile_picture = $img_filename;
@@ -309,7 +321,7 @@ class HomeController extends Controller
         $app_profile->save();
         
         // return $app_profile;
-        return redirect('/home')->with('success', 'Nice! You updated your profile.');
+        return redirect('home/show-profile')->with('success', 'Nice! You updated your profile.');
     }
 
     public function storeApplicantJobPostApplication(Request $request)
