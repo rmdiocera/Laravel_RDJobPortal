@@ -33,7 +33,7 @@
 </div>
 
 <h1>{{$job_post->title}}</h1>
-    <table id="app-table">
+    <table id="app-table" data-toggle="table">
         <thead>
             <tr>
                 <th>Applicant Name</th>
@@ -47,7 +47,12 @@
                 <tr>
                     <td><a href="" id="{{$applicant->app_id}}" class="show_app_info">{{$applicant->first_name." ".$applicant->last_name}}</a></td>
                     <td class="d-flex justify-content-center">
+                    @if ($applicant->resume)
                         <a href="/storage/app_resume/{{$applicant->resume}}" download><button class="btn btn-sm btn-primary" type="button">Download</button></a>
+                    @else
+                        <button class="btn btn-sm btn-secondary" type="button" disabled>Not Available</button></a>
+                    @endif
+                        
                     </td>
                     <td data-status-id="{{$applicant->id}}">{{$applicant->status}}</td>
                     <td class="d-flex justify-content-around">
