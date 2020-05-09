@@ -321,9 +321,9 @@
             job_post_app_id = $(this).data('jp-app-id');
 
             $('#actionsModal').modal('show');
-            $('.modal-title').text('Invite Applicant to Interview');
-            $('.modal-body').text('Are you sure you want to invite this applicant for the interview?');
-            $('.modal-btn').attr('id', 'invite');
+            $('#actionsModal .modal-title').text('Invite Applicant to Interview');
+            $('#actionsModal .modal-body').text('Are you sure you want to invite this applicant for the interview?');
+            $('#actionsModal .modal-btn').attr('id', 'invite');
         });
 
         $(document).on('click', '#invite', function(e){
@@ -360,9 +360,9 @@
             job_post_app_id = $(this).data('jp-app-id');
 
             $('#actionsModal').modal('show');
-            $('.modal-title').text('Reject Application');
-            $('.modal-body').text('Are you sure you want to reject this applicant\'s application?');
-            $('.modal-btn').attr('id', 'reject');
+            $('#actionsModal .modal-title').text('Reject Application');
+            $('#actionsModal .modal-body').text('Are you sure you want to reject this applicant\'s application?');
+            $('#actionsModal .modal-btn').attr('id', 'reject');
         });
 
         $(document).on('click', '#reject', function(e){
