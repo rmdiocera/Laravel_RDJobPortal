@@ -21,6 +21,8 @@ class EmployerLoginController extends Controller
 
             if ($url_prev == url()->route('site.job_search')) {
                 session(['url.intended' => url()->route('employer.job_posts')]);   
+            } else {
+                session(['url.intended' => url()->previous()]);
             }
         }
         
