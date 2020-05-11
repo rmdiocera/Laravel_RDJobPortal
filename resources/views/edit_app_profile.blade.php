@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {!! Form::open(['action' => ['HomeController@updateApplicantProfile', $data['app_profile']['id'], $data['app_profile']['user_id']], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}    
+    {!! Form::open(['action' => ['HomeController@updateApplicantProfile', $data['app_profile']['user_id']], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}    
         <div class="row mb-2">
             <div class="col-md-12">
                 <h1>Edit Profile</h1>
@@ -72,7 +72,7 @@
                     @endif
                     {{Form::label('present', 'Present', ['class' => 'mt-2'])}}
                     @if (!$data['app_profile']['end_date'])
-                        {{Form::checkbox('present', '', true)}}
+                        {{Form::checkbox('present', null, (old('present') ? false : true))}}
                     @else
                         {{Form::checkbox('present', '')}}
                     @endif
@@ -127,6 +127,7 @@
                     {{Form::label('univ_end_date', 'Date of Graduation', ['class' => 'mt-2'])}}
                     {{Form::date('univ_end_date', $data['app_profile']['univ_end_date'], ['class' => 'form-control'])}}
                 </div>
+                {{Form::hidden('app_info_id', $data['app_profile']['id'])}}
                 {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}}
             </div>
         </div>
