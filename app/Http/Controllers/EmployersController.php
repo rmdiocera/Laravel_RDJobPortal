@@ -13,6 +13,8 @@ use App\ApplicantInfo;
 use App\JobPost;
 use App\JobPostApplication;
 use App\EmployerInfo;
+use App\Http\Requests\SaveEmployerProfile;
+use App\Http\Requests\UpdateEmployerProfile;
 use App\Industry;
 use App\JobApplicationStatus;
 use App\User;
@@ -57,21 +59,27 @@ class EmployersController extends Controller
         return view('profile.create_emp_profile')->with('industries', $industries);
     }
 
-    public function saveEmployerProfile(Request $request)
+    public function saveEmployerProfile(SaveEmployerProfile $request)
     {
-        $this->validate($request, [
-            'company_name' => 'required',
-            'industry' => 'required',
-            'address' => 'required',
-            'profile_picture' => 'image|nullable|max:1999',
-            'website_link' => 'required|url',
-            'company_size' => 'required',
-            'benefits' => 'required',
-            'dress_code' => 'required',
-            'spoken_language' => 'required',
-            'work_hours' => 'required',
-            'avg_processing_time' => 'required',
-        ]);
+        $validated = $request->validated();
+
+        if (!$validated) {
+            return back()->withErrors($validated)->withInput();
+        }
+
+        // $this->validate($request, [
+        //     'company_name' => 'required',
+        //     'industry' => 'required',
+        //     'address' => 'required',
+        //     'profile_picture' => 'image|nullable|max:1999',
+        //     'website_link' => 'required|url',
+        //     'company_size' => 'required',
+        //     'benefits' => 'required',
+        //     'dress_code' => 'required',
+        //     'spoken_language' => 'required',
+        //     'work_hours' => 'required',
+        //     'avg_processing_time' => 'required',
+        // ]);
 
         // Image Upload
         if ($request->hasFile('profile_picture')) {
@@ -104,7 +112,7 @@ class EmployersController extends Controller
         $emp_profile->avg_processing_time = $request->input('avg_processing_time');
         $emp_profile->save();
         
-        return redirect('/employer')->with('success', 'Congratulations! You completed your employer profile.');
+        return redirect('/employer/show-profile')->with('success', 'Congratulations! You completed your employer profile.');
     }
 
     public function showEmployerProfile()
@@ -139,21 +147,27 @@ class EmployersController extends Controller
         return view('employers.edit_emp_profile')->with('data', $data);
     }
 
-    public function updateEmployerProfile(Request $request, $comp_id)
+    public function updateEmployerProfile(UpdateEmployerProfile $request, $comp_id)
     {
-        $this->validate($request, [
-            'company_name' => 'required',
-            'industry' => 'required',
-            'address' => 'required',
-            'profile_picture' => 'image|nullable|max:1999',
-            'website_link' => 'required|url',
-            'company_size' => 'required',
-            'benefits' => 'required',
-            'dress_code' => 'required',
-            'spoken_language' => 'required',
-            'work_hours' => 'required',
-            'avg_processing_time' => 'required',
-        ]);
+        $validated = $request->validated();
+
+        if (!$validated) {
+            return back()->withErrors($validated)->withInput();
+        }
+
+        // $this->validate($request, [
+        //     'company_name' => 'required',
+        //     'industry' => 'required',
+        //     'address' => 'required',
+        //     'profile_picture' => 'image|nullable|max:1999',
+        //     'website_link' => 'required|url',
+        //     'company_size' => 'required',
+        //     'benefits' => 'required',
+        //     'dress_code' => 'required',
+        //     'spoken_language' => 'required',
+        //     'work_hours' => 'required',
+        //     'avg_processing_time' => 'required',
+        // ]);
 
         // Image Upload
         if ($request->hasFile('profile_picture')) {
