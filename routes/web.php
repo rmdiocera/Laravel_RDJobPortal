@@ -45,7 +45,7 @@ Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')-
 Route::post('/create-profile', 'HomeController@saveApplicantProfile')->name('user.create_profile.submit');
 Route::get('/home/show-profile', 'HomeController@showApplicantProfile')->name('user.show_profile');
 Route::get('/home/{id}/edit', 'HomeController@editApplicantProfile')->name('user.edit_profile');
-Route::put('/update/{id}/{uid}', 'HomeController@updateApplicantProfile')->name('user.update_profile');
+Route::put('/update/{id}', 'HomeController@updateApplicantProfile')->name('user.update_profile');
 Route::post('/apply-to-job-post', 'HomeController@storeApplicantJobPostApplication')->name('user.apply_to_job_post');
 Route::get('active-applications', 'HomeController@showActiveApplications')->name('user.show_saved_job_posts');
 Route::put('/accept/{id}', 'HomeController@acceptInterviewInvitation');
