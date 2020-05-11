@@ -15,7 +15,7 @@
                     {{Form::label('gender', 'Gender', ['class' => 'mt-2'])}}
                     <select class="selectpicker form-control" name="gender" id="" title="Select your gender">
                         @foreach ($data['genders'] as $gender)
-                            <option value="{{$gender->id}}" @if (old('gender') == $gender->id) selected="selected" @endif >{{$gender->gender}}</option>
+                            <option value="{{$gender->id}}" @if (old('gender') == $gender->id) selected="selected" @endif>{{$gender->gender}}</option>
                         @endforeach
                     </select>
                     {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
@@ -23,17 +23,17 @@
                     {{Form::label('country', 'Country', ['class' => 'mt-2'])}}
                     <select class="selectpicker form-control" name="country" id="country-select" data-live-search="true" title="Select a country">
                         @foreach ($data['countries'] as $country)
-                            <option data-content='<i class="em em-flag-{{$country->country_code}}" aria-role="presentation" aria-label="{{$country->country_name}} Flag"></i><span class="align-middle pl-2">{{$country->country_name}}</span>' value="{{$country->id}}"></option>
+                            <option data-content='<i class="em em-flag-{{$country->country_code}}" aria-role="presentation" aria-label="{{$country->country_name}} Flag"></i><span class="align-middle pl-2">{{$country->country_name}}</span>' value="{{$country->id}}" @if (old('country') == $country->id) selected="selected" @endif></option>
                         @endforeach
                     </select>
                     {{Form::label('nationality', 'Nationality', ['class' => 'mt-2'])}}
                     <select class="selectpicker form-control" name="nationality" id="" data-live-search="true" title="Select a nationality">
                         <option value="" selected>Select an option</option>
                         @foreach ($data['nationalities'] as $nationality)
-                            <option value="{{$nationality->id}}">{{$nationality->nationality}}</option>
+                            <option value="{{$nationality->id}}" @if (old('nationality') == $nationality->id) selected="selected" @endif>{{$nationality->nationality}}</option>
                         @endforeach
                     </select>
-                    {{Form::label('mobile_phone_no', 'Mobile Number', ['class' => 'mt-2'])}}
+                    {{Form::label('mobile_phone_no', 'Phone Number', ['class' => 'mt-2'])}}
                     {{Form::text('mobile_phone_no', '', ['class' => 'form-control', 'placeholder' => 'Mobile Number'])}}     
                 </div>
                 <div class="form-group">
@@ -55,14 +55,14 @@
                     {{Form::label('end_date', 'End Date', ['class' => 'mt-2'])}}
                     {{Form::date('end_date', '', ['class' => 'form-control'])}}
                     {{Form::label('present', 'Present', ['class' => 'mt-2'])}}
-                    {{Form::checkbox('present', '')}}
+                    {{Form::checkbox('present', null, (old('present') ? true : false))}}
                     <br>
                     <div class="form-inline mt-2">
                         {{Form::label('salary', 'Salary')}}
                         <select class="selectpicker" name="currency" id="" data-live-search="true" title="Select a nationality">
                             <option value="" selected>Select an option</option>
                             @foreach ($data['currencies'] as $currency)
-                                <option value="{{$currency->id}}">{{$currency->currency}}</option>
+                                <option value="{{$currency->id}}" @if (old('currency') == $currency->id) selected="selected" @endif>{{$currency->currency}}</option>
                             @endforeach
                         </select>
                         {{Form::text('salary', '', ['class' => 'form-control', 'placeholder' => 'Salary'])}}
@@ -80,14 +80,14 @@
                     <select class="selectpicker form-control" name="degree" id="" data-live-search="true" title="Select highest degree">
                         <option value="" selected>Select an option</option>
                         @foreach ($data['degrees'] as $degree)
-                            <option value="{{$degree->id}}">{{$degree->degree}}</option>
+                            <option value="{{$degree->id}}" @if (old('degree') == $degree->id) selected="selected" @endif>{{$degree->degree}}</option>
                         @endforeach
                     </select>
                     {{Form::label('course', 'Course')}}
                     <select class="selectpicker form-control" name="course" id="" data-live-search="true" title="Select a course">
                         <option value="" selected>Select an option</option>
                         @foreach ($data['courses'] as $course)
-                            <option value="{{$course->id}}">{{$course->course}}</option>
+                            <option value="{{$course->id}}" @if (old('degree') == $course->id) selected="selected" @endif>{{$course->course}}</option>
                         @endforeach
                     </select>
                     {{Form::label('univ_start_date', 'Start Date', ['class' => 'mt-2'])}}
