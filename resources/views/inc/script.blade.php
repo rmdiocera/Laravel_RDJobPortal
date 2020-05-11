@@ -24,6 +24,13 @@
             }
         });
 
+        // Disabling end date input if checkbox already checked
+        if ($('#present').is(':checked')) {
+                $('#end_date').attr('disabled', true);
+            } else {
+                $('#end_date').attr('disabled', false);
+        }
+
         // Modal variables
         let job_post_id;
         let comp_id;
