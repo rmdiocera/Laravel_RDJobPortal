@@ -119,6 +119,10 @@ class JobPostsController extends Controller
         $emp_types = EmpType::all();
         $levels = JobLevel::all();
 
+        if (auth()->user()->id != $job_post->comp_id) {
+            return redirect('job-posts')->with('warning', 'You are not authorized to view this page.');
+        }
+
         $data = [
             'job_post' => $job_post,
             'industries' => $industries,
