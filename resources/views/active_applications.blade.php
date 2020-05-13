@@ -18,16 +18,16 @@
                                 {{-- {!! Form::open(['action' => ['HomeController@acceptInterviewInvitation', $application->id], 'method' => 'PUT']) !!}
                                     {{Form::submit('Accept Interview Invitation', ['class' => 'btn btn-sm btn-success'])}}
                                 {!! Form::close() !!} --}}
-                                <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-success accept-int" type="button">Accept Interview Invitation</button>
+                                <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-success accept-int" type="button"><i class="fas fa-check-circle mr-1"></i>Accept</button>
                                 {{-- {!! Form::open(['action' => ['HomeController@declineInterviewInvitation', $application->id], 'method' => 'PUT']) !!}
                                     {{Form::submit('Reject Interview Invitation', ['class' => 'btn btn-sm btn-danger ml-2'])}}
                                 {!! Form::close() !!} --}}
-                                <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-danger ml-2 decline-int" type="button">Decline Interview Invitation</button>
+                                <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-secondary ml-1 decline-int" type="button"><i class="fas fa-times-circle mr-1"></i>Decline</button>
                             {{-- @endif --}}
                             {{-- {!! Form::open(['action' => ['HomeController@removeApplicantJobPostApplication', $application->id], 'method' => 'DELETE']) !!}
                                 {{Form::submit('Withdraw Application', ['class' => 'btn btn-sm btn-danger'])}}
                             {!! Form::close() !!} --}}
-                            <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-danger ml-2 withdraw-jp" type="button">Withdraw Application</button>
+                            <button data-jp-app-id="{{$application->id}}" class="btn btn-sm btn-danger ml-1 withdraw-jp" type="button"><i class="fas fa-minus-circle mr-1"></i>Withdraw Application</button>
                             {{-- <a href="/job-post/{{$application->id}}/withdraw"><button class="btn btn-sm btn-primary" type="button">Withdraw Application</button></a> --}}
                         </div>                            
                     </div>
