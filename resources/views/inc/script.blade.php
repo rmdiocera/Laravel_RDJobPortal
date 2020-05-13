@@ -15,8 +15,15 @@
         // Setting Emoji CSS as iconBase
         $('#country-select').attr('data-iconBase', 'em');
 
+        // fadeOut for alerts not coming from JSON responses 
+        $('#alert-success').fadeOut(3000);
+
+        $('#alert-warning').fadeOut(3000);
+
+        $('#alert-danger').fadeOut(3000);
+
         // For disabling end date input when present checkbox checked
-        $('#present').on('click', function(){
+        $('#present').on('click', function() {
             if ($(this).is(':checked')) {
                 $('#end_date').attr('disabled', true);
             } else {
