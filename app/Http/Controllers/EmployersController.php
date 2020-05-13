@@ -136,6 +136,10 @@ class EmployersController extends Controller
             return redirect(route('employer.create_profile'));
         }
 
+        if (auth()->user()->id != $comp_id) {
+            return redirect('employer/show-profile')->with('warning', 'You are not authorized to view this page.');
+        }
+
         $emp_profile = EmployerInfo::where('comp_id', $comp_id)->first();
         $industries = Industry::all();
 
