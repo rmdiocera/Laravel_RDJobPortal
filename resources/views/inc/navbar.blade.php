@@ -109,7 +109,7 @@
 
 
                 @guest
-                    @if (Request::is('/') || Request::is('login') || Request::is('about') || Request::is('contact-us') || Request::is('job-search'))
+                    @if (Request::is('/') || Request::is('login') || Request::is('register') || Request::is('about') || Request::is('contact-us') || Request::is('job-search'))
                         @if (!Auth::guard('employer')->check())
                             <li class="nav-item">
                                 <a href="{{route('employer.login')}}" class="nav-link">For Employers</a>
