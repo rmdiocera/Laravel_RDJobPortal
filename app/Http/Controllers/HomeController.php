@@ -196,7 +196,7 @@ class HomeController extends Controller
         $app_profile->save();
         
         // return $app_profile;
-        return redirect('/home')->with('success', 'Congratulations! You completed your profile.');
+        return redirect('/home/show-profile')->with('success', 'Congratulations! You completed your profile.');
     }
 
     public function showApplicantProfile()
@@ -235,7 +235,7 @@ class HomeController extends Controller
         }
 
         if (auth()->user()->id != $user_id) {
-            return redirect('home/show-profile')->with('error', 'You are not authorized to view this page.');
+            return redirect('home/show-profile')->with('warning', 'You are not authorized to view this page.');
         }
 
         $app_profile = ApplicantInfo::where('user_id', $user_id)->first();
