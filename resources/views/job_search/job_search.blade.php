@@ -43,7 +43,7 @@
                 <select onchange="this.form.submit()" name="industry" id="" class="ml-2">
                     <option value="">Select industry</option>
                     @isset($industry_id)
-                        @foreach ($sort_by['industries'] as $industry)    
+                        @foreach ($filter_by['industries'] as $industry)    
                                 @if ($industry->id == $industry_id)
                                     <option value="{{$industry->id}}" selected>{{$industry->industry}}</option>
                                 @else
@@ -51,7 +51,7 @@
                                 @endif
                         @endforeach
                     @else
-                        @foreach ($sort_by['industries'] as $industry)
+                        @foreach ($filter_by['industries'] as $industry)
                             <option value="{{$industry->id}}">{{$industry->industry}}</option>
                         @endforeach
                     @endisset
@@ -62,7 +62,7 @@
                 <select onchange="this.form.submit()" name="emp_type" id="" class="ml-2">
                     <option value="">Select employment type</option>
                     @isset($emp_type_id)
-                        @foreach ($sort_by['emp_types'] as $emp_type)    
+                        @foreach ($filter_by['emp_types'] as $emp_type)    
                                 @if ($emp_type->id == $emp_type_id)
                                     <option value="{{$emp_type->id}}" selected>{{$emp_type->emp_type}}</option>
                                 @else
@@ -70,7 +70,7 @@
                                 @endif
                         @endforeach
                     @else
-                        @foreach ($sort_by['emp_types'] as $emp_type)
+                        @foreach ($filter_by['emp_types'] as $emp_type)
                             <option value="{{$emp_type->id}}">{{$emp_type->emp_type}}</option>
                         @endforeach
                     @endisset
@@ -81,7 +81,7 @@
                 <select onchange="this.form.submit()" name="level" id="" class="ml-2">
                     <option value="">Select job level</option>
                     @isset($level_id)
-                        @foreach ($sort_by['levels'] as $level)
+                        @foreach ($filter_by['levels'] as $level)
                             @if ($level->id == $level_id)
                                 <option value="{{$level->id}}" selected>{{$level->job_level}}</option>
                             @else
@@ -89,10 +89,18 @@
                             @endif
                         @endforeach
                     @else
-                        @foreach ($sort_by['levels'] as $level)
+                        @foreach ($filter_by['levels'] as $level)
                             <option value="{{$level->id}}">{{$level->job_level}}</option>
                         @endforeach
                     @endisset
+                </select>
+            </div>
+            <div class="form-group ml-2">
+                {{Form::label('level', 'Job Level')}}
+                <select onchange="this.form.submit()" name="sort_by" id="">
+                    <option value="1" @if(isset($order_by_id) && $order_by_id == 1) selected @endif>Date Posted</option>
+                    <option value="2" @if(isset($order_by_id) && $order_by_id == 2) selected @endif>Company Name</option>
+                    <option value="3" @if(isset($order_by_id) && $order_by_id == 3) selected @endif>Job Title</option>
                 </select>
             </div>
         </div>
@@ -111,13 +119,13 @@
     @isset($results)
         @if (count($results) > 0)
             @isset($search)
-                <span class="mb-2">You searched for: {{$search}}</span>
+                <span class="mb-2">{{count($results)}} @if (count($results) > 1) results @else result @endif found for: {{$search}}</span>
             @endisset
             @foreach ($results as $result)
                 <div class="card col-md-12 mb-2 pt-2" data-card-id="{{$result->id}}">
                     <h3><a href="/job-post/{{$result->id}}">{{$result->title}}</a></h3>
                     <p class="font-weight-bold">{{$result->company_name}}</p>
-                    <div class="job-desc">{!! Str::words($result->desc, 100, '...')!!}</div>
+                    <div class="job-desc">{!! Str::words($result->desc, 100, '...') !!} @if (str_word_count(strip_tags($result->desc)) >= 100) <a href="/job-post/{{$result->id}}">Read More</a>  @endif</div>
                     <div class="form-inline">
                         <p>Industry: <span class="badge badge-primary align-middle">{{$result->industry}}</span></p>
                         <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$result->emp_type}}</span></p>
@@ -165,9 +173,7 @@
                 <div class="card col-md-12 mb-2 pt-2" data-card-id="{{$job_post->id}}">
                     <h3><a href="/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
                     <p class="font-weight-bold"><a href="" id="{{$job_post->comp_id}}" class="show_emp_info">{{$job_post->company_name}}</a></p>
-                    <div class="job-desc">
-                        {!! Str::words($job_post->desc, 100, '...')!!}
-                    </div>
+                    <div class="job-desc">{!! Str::words($job_post->desc, 100, '...') !!} @if (str_word_count(strip_tags($job_post->desc)) >= 100) <a href="/job-post/{{$job_post->id}}">Read More</a>  @endif</div>
                     <div class="form-inline">
                         <p>Industry: <span class="badge badge-primary align-middle">{{$job_post->industry}}</span></p>
                         <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$job_post->emp_type}}</span></p>

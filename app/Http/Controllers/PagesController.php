@@ -23,7 +23,7 @@ class PagesController extends Controller
         $emp_types = EmpType::all();
         $job_levels = JobLevel::all();
 
-        $sort_by = [
+        $filter_by = [
             'industries' => $industries,
             'emp_types' => $emp_types,
             'levels' => $job_levels 
@@ -52,7 +52,7 @@ class PagesController extends Controller
                     ->get();
         
         return view('job_search.job_search')->with('results', $results)
-                                            ->with('sort_by', $sort_by)
+                                            ->with('filter_by', $filter_by)
                                             ->with('industry_id', $industry)
                                             ->with('emp_type_id', $emp_type)
                                             ->with('level_id', $level);
@@ -64,7 +64,7 @@ class PagesController extends Controller
         $emp_types = EmpType::all();
         $job_levels = JobLevel::all();
 
-        $sort_by = [
+        $filter_by = [
             'industries' => $industries,
             'emp_types' => $emp_types,
             'levels' => $job_levels 
@@ -75,7 +75,26 @@ class PagesController extends Controller
         $industry = $request->input('industry');
         $emp_type = $request->input('emp_type');
         $level = $request->input('level');
+        $order_by = $request->input('sort_by');
 
+        $order_by_col = 'created_at';
+        $order = 'desc';
+
+        switch ($order_by) {
+            case 1:
+                $order_by_col = 'created_at';
+                $order = 'desc';
+                break;
+
+            case 2:
+                $order_by_col = 'company_name';
+                $order = 'asc';
+                break;
+            
+            case 3:
+                $order_by_col = 'title';
+                $order = 'asc';
+        }
 
         if ($search_query) {  
             if ($search_query && $search_query != "") {
@@ -96,15 +115,17 @@ class PagesController extends Controller
                             })
                             ->where('title', 'LIKE', '%'.$search_query.'%')
                             ->whereNull('job_posts.deleted_at')
+                            ->orderBy($order_by_col, $order)
                             ->paginate(5);
-            
+
                 if (count($results) > 0) {
-                    return view('job_search.job_search')->with('sort_by', $sort_by)
+                    return view('job_search.job_search')->with('filter_by', $filter_by)
                                                         ->with('results', $results)
                                                         ->with('search', $search_query)
                                                         ->with('industry_id', $industry)
                                                         ->with('emp_type_id', $emp_type)
-                                                        ->with('level_id', $level); 
+                                                        ->with('level_id', $level)
+                                                        ->with('order_by_id', $order_by); 
                 }
     
                 return redirect()->back()->with('error', 'Your search has no results found. Please try again.');
@@ -126,13 +147,15 @@ class PagesController extends Controller
                             return $query->where('job_posts.level_id', $level);
                         })
                         ->whereNull('job_posts.deleted_at')
+                        ->orderBy($order_by_col, $order)
                         ->paginate(5);
 
-            return view('job_search.job_search')->with('sort_by', $sort_by)
+            return view('job_search.job_search')->with('filter_by', $filter_by)
                                                 ->with('job_posts', $job_posts)
                                                 ->with('industry_id', $industry)
                                                 ->with('emp_type_id', $emp_type)
-                                                ->with('level_id', $level);
+                                                ->with('level_id', $level)
+                                                ->with('order_by_id', $order_by);
         }
 
         // return redirect()->back()->with('error', 'You didn\'t enter anything on the search bar.');
