@@ -7,8 +7,7 @@ use App\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
-// use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;
 // use App\Providers\RouteServiceProvider;
 
 class EmployerRegisterController extends Controller
@@ -26,15 +25,25 @@ class EmployerRegisterController extends Controller
         return view('auth.employer-register');
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
     public function register(Request $request)
     {  
-        request()->validate([
-        'username' => 'required',
-        'email' => 'required|email|unique:employers',
-        'password' => 'required|min:6|confirmed',
-        ]);
-         
+        // request()->validate([
+        //     'username' => 'required',
+        //     'email' => 'required|email|unique:employers',
+        //     'password' => 'required|min:8|confirmed',
+        // ]);
         $data = $request->all();
+
+        $this->validator($data)->validate();
  
         $employer = $this->create($data);
        
