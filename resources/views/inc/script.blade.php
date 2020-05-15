@@ -20,7 +20,11 @@
 
         $('#alert-warning').fadeOut(3000);
 
-        $('#alert-danger').fadeOut(3000);
+        setTimeout(function() {
+            if ($('.alert-danger').is(':visible')) {
+                $('.alert-danger').fadeOut(3000);
+            }
+        }, 5000);
 
         // For disabling end date input when present checkbox checked
         $('#present').on('click', function() {
