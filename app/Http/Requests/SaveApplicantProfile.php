@@ -26,7 +26,7 @@ class SaveApplicantProfile extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'age' => 'required',
+            'age' => 'required|integer|min:18',
             'gender' => 'required',
             'address' => 'required',
             'country' => 'required',
@@ -38,7 +38,7 @@ class SaveApplicantProfile extends FormRequest
                 'regex:/^09(?!(?:[0][0-4]|[8][34678]|[9][01])[0-9]{7}$)\d+/'
             ),
             'profile_picture' => 'image|nullable|max:1999',
-            'resume' => 'mimes:pdf|nullable|max:1999',
+            'resume' => 'mimes:pdf|max:1999',
             'job_title' => 'required',
             'company_name' => 'required',
             'start_date' => 'required',
@@ -59,6 +59,8 @@ class SaveApplicantProfile extends FormRequest
             'first_name.required' =>  'The First Name field is required.',
             'last_name.required' =>  'The Last Name field is required.',
             'age.required' =>  'The Age field is required.',
+            'age.integer' => 'The Age field must be a number',
+            'age.min' => 'You must 18 or above to be able to register your account',
             'gender.required' =>  'The Gender field is required.',
             'address.required' =>  'The Address field is required.',
             'country.required' =>  'The Country field is required.',
