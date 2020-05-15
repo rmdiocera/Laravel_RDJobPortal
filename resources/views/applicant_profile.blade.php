@@ -52,7 +52,7 @@
                 <span>Date of Graduation</span>
                 <p>{{ Carbon\Carbon::parse($profile_info->univ_end_date)->format('F j, Y')}}</p>
                 <div>
-                    <a href="/home/{{$profile_info->user_id}}/edit" class="btn btn-sm btn-primary float-right mb-2">Edit Profile</a>
+                    <a href="/home/{{$profile_info->user_id}}/edit" class="btn btn-sm btn-primary float-right mb-2"><i class="fas fa-edit mr-1"></i>Edit Profile</a>
                 </div>
             @endforeach
         </div>

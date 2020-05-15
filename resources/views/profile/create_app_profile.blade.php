@@ -59,7 +59,7 @@
                     <br>
                     <div class="form-inline mt-2">
                         {{Form::label('salary', 'Salary')}}
-                        <select class="selectpicker" name="currency" id="" data-live-search="true" title="Select a nationality">
+                        <select class="selectpicker" name="currency" id="" data-live-search="true" title="Select currency">
                             <option value="" selected>Select an option</option>
                             @foreach ($data['currencies'] as $currency)
                                 <option value="{{$currency->id}}" @if (old('currency') == $currency->id) selected="selected" @endif>{{$currency->currency}}</option>
@@ -95,7 +95,8 @@
                     {{Form::label('univ_end_date', 'Date of Graduation', ['class' => 'mt-2'])}}
                     {{Form::date('univ_end_date', '', ['class' => 'form-control'])}}
                 </div>
-                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}}
+                {{Form::button('<i class="fas fa-edit mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary'])}}
+                {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
             </div>
         </div>
     {!! Form::close() !!}

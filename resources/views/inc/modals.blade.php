@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary modal-btn">OK</button>
+                <button type="button" class="btn btn-primary modal-btn"><i class="fas fa-check-circle mr-1"></i>OK</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
