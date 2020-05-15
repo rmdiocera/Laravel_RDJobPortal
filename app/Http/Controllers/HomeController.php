@@ -76,7 +76,7 @@ class HomeController extends Controller
         if (!$validated) {
             return back()->withErrors($validated)->withInput();
         }
-        // $validated = $this->validate($request, [
+    // $validated = $this->validate($request, [
     //         'first_name' => 'required',
     //         'last_name' => 'required',
     //         'age' => 'required',
@@ -135,6 +135,9 @@ class HomeController extends Controller
     //     ]
     // );
 
+    //     if (!$validated) {
+    //         return back()->withErrors($validated)->withInput();
+    //     }
 
         // Image Upload
         if ($request->hasFile('profile_picture')) {
@@ -176,7 +179,9 @@ class HomeController extends Controller
         $app_profile->nationality_id = $request->input('nationality');
         $app_profile->mobile_phone_no = $request->input('mobile_phone_no');
         $app_profile->profile_picture = $img_filename;
-        $app_profile->resume = $pdf_filename;
+        if ($request->hasFile('resume')) {
+            $app_profile->resume = $pdf_filename;
+        }
         $app_profile->job_title = $request->input('job_title');
         $app_profile->company_name = $request->input('company_name');
         $app_profile->start_date = $request->input('start_date');
