@@ -15,7 +15,9 @@
                             <h5 class="card-title">{{$profile_info->company_name}}</h5>
                             <h6 class="card-subtitle">{{$profile_info->industry}}</h6>
                             <p class="card-text">{{$profile_info->address}}</p>
-                            <a href="{{$profile_info->website_link}}" class="card-link" target="_blank">{{$profile_info->website_link}}</a>
+                            @if ($profile_info->website_link)
+                                <a href="{{$profile_info->website_link}}" class="card-link" target="_blank">{{$profile_info->website_link}}</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -34,7 +36,7 @@
                 <span>Average Processing Time</span>
                 <p>{{$profile_info->avg_processing_time}}</p>
                 <div>
-                    <a href="/employer/{{$profile_info->comp_id}}/edit" class="btn btn-sm btn-primary float-right mb-2">Edit Profile</a>
+                    <a href="/employer/{{$profile_info->comp_id}}/edit" class="btn btn-sm btn-primary float-right mb-2"><i class="fas fa-edit mr-1"></i>Edit Profile</a>
                 </div>
             @endforeach
         </div>
