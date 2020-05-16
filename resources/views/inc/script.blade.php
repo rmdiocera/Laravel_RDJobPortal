@@ -489,8 +489,14 @@
                         let comp_name = '<h5>' + company.company_name + "</h5>";
                         let comp_ind = '<p><i class="fas fa-industry mr-1"></i>Industry:  ' + company.industry + '</p>';
                         let comp_address = '<p><i class="fas fa-home mr-1"></i>Address: ' + company.address  + '</p>';
-                        let comp_website = '<p><i class="fas fa-globe-americas mr-1"></i> Phone Number: ' + company.website_link  + '</p>';
-                        $('.comp-main-info').append(comp_name, comp_ind, comp_address, comp_website);
+                        
+                        if (company.website_link) {
+                            let comp_website = '<p><i class="fas fa-globe-americas mr-1"></i> Phone Number: ' + company.website_link  + '</p>';
+                            $('.comp-main-info').append(comp_name, comp_ind, comp_address, comp_website);
+                        } else {
+                            $('.comp-main-info').append(comp_name, comp_ind, comp_address);
+                        }
+                        
                         
                         let comp_other_heading = '<h5>Other Information</h5>';
                         let comp_size ='<p><i class="fas fa-users mr-1"></i>Company Size: ' + company.company_size  + '</p>';
