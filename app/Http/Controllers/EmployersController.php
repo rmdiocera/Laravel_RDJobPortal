@@ -103,7 +103,9 @@ class EmployersController extends Controller
         $emp_profile->industry_id = $request->input('industry');
         $emp_profile->address = $request->input('address');
         $emp_profile->profile_picture = $img_filename;
-        $emp_profile->website_link = $request->input('website_link');
+        if ($request->input('website_link')) {
+            $emp_profile->website_link = $request->input('website_link');
+        }
         $emp_profile->company_size = $request->input('company_size');
         $emp_profile->benefits = $request->input('benefits');
         $emp_profile->dress_code = $request->input('dress_code');
@@ -205,7 +207,7 @@ class EmployersController extends Controller
         $emp_profile->avg_processing_time = $request->input('avg_processing_time');
         $emp_profile->save();
         
-        return redirect('/employer')->with('success', 'Nice! You updated your employer profile.');
+        return redirect('/employer/show-profile')->with('success', 'Nice! You updated your employer profile.');
     }
 
     public function viewJobPostApplicants($job_post_id)
