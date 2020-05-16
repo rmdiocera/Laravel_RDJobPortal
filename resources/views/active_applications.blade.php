@@ -10,7 +10,15 @@
                     <div class="card-body">
                         <h3 class="card-title">{{$application->title}}</h3>
                         <h5 class="card-title">{{$application->company_name}}</h5>
-                        <span data-status-id="{{$application->id}}">{{$application->status}}</span>
+                        <span data-status-id="{{$application->id}}">
+                            @if ($application->app_status_id === 2 || $application->app_status_id === 4)
+                                <span class="badge badge-success" style="font-size: 1em">{{$application->status}}</span>
+                            @elseif ($application->app_status_id === 3 || $application->app_status_id === 5)
+                                <span class="badge badge-secondary" style="font-size: 1em">{{$application->status}}</span>
+                            @else
+                                <span class="badge badge-primary" style="font-size: 1em">{{$application->status}}</span>
+                            @endif
+                        </span>
                         <p class="card-text">{{App\Http\Controllers\HomeController::getJobPostApplicantsCount($application->job_post_id, $application->comp_id)}} Applicant(s)</p>
                         <p class="card-text">Applied on {{ Carbon\Carbon::parse($application->created_at)->format('F j, Y')}}</p>
                         <div class="form-inline mb-2">
