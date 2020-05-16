@@ -32,6 +32,7 @@
                 <div class="form-group">
                     {{Form::label('website_link', 'Website Link')}}
                     {{Form::text('website_link', $data['emp_profile']['website_link'], ['class' => 'form-control', 'placeholder' => 'Website Link'])}}
+                    <small class="form-text text-muted">Leave blank if not applicable.</small>
                     {{Form::label('company_size', 'Company Size', ['class' => 'mt-2'])}}
                     {{Form::text('company_size', $data['emp_profile']['company_size'], ['class' => 'form-control', 'placeholder' => 'Company Size'])}}
                     {{Form::label('benefits', 'Benefits', ['class' => 'mt-2'])}}
@@ -45,7 +46,8 @@
                     {{Form::label('avg_processing_time', 'Average Processing Time', ['class' => 'mt-2'])}}
                     {{Form::text('avg_processing_time', $data['emp_profile']['avg_processing_time'], ['class' => 'form-control', 'placeholder' => 'Average Processing Time'])}}
                 </div>
-                {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}}
+                {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary'])}}
+                {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
             </div>
         </div>
     {!! Form::close() !!}
