@@ -134,7 +134,7 @@
                     {{Form::date('univ_end_date', $data['app_profile']['univ_end_date'], ['class' => 'form-control'])}}
                 </div>
                 {{Form::hidden('app_info_id', $data['app_profile']['id'])}}
-                {{Form::button('<i class="fas fa-edit mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary'])}}
+                {{Form::button('<i class="fas fa-edit mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
                 {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
             </div>
         </div>

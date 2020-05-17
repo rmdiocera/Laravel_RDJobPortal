@@ -95,7 +95,7 @@
                     {{Form::label('univ_end_date', 'Date of Graduation', ['class' => 'mt-2'])}}
                     {{Form::date('univ_end_date', '', ['class' => 'form-control'])}}
                 </div>
-                {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary'])}}
+                {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
                 {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
             </div>
         </div>
