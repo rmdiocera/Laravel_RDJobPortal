@@ -13,7 +13,7 @@
                 </div>
                 <span>Posted on {{ Carbon\Carbon::parse($job_post->created_at)->format('F j, Y')}}</span>
                 <div>
-                    @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
+                    @if (Auth::guard('employer')->check() && Auth::guard('employer')->user()->id === $job_post->comp_id)
                         <a href="/job-posts" class="btn btn-sm btn-primary float-right mb-2"><i class="fas fa-arrow-alt-circle-left mr-1"></i>Go Back</a>
                     @else
                         <a href="/job-search" class="btn btn-sm btn-primary float-right mb-2"><i class="fas fa-arrow-alt-circle-left mr-1"></i>Go Back</a>
