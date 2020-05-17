@@ -21,6 +21,8 @@
                         </div>
                     </div>
                 </div>
+                <h1>Company Overview</h1>
+                <div>{!!$profile_info->company_overview!!}</div>
                 <br>
                 <h1>Other Information</h1>
                 <span>Company Size</span>

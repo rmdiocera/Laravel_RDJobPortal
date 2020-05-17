@@ -8,6 +8,8 @@
                 <div class="form-group">
                     {{Form::label('company_name', 'Company Name')}}
                     {{Form::text('company_name', $data['emp_profile']['company_name'], ['class' => ['form-control'], 'placeholder' => 'Company Name'])}}
+                    {{Form::label('company_overview', 'Overview')}}
+                    {{Form::textarea('company_overview', $data['emp_profile']['company_overview'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Put details about your company here.', 'rows' => 10])}}
                     {{Form::label('industry', 'Industry', ['class' => 'mt-2'])}}
                     <select name="industry" id="" class="custom-select">
                         {{-- <option value="">Select an option</option> --}}
@@ -46,7 +48,7 @@
                     {{Form::label('avg_processing_time', 'Average Processing Time', ['class' => 'mt-2'])}}
                     {{Form::text('avg_processing_time', $data['emp_profile']['avg_processing_time'], ['class' => 'form-control', 'placeholder' => 'Average Processing Time'])}}
                 </div>
-                {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-sm btn-primary'])}}
+                {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
                 {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
             </div>
         </div>

@@ -25,6 +25,7 @@ class SaveEmployerProfile extends FormRequest
     {
         return [
             'company_name' => 'required',
+            'company_overview' => 'required',
             'industry' => 'required',
             'address' => 'required',
             'profile_picture' => 'image|nullable|max:1999',
@@ -42,6 +43,7 @@ class SaveEmployerProfile extends FormRequest
     {
         return [
             'company_name.required' =>  'The Company Name field is required.',
+            'company_overview.required' =>  'The Company Overview field is required.',
             'industry.required' =>  'The Industry field is required.',
             'address.required' =>  'The Address field is required.',
             'profile_picture.image' =>  'The profile picture must be an image.',
