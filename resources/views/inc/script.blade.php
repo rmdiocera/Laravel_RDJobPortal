@@ -239,7 +239,7 @@
                     
                     if (data.success) {
                         // Change status on span element
-                        $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                        $('[data-jp-app-status-id="' + job_post_app_id + '"]').html('<span class="badge badge-success" style="font-size: 1em">' + data.status + '</span>');
                         // Hide modal
                         $('#actionsModal').modal('hide');
                         // Bring to top
@@ -277,7 +277,7 @@
                     
                     if (data.success) {
                         // Change status on span element
-                        $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                        $('[data-jp-app-status-id="' + job_post_app_id + '"]').html('<span class="badge badge-secondary" style="font-size: 1em">' + data.status + '</span>');
                         // Hide modal
                         $('#actionsModal').modal('hide');
                         // Bring to top
@@ -360,7 +360,7 @@
                         // Reload table
                         // table.ajax.reload(null, false);
                         // // Change status on table cell
-                        $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                        $('[data-jp-app-status-id="' + job_post_app_id + '"]').html('<span class="badge badge-success" style="font-size: 1em">' + data.status + '</span>');
                         // Hide modal
                         $('#actionsModal').modal('hide');
                         // Bring to top
@@ -399,7 +399,7 @@
                         // Reload table
                         // table.ajax.reload(null, false);
                         // Change status on table cell
-                        $('[data-status-id="' + job_post_app_id + '"]').html(data.status);
+                        $('[data-jp-app-status-id="' + job_post_app_id + '"]').html('<span class="badge badge-secondary" style="font-size: 1em">' + data.status + '</span>');
                         // Hide modal
                         $('#actionsModal').modal('hide');
                         // Bring to top

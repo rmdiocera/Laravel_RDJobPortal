@@ -53,7 +53,7 @@
                         <button class="btn btn-sm btn-secondary" type="button" disabled>Not Available</button></a>
                     @endif
                     </td>
-                    <td data-status-id="{{$applicant->id}}">
+                    <td data-jp-app-status-id="{{$applicant->id}}">
                         @if ($applicant->app_status_id === 2 || $applicant->app_status_id === 4)
                             <span class="badge badge-success" style="font-size: 1em">{{$applicant->status}}</span>
                         @elseif ($applicant->app_status_id === 3 || $applicant->app_status_id === 5)
