@@ -42,6 +42,35 @@
                 $('#end_date').attr('disabled', false);
         }
 
+        // Front Page Applicant/Employer Login
+        $('#btn-app-login').click(function(){
+            $('#index-app-login').removeClass('d-none').show();
+            $('#index-app-register').addClass('d-none');
+            $('#index-emp-login').addClass('d-none');
+            $('#index-emp-register').addClass('d-none');
+        });
+
+        $('#link-app-register').click(function(){
+            $('#index-app-register').removeClass('d-none').show();
+            $('#index-app-login').addClass('d-none');
+            $('#index-emp-login').addClass('d-none');
+            $('#index-emp-register').addClass('d-none');
+        });
+
+        $('#btn-emp-login').click(function(){
+            $('#index-emp-login').removeClass('d-none').show();
+            $('#index-emp-register').addClass('d-none');
+            $('#index-app-login').addClass('d-none');
+            $('#index-app-register').addClass('d-none');
+        });
+
+        $('#link-emp-register').click(function(){
+            $('#index-app-register').removeClass('d-none').show();
+            $('#index-app-login').addClass('d-none');
+            $('#index-emp-login').addClass('d-none');
+            $('#index-emp-register').addClass('d-none');
+        });
+
         // Modal variables
         let job_post_id;
         let comp_id;
