@@ -55,6 +55,7 @@
             $('#index-app-login').addClass('d-none');
             $('#index-emp-login').addClass('d-none');
             $('#index-emp-register').addClass('d-none');
+            return false;
         });
 
         $('#btn-emp-login').click(function(){
@@ -65,10 +66,11 @@
         });
 
         $('#link-emp-register').click(function(){
-            $('#index-app-register').removeClass('d-none').show();
+            $('#index-emp-register').removeClass('d-none').show();
             $('#index-app-login').addClass('d-none');
             $('#index-emp-login').addClass('d-none');
-            $('#index-emp-register').addClass('d-none');
+            $('#index-app-register').addClass('d-none');
+            return false;
         });
 
         // Modal variables
@@ -81,13 +83,18 @@
         // Confirm Save
         let urlSave = '{{ route('user.save_job_post') }}';
         $(document).on('click', '.save-jp', function(){
-            job_post_id = $(this).data('jp-id');
-            comp_id = $(this).data('comp-id');
+            let status = '{{Auth::guard('web')->check()}}';
+            if (!status) {
+                window.location.href = '{{route('login')}}';
+            } else {
+                job_post_id = $(this).data('jp-id');
+                comp_id = $(this).data('comp-id');
 
-            $('#actionsModal').modal('show');
-            $('.modal-title').text('Save Job Post');
-            $('.modal-body').text('Are you sure you want to save this job post?');
-            $('.modal-btn').attr('id', 'save');
+                $('#actionsModal').modal('show');
+                $('.modal-title').text('Save Job Post');
+                $('.modal-body').text('Are you sure you want to save this job post?');
+                $('.modal-btn').attr('id', 'save');
+            }
         });
 
         $(document).on('click', '#save', function(e){
