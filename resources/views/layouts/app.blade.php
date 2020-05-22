@@ -49,6 +49,7 @@
             @include('inc.modals')
             @yield('content')
             @include('components.who')
+            @include('inc.footer')
         </div>
     </div>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" defer></script>
