@@ -99,7 +99,7 @@ class PagesController extends Controller
         if ($search_query) {  
             if ($search_query && $search_query != "") {
                 $results = DB::table('job_posts')
-                            ->select('job_posts.*', 'employer_infos.company_name', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                            ->select('job_posts.*', 'employer_infos.company_name', 'employer_infos.profile_picture', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
                             ->join('employer_infos', 'job_posts.comp_id', '=', 'employer_infos.comp_id')
                             ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                             ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
@@ -132,7 +132,7 @@ class PagesController extends Controller
             } 
         } else {
             $job_posts = DB::table('job_posts')
-                        ->select('job_posts.*', 'employer_infos.company_name', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                        ->select('job_posts.*', 'employer_infos.company_name', 'employer_infos.profile_picture', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
                         ->join('employer_infos', 'job_posts.comp_id', '=', 'employer_infos.comp_id')
                         ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
                         ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
