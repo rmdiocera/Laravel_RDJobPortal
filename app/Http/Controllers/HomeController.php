@@ -211,7 +211,8 @@ class HomeController extends Controller
         }
 
         $app_profile = DB::table('applicant_infos')
-                        ->select('applicant_infos.*', 'genders.gender', 'countries.country_code', 'countries.country_name', 'nationalities.nationality', 'currencies.currency', 'degrees.degree', 'courses.course')
+                        ->select('applicant_infos.*', 'users.email', 'genders.gender', 'countries.country_code', 'countries.country_name', 'nationalities.nationality', 'currencies.currency', 'degrees.degree', 'courses.course')
+                        ->join('users', 'applicant_infos.user_id', '=', 'users.id')
                         ->join('genders', 'applicant_infos.gender_id', '=', 'genders.id')
                         ->join('countries', 'applicant_infos.country_id', '=', 'countries.id')
                         ->join('nationalities', 'applicant_infos.nationality_id', '=', 'nationalities.id')
