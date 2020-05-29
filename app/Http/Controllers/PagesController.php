@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\EmpType;
 use App\Industry;
 use App\JobLevel;
+use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 // Uninstall this
 // use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -118,17 +120,17 @@ class PagesController extends Controller
                             ->orderBy($order_by_col, $order)
                             ->paginate(5);
 
-                if (count($results) > 0) {
-                    return view('job_search.job_search')->with('filter_by', $filter_by)
-                                                        ->with('results', $results)
-                                                        ->with('search', $search_query)
-                                                        ->with('industry_id', $industry)
-                                                        ->with('emp_type_id', $emp_type)
-                                                        ->with('level_id', $level)
-                                                        ->with('order_by_id', $order_by); 
-                }
+                // if (count($results) > 0) {
+                return view('job_search.job_search')->with('filter_by', $filter_by)
+                                                    ->with('results', $results)
+                                                    ->with('search', $search_query)
+                                                    ->with('industry_id', $industry)
+                                                    ->with('emp_type_id', $emp_type)
+                                                    ->with('level_id', $level)
+                                                    ->with('order_by_id', $order_by); 
+                // }
     
-                return redirect()->back()->with('error', 'Your search has no results found. Please try again.');
+                // return redirect()->back()->with('error', 'Your search has no results found. Please try again.');
             } 
         } else {
             $job_posts = DB::table('job_posts')
@@ -187,18 +189,34 @@ class PagesController extends Controller
         return view('pages.search_results')->withMessage('error', 'Your search has no results found. Please try again.');   
     }
 
-    public function viewCompanyProfile($comp_id)
-    {
-        if(request()->ajax())
-        {
-            $company_profile = DB::table('employer_infos')
-                            ->select('employer_infos.*', 'industries.industry')
-                            ->join('industries', 'employer_infos.industry_id', '=', 'industries.id')
-                            ->where('comp_id', $comp_id)
-                            ->get();
+    // public function viewCompanyProfile($comp_id)
+    // {
+    //     if(request()->ajax())
+    //     {
+    //         $company_profile = DB::table('employer_infos')
+    //                         ->select('employer_infos.*', 'industries.industry')
+    //                         ->join('industries', 'employer_infos.industry_id', '=', 'industries.id')
+    //                         ->where('comp_id', $comp_id)
+    //                         ->get();
             
-            return response()->json(['company' => $company_profile]);
+    //         return response()->json(['company' => $company_profile]);
+    //     }
+    // }
+
+    public function viewCompanyProfile($comp_id)
+    {   
+        // return $comp_profile;
+        $comp_profile = DB::table('employer_infos')
+                    ->select('employer_infos.*', 'industries.industry')
+                    ->join('industries', 'employer_infos.industry_id', '=', 'industries.id')
+                    ->where('comp_id', $comp_id)
+                    ->get();
+        
+        if (!$comp_profile) {
+            throw new ViewException();
         }
+
+        return view('employers.employer_profile')->with('profile', $comp_profile);
     }
 
     public function about()
