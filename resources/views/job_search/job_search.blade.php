@@ -136,7 +136,8 @@
                         </div>
                         <div class="col-md-9 col-sm-9 d-flex flex-column">
                             <h3 class="card-title"><a href="/job-post/{{$result->id}}">{{$result->title}}</a></h3>
-                            <p class="font-weight-bold">{{$result->company_name}}</p>
+                            <p class="font-weight-bold"><a href="/company/{{$result->comp_id}}">{{$result->company_name}}</a></p>
+                            {{-- <p class="font-weight-bold">{{$result->company_name}}</p> --}}
                             <div class="form-inline">
                                 <p>Industry: <span class="badge badge-primary align-middle">{{$result->industry}}</span></p>
                                 <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$result->emp_type}}</span></p>
@@ -193,7 +194,8 @@
                         </div>
                         <div class="col-md-9 col-sm-9 d-flex flex-column">
                             <h3 class="card-title"><a href="/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
-                            <p class="font-weight-bold"><a href="" id="{{$job_post->comp_id}}" class="show_emp_info">{{$job_post->company_name}}</a></p>
+                            <p class="font-weight-bold"><a href="/company/{{$job_post->comp_id}}">{{$job_post->company_name}}</a></p>
+                            {{-- <p class="font-weight-bold"><a href="" id="{{$job_post->comp_id}}" class="show_emp_info">{{$job_post->company_name}}</a></p> --}}
                             <div class="form-inline">
                                 <p>Industry: <span class="badge badge-primary align-middle">{{$job_post->industry}}</span></p>
                                 <p class="ml-2">Employment Type: <span class="badge badge-primary align-middle">{{$job_post->emp_type}}</span></p>
