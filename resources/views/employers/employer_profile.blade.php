@@ -18,7 +18,9 @@
                             @if ($profile_info->website_link)
                             <span><a href="{{$profile_info->website_link}}" target="_blank">{{$profile_info->website_link}}</a></span>
                             @endif
+                            @if (Auth::guard('employer')->check() && Auth::user()->id === $profile_info->comp_id)
                             <a href="/employer/{{$profile_info->comp_id}}/edit" class="btn btn-sm btn-primary ml-auto mt-auto"><i class="fas fa-edit mr-1"></i>Edit Profile</a>
+                            @endif
                         </div>
                     </div>
                 </div>
