@@ -403,7 +403,7 @@ class HomeController extends Controller
         }
 
         $active_applications = DB::table('job_post_applications')
-                            ->select('job_post_applications.*', 'job_posts.title' ,'employer_infos.company_name', 'job_application_statuses.status')
+                            ->select('job_post_applications.*', 'job_posts.title' , 'employer_infos.company_name', 'employer_infos.profile_picture', 'job_application_statuses.status')
                             ->join('job_posts', 'job_post_applications.job_post_id', '=', 'job_posts.id')
                             ->join('employer_infos', 'job_post_applications.comp_id', '=', 'employer_infos.comp_id')
                             ->join('job_application_statuses', 'job_post_applications.app_status_id', '=', 'job_application_statuses.id')
