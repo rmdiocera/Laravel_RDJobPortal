@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Arr;
@@ -63,6 +64,10 @@ class Handler extends ExceptionHandler
                     return redirect(route('login'));
                     break;
             }
+        }
+
+        if($exception instanceof ViewException) {
+            abort(404);
         }
 
         return parent::render($request, $exception);
