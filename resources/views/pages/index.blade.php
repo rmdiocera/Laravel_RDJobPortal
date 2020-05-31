@@ -3,9 +3,9 @@
 @section('content')
     <h1 class="indigo">Welcome to the Job Portal</h1>
     <div class="row">
-        <div class="d-flex align-items-stretch">
+        <div class="wrapper d-flex align-items-stretch">
             <div class="col-md-7">
-                <div class="jumbotron index-jumbotron align-items-center h-100">
+                <div class="jumbotron index-jumbotron d-flex align-items-center h-100">
                     <div class="jumbotron-content border rounded p-2">
                         <h2 class="display-5">Finding your dream job has never been this easy.</h2>
                         <p class="lead">Search over thousands of job postings here at <span
@@ -100,7 +100,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="card-link">
+                        <div class="card-link link-app-register">
                             <a href="" class="float-right mr-3" id="link-app-register">Don't have an account yet? Register here.</a>
                         </div>
                     </div>
@@ -181,6 +181,9 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="card-link">
+                            <a href="" class="float-right mr-3" id="back-to-app-login"><i class="fas fa-chevron-circle-left mr-1"></i>Go Back</a>
+                        </div>
                     </div>
                     <div class="index-emp-login d-none" id="index-emp-login">
                         <div class="card-header">{{ __('Employers Login') }}</div>
@@ -251,7 +254,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="card-link">
+                        <div class="card-link link-emp-register">
                             <a href="" class="float-right mr-3" id="link-emp-register">Don't have an account yet? Register
                                 here.</a>
                         </div>
@@ -332,6 +335,9 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="card-link">
+                            <a href="" class="float-right mr-3" id="back-to-emp-login"><i class="fas fa-chevron-circle-left mr-1"></i>Go Back</a>
                         </div>
                     </div>
                 </div>
