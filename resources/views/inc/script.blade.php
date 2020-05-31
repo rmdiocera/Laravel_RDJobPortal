@@ -43,11 +43,12 @@
         }
 
         // Front Page Applicant/Employer Login
-        $('#btn-app-login').click(function(){
+        $('#btn-app-login, #back-to-app-login').click(function(){
             $('#index-app-login').removeClass('d-none').show();
             $('#index-app-register').addClass('d-none');
             $('#index-emp-login').addClass('d-none');
             $('#index-emp-register').addClass('d-none');
+            return false;
         });
 
         $('#link-app-register').click(function(){
@@ -58,11 +59,12 @@
             return false;
         });
 
-        $('#btn-emp-login').click(function(){
+        $('#btn-emp-login, #back-to-emp-login').click(function(){
             $('#index-emp-login').removeClass('d-none').show();
             $('#index-emp-register').addClass('d-none');
             $('#index-app-login').addClass('d-none');
             $('#index-app-register').addClass('d-none');
+            return false;
         });
 
         $('#link-emp-register').click(function(){
@@ -507,54 +509,54 @@
         });
 
         // View Applicant Info
-        $(document).on('click', '.show_emp_info', function(e){
-        e.preventDefault();
-        let id = $(this).attr('id');
+        // $(document).on('click', '.show_emp_info', function(e){
+        // e.preventDefault();
+        // let id = $(this).attr('id');
         
-        $('#companyInfoModal').modal('show');
-        $.ajax({
-                type: 'ajax',
-                method: 'get',
-                url: '/emp-info/'+id,
-                dataType: 'json',
-                success: function(html) {
-                    html.company.forEach(company => {
-                        let comp_img = '<img src="/storage/emp_profile_pictures/' + company.profile_picture + '" class="img-fluid app-img">';
-                        $('.comp-img').append(comp_img);
+        // $('#companyInfoModal').modal('show');
+        // $.ajax({
+        //         type: 'ajax',
+        //         method: 'get',
+        //         url: '/emp-info/'+id,
+        //         dataType: 'json',
+        //         success: function(html) {
+        //             html.company.forEach(company => {
+        //                 let comp_img = '<img src="/storage/emp_profile_pictures/' + company.profile_picture + '" class="img-fluid app-img">';
+        //                 $('.comp-img').append(comp_img);
 
-                        let comp_name = '<h5>' + company.company_name + "</h5>";
-                        let comp_ind = '<p><i class="fas fa-industry mr-1"></i>Industry:  ' + company.industry + '</p>';
-                        let comp_address = '<p><i class="fas fa-home mr-1"></i>Address: ' + company.address  + '</p>';
+        //                 let comp_name = '<h5>' + company.company_name + "</h5>";
+        //                 let comp_ind = '<p><i class="fas fa-industry mr-1"></i>Industry:  ' + company.industry + '</p>';
+        //                 let comp_address = '<p><i class="fas fa-home mr-1"></i>Address: ' + company.address  + '</p>';
                         
-                        if (company.website_link) {
-                            let comp_website = '<p><i class="fas fa-globe-americas mr-1"></i> Phone Number: ' + company.website_link  + '</p>';
-                            $('.comp-main-info').append(comp_name, comp_ind, comp_address, comp_website);
-                        } else {
-                            $('.comp-main-info').append(comp_name, comp_ind, comp_address);
-                        }
+        //                 if (company.website_link) {
+        //                     let comp_website = '<p><i class="fas fa-globe-americas mr-1"></i> Phone Number: ' + company.website_link  + '</p>';
+        //                     $('.comp-main-info').append(comp_name, comp_ind, comp_address, comp_website);
+        //                 } else {
+        //                     $('.comp-main-info').append(comp_name, comp_ind, comp_address);
+        //                 }
                         
                         
-                        let comp_other_heading = '<h5>Other Information</h5>';
-                        let comp_size ='<p><i class="fas fa-users mr-1"></i>Company Size: ' + company.company_size  + '</p>';
-                        let comp_benefits ='<p><i class="fas fa-gift mr-1"></i>Benefits: ' + company.benefits  + '</p>';
-                        let comp_dress_code ='<p><i class="fas fa-tshirt mr-1"></i>Dress Code: ' + company.dress_code  + '</p>';
-                        let comp_spoken_language ='<p><i class="fas fa-language mr-1"></i>Spoken Language: ' + company.spoken_language  + '</p>';
-                        let comp_work_hours ='<p><i class="far fa-clock mr-1"></i>Work Hours: ' + company.work_hours  + '</p>';
-                        let comp_avg_proc_time ='<p><i class="fas fa-stopwatch mr-1"></i>Average Processing Time: ' + company.avg_processing_time  + '</p>';
-                        $('.comp-other-info').append(comp_other_heading, comp_size, comp_benefits, comp_dress_code, comp_spoken_language, comp_work_hours, comp_avg_proc_time);
-                    });
-                },
-                error: function() {
-                    alert('There\'s an unexpected error.');
-                }
-            });
-        });
+        //                 let comp_other_heading = '<h5>Other Information</h5>';
+        //                 let comp_size ='<p><i class="fas fa-users mr-1"></i>Company Size: ' + company.company_size  + '</p>';
+        //                 let comp_benefits ='<p><i class="fas fa-gift mr-1"></i>Benefits: ' + company.benefits  + '</p>';
+        //                 let comp_dress_code ='<p><i class="fas fa-tshirt mr-1"></i>Dress Code: ' + company.dress_code  + '</p>';
+        //                 let comp_spoken_language ='<p><i class="fas fa-language mr-1"></i>Spoken Language: ' + company.spoken_language  + '</p>';
+        //                 let comp_work_hours ='<p><i class="far fa-clock mr-1"></i>Work Hours: ' + company.work_hours  + '</p>';
+        //                 let comp_avg_proc_time ='<p><i class="fas fa-stopwatch mr-1"></i>Average Processing Time: ' + company.avg_processing_time  + '</p>';
+        //                 $('.comp-other-info').append(comp_other_heading, comp_size, comp_benefits, comp_dress_code, comp_spoken_language, comp_work_hours, comp_avg_proc_time);
+        //             });
+        //         },
+        //         error: function() {
+        //             alert('There\'s an unexpected error.');
+        //         }
+        //     });
+        // });
 
-        $('#companyInfoModal').on('hidden.bs.modal', function (e) {
-            $('.comp-img').empty();
-            $('.comp-main-info').empty();
-            $('.comp-other-info').empty();
-        });
+        // $('#companyInfoModal').on('hidden.bs.modal', function (e) {
+        //     $('.comp-img').empty();
+        //     $('.comp-main-info').empty();
+        //     $('.comp-other-info').empty();
+        // });
     });
     
 </script>
