@@ -9,16 +9,16 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <img src="/storage/emp_profile_pictures/{{$application->profile_picture}}" class="emp-profile-pic-sm d-block mr-4" alt="">
-                        <div class="">
-                            <h5 class="card-title mb-1">{{$application->title}}</h5>
+                        <div>
+                            <h5 class="card-title mb-1"><a href="/job-post/{{$application->job_post_id}}">{!! Str::words($application->title, 4, '...') !!}</a></h5>
                             <h6 class="card-title">{{$application->company_name}}</h6>
                             <span data-jp-app-status-id="{{$application->id}}">
                                 @if ($application->app_status_id === 2 || $application->app_status_id === 4)
-                                    <span class="badge badge-success" style="font-size: 1em">{{$application->status}}</span>
+                                    <span class="badge badge-success" style="font-size: 0.8em">{{$application->status}}</span>
                                 @elseif ($application->app_status_id === 3 || $application->app_status_id === 5)
-                                    <span class="badge badge-secondary" style="font-size: 1em">{{$application->status}}</span>
+                                    <span class="badge badge-secondary" style="font-size: 0.8em">{{$application->status}}</span>
                                 @else
-                                    <span class="badge badge-primary" style="font-size: 1em">{{$application->status}}</span>
+                                    <span class="badge badge-primary" style="font-size: 0.8em">{{$application->status}}</span>
                                 @endif
                             </span>
                             <p class="card-text">{{App\Http\Controllers\HomeController::getJobPostApplicantsCount($application->job_post_id, $application->comp_id)}} Applicant(s)</p>
