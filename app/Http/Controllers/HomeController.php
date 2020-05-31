@@ -508,7 +508,7 @@ class HomeController extends Controller
         }
 
         $saved_job_posts = DB::table('saved_job_posts')
-                            ->select('saved_job_posts.*', 'job_posts.title' ,'employer_infos.company_name')
+                            ->select('saved_job_posts.*', 'job_posts.title' ,'employer_infos.company_name', 'employer_infos.profile_picture')
                             ->join('job_posts', 'saved_job_posts.job_post_id', '=', 'job_posts.id')
                             ->join('employer_infos', 'saved_job_posts.comp_id', '=', 'employer_infos.comp_id')
                             ->where('user_id', Auth::id())
