@@ -18,6 +18,7 @@ use App\Http\Requests\UpdateEmployerProfile;
 use App\Industry;
 use App\JobApplicationStatus;
 use App\User;
+use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -229,23 +230,46 @@ class EmployersController extends Controller
                                                          ->with('job_post', $job_post);
     }
 
+    // public function viewApplicantInfo($applicant_id)
+    // {
+    //     if(request()->ajax())
+    //     {
+    //         $applicant_info = DB::table('applicant_infos')
+    //                         ->select('applicant_infos.*', 'users.email', 'currencies.currency', 'degrees.degree', 'courses.course')
+    //                         ->join('users', 'applicant_infos.user_id', '=', 'users.id')
+    //                         ->join('currencies', 'applicant_infos.currency_id', '=', 'currencies.id')
+    //                         ->join('degrees', 'applicant_infos.degree_id', '=', 'degrees.id')
+    //                         ->join('courses', 'applicant_infos.course_id', '=', 'courses.id')
+    //                         ->where('user_id', $applicant_id)
+    //                         ->get();
+
+    //         Not included
+    //         $job_post_applicant = ApplicantInfo::where('user_id', $applicant_id)->first();
+    //         $applicant_email = User::where('id', $applicant_id)->pluck('email');
+
+    //         return response()->json(['applicant' => $applicant_info]);
+    //     }
+    // }
+
     public function viewApplicantInfo($applicant_id)
     {
-        if(request()->ajax())
-        {
-            $applicant_info = DB::table('applicant_infos')
-                            ->select('applicant_infos.*', 'users.email', 'currencies.currency', 'degrees.degree', 'courses.course')
-                            ->join('users', 'applicant_infos.user_id', '=', 'users.id')
-                            ->join('currencies', 'applicant_infos.currency_id', '=', 'currencies.id')
-                            ->join('degrees', 'applicant_infos.degree_id', '=', 'degrees.id')
-                            ->join('courses', 'applicant_infos.course_id', '=', 'courses.id')
-                            ->where('user_id', $applicant_id)
-                            ->get();
-            // $job_post_applicant = ApplicantInfo::where('user_id', $applicant_id)->first();
-            // $applicant_email = User::where('id', $applicant_id)->pluck('email');
+        $applicant_info = DB::table('applicant_infos')
+                        ->select('applicant_infos.*', 'users.email', 'genders.gender', 'countries.country_code', 'countries.country_name', 'nationalities.nationality', 'currencies.currency', 'degrees.degree', 'courses.course')
+                        ->join('users', 'applicant_infos.user_id', '=', 'users.id')
+                        ->join('genders', 'applicant_infos.gender_id', '=', 'genders.id')
+                        ->join('countries', 'applicant_infos.country_id', '=', 'countries.id')
+                        ->join('nationalities', 'applicant_infos.nationality_id', '=', 'nationalities.id')
+                        ->join('currencies', 'applicant_infos.currency_id', '=', 'currencies.id')
+                        ->join('degrees', 'applicant_infos.degree_id', '=', 'degrees.id')
+                        ->join('courses', 'applicant_infos.course_id', '=', 'courses.id')
+                        ->where('user_id', $applicant_id)
+                        ->get();
 
-            return response()->json(['applicant' => $applicant_info]);
+        if (!$applicant_info) {
+            throw new ViewException();
         }
+        
+        return view('applicant_profile')->with('profile', $applicant_info);
     }
 
     public function inviteApplicantToInterview($job_post_app_id)
