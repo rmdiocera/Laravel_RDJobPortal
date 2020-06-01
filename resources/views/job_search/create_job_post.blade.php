@@ -35,6 +35,7 @@
             {{Form::label('description', 'Description')}}
             {{Form::textarea('description', '', ['id' => 'multi_editor','class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
         </div>
-        {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}}
+        {{Form::button('<i class="fas fa-check-circle mr-1"></i>Post', ['type' => 'submit', 'class' => 'btn btn-primary float-right'])}}
+        {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}} --}}
     {!! Form::close() !!}
 @endsection

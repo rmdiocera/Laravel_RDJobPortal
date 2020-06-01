@@ -50,7 +50,7 @@
             {{Form::label('description', 'Description')}}
             {{Form::textarea('description', $data['job_post']['desc'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}}
         </div>
-        {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
+        {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary float-right'])}}
         {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}} --}}
     {!! Form::close() !!}
 @endsection
