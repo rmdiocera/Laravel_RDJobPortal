@@ -36,7 +36,8 @@ Route::put('/job-post/{id}', 'JobPostsController@update');
 Route::delete('/destroy/{id}', 'JobPostsController@destroy');
 
 Route::get('/job-post/{id}/view', 'EmployersController@viewJobPostApplicants');
-Route::get('/app-info/{id}', 'EmployersController@viewApplicantInfo');
+// Route::get('/app-info/{id}', 'EmployersController@viewApplicantInfo');
+Route::get('/applicant/{id}', 'EmployersController@viewApplicantInfo');
 Route::put('/invite/{id}', 'EmployersController@inviteApplicantToInterview');
 Route::put('/reject/{id}', 'EmployersController@rejectApplicantApplication');
 
