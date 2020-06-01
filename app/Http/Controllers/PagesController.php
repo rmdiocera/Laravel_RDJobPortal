@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['guest', 'guest:employer']);
+    }
+
     public function index()
     {
         return view('pages.index');
