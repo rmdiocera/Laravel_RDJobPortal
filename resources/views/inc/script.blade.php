@@ -367,9 +367,21 @@
         });
 
         let table = $('#app-table').DataTable({
+            "language": {
+                "search": '<i class="fas fa-search mr-1"></i>'
+            },
             "columnDefs": [
                 { "orderable": false, "targets": [1, 2, 3] }
-            ]
+            ],
+            "drawCallback": function() {
+                $('#app-table th').addClass('text-center');
+                $('#app-table_filter input').attr('placeholder', 'Search...');
+                // $('#app-table_length label').addClass('form-inline');
+                // $('#app-table_length select').addClass('form-control form-control-sm mb-0 mx-1');
+                // $('#app-table_filter label').addClass('form-inline');
+                // $('#app-table_paginate').addClass('pagination pagination-sm');
+                // $('#app-table_paginate a').addClass('page-item page-link');
+            }
         });
 
         // Confirm Inviting Applicant to Interview
@@ -451,62 +463,62 @@
         });
 
         // View Applicant Info
-        $(document).on('click', '.show_app_info', function(e){
-        e.preventDefault();
-        let id = $(this).attr('id');
+        // $(document).on('click', '.show_app_info', function(e){
+        // e.preventDefault();
+        // let id = $(this).attr('id');
         
-        $('#applicantInfoModal').modal('show');
-        $.ajax({
-                type: 'ajax',
-                method: 'get',
-                url: '/app-info/'+id,
-                dataType: 'json',
-                success: function(html) {
-                    html.applicant.forEach(applicant => {
-                        let app_img = '<img src="/storage/app_profile_pictures/' + applicant.profile_picture + '" class="img-fluid app-img">';
-                        $('.app-img').append(app_img);
+        // $('#applicantInfoModal').modal('show');
+        // $.ajax({
+        //         type: 'ajax',
+        //         method: 'get',
+        //         url: '/app-info/'+id,
+        //         dataType: 'json',
+        //         success: function(html) {
+        //             html.applicant.forEach(applicant => {
+        //                 let app_img = '<img src="/storage/app_profile_pictures/' + applicant.profile_picture + '" class="img-fluid app-img">';
+        //                 $('.app-img').append(app_img);
 
-                        let app_name = '<h5>' + applicant.first_name + " " + applicant.last_name + "</h5>";
-                        let app_address = '<p><i class="fas fa-home mr-1"></i>Address: ' + applicant.address  + '</p>';
-                        let app_email = '<p><i class="far fa-envelope mr-1"></i>E-mail Address:  ' + applicant.email + '</p>';
-                        let app_phone = '<p><i class="fas fa-mobile-alt mr-1"></i> Phone Number: ' + applicant.mobile_phone_no  + '</p>';
-                        $('.app-main-info').append(app_name, app_address, app_email, app_phone);
+        //                 let app_name = '<h5>' + applicant.first_name + " " + applicant.last_name + "</h5>";
+        //                 let app_address = '<p><i class="fas fa-home mr-1"></i>Address: ' + applicant.address  + '</p>';
+        //                 let app_email = '<p><i class="far fa-envelope mr-1"></i>E-mail Address:  ' + applicant.email + '</p>';
+        //                 let app_phone = '<p><i class="fas fa-mobile-alt mr-1"></i> Phone Number: ' + applicant.mobile_phone_no  + '</p>';
+        //                 $('.app-main-info').append(app_name, app_address, app_email, app_phone);
 
-                        let app_work_heading = '<h5>Most Recent Work Experience</h5>';
-                        let app_job_title = '<p><i class="fas fa-user-tie mr-1"></i>Job Title: ' + applicant.job_title  + '</p>';
-                        let app_company_name = '<p><i class="fas fa-building mr-1"></i>Company Name: ' + applicant.company_name  + '</p>';
-                        let app_emp_date;
-                        if (!applicant.end_date) {
-                            app_emp_date = '<p><i class="fas fa-calendar mr-1"></i>Date of Employment: ' + moment(applicant.start_date).format('LL') + " - Present" + '</p>';
-                        } else {
-                            app_emp_date = '<p><i class="fas fa-calendar mr-1"></i>Date of Employment: ' + moment(applicant.start_date).format('LL') + " - " + moment(applicant.end_date).format('LL') + '</p>';
-                        }
-                        let app_salary = '<p><i class="fas fa-money-bill mr-1"></i>Salary: ' + applicant.currency + " " + applicant.salary  + '</p>';
-                        let app_tasks = '<div><i class="fas fa-tasks mr-1"></i>Tasks/Responsibilities: ' + applicant.tasks  + '</div>';
-                        $('.app-work-exp').append(app_work_heading, app_job_title, app_company_name, app_emp_date, app_salary, app_tasks);
+        //                 let app_work_heading = '<h5>Most Recent Work Experience</h5>';
+        //                 let app_job_title = '<p><i class="fas fa-user-tie mr-1"></i>Job Title: ' + applicant.job_title  + '</p>';
+        //                 let app_company_name = '<p><i class="fas fa-building mr-1"></i>Company Name: ' + applicant.company_name  + '</p>';
+        //                 let app_emp_date;
+        //                 if (!applicant.end_date) {
+        //                     app_emp_date = '<p><i class="fas fa-calendar mr-1"></i>Date of Employment: ' + moment(applicant.start_date).format('LL') + " - Present" + '</p>';
+        //                 } else {
+        //                     app_emp_date = '<p><i class="fas fa-calendar mr-1"></i>Date of Employment: ' + moment(applicant.start_date).format('LL') + " - " + moment(applicant.end_date).format('LL') + '</p>';
+        //                 }
+        //                 let app_salary = '<p><i class="fas fa-money-bill mr-1"></i>Salary: ' + applicant.currency + " " + applicant.salary  + '</p>';
+        //                 let app_tasks = '<div><i class="fas fa-tasks mr-1"></i>Tasks/Responsibilities: ' + applicant.tasks  + '</div>';
+        //                 $('.app-work-exp').append(app_work_heading, app_job_title, app_company_name, app_emp_date, app_salary, app_tasks);
 
-                        let app_educ_heading = '<h5>University/College Attended</h5>';
-                        let app_univ ='<p><i class="fas fa-university mr-1"></i>College/University: ' + applicant.university  + '</p>';
-                        let app_degree ='<p><i class="fas fa-graduation-cap mr-1"></i>Degree: ' + applicant.degree  + '</p>';
-                        let app_course ='<p><i class="fas fa-book-open mr-1"></i>Course: ' + applicant.course  + '</p>';
-                        let app_start_date = '<p><i class="fas fa-chalkboard mr-1"></i>Start Date: ' + moment(applicant.univ_start_date).format('LL') + '</p>';
-                        let app_end_date = '<p><i class="fas fa-user-graduate mr-1"></i>Date of Graduation: ' + moment(applicant.univ_end_date).format('LL') + '</p>';
+        //                 let app_educ_heading = '<h5>University/College Attended</h5>';
+        //                 let app_univ ='<p><i class="fas fa-university mr-1"></i>College/University: ' + applicant.university  + '</p>';
+        //                 let app_degree ='<p><i class="fas fa-graduation-cap mr-1"></i>Degree: ' + applicant.degree  + '</p>';
+        //                 let app_course ='<p><i class="fas fa-book-open mr-1"></i>Course: ' + applicant.course  + '</p>';
+        //                 let app_start_date = '<p><i class="fas fa-chalkboard mr-1"></i>Start Date: ' + moment(applicant.univ_start_date).format('LL') + '</p>';
+        //                 let app_end_date = '<p><i class="fas fa-user-graduate mr-1"></i>Date of Graduation: ' + moment(applicant.univ_end_date).format('LL') + '</p>';
 
-                        $('.app-educ-bg').append(app_educ_heading, app_univ, app_degree, app_course, app_start_date, app_end_date);
-                    });
-                },
-                error: function() {
-                    alert('There\'s an unexpected error.');
-                }
-            });
-        });
+        //                 $('.app-educ-bg').append(app_educ_heading, app_univ, app_degree, app_course, app_start_date, app_end_date);
+        //             });
+        //         },
+        //         error: function() {
+        //             alert('There\'s an unexpected error.');
+        //         }
+        //     });
+        // });
 
-        $('#applicantInfoModal').on('hidden.bs.modal', function (e) {
-            $('.app-img').empty();
-            $('.app-main-info').empty();
-            $('.app-work-exp').empty();
-            $('.app-educ-bg').empty();
-        });
+        // $('#applicantInfoModal').on('hidden.bs.modal', function (e) {
+        //     $('.app-img').empty();
+        //     $('.app-main-info').empty();
+        //     $('.app-work-exp').empty();
+        //     $('.app-educ-bg').empty();
+        // });
 
         // View Applicant Info
         // $(document).on('click', '.show_emp_info', function(e){
