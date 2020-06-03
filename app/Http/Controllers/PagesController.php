@@ -16,7 +16,7 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['guest', 'guest:employer']);
+        $this->middleware(['guest:web', 'guest:employer'])->except(['showJobPosts', 'viewCompanyProfile']);
     }
 
     public function index()
