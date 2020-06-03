@@ -17,7 +17,7 @@ class EmployerRegisterController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:employer');   
+        $this->middleware(['guest:web', 'guest:employer']);   
     }
 
     public function showRegistrationForm()
