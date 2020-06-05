@@ -58,11 +58,11 @@
                         </td>
                         <td data-jp-app-status-id="{{$applicant->id}}" class="text-center">
                             @if ($applicant->app_status_id === 2 || $applicant->app_status_id === 4)
-                                <span class="badge badge-success" style="font-size: 0.8em">{{$applicant->status}}</span>
+                                <span class="badge badge-success app-status-text align-middle">{{$applicant->status}}</span>
                             @elseif ($applicant->app_status_id === 3 || $applicant->app_status_id === 5)
-                                <span class="badge badge-secondary" style="font-size: 0.8em">{{$applicant->status}}</span>
+                                <span class="badge badge-secondary app-status-text align-middle">{{$applicant->status}}</span>
                             @else
-                                <span class="badge badge-primary" style="font-size: 0.8em">{{$applicant->status}}</span>
+                                <span class="badge badge-primary app-status-text align-middle">{{$applicant->status}}</span>
                             @endif
                         </td>
                         <td class="d-flex justify-content-around">
