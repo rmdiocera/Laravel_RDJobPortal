@@ -153,38 +153,4 @@
     </div>
 @endforeach
 
-
-<div class="col-md-3 col-xs-6 border rounded">
-    <div class="row">
-        <div class="col-md-3 d-flex">
-            <i class="fas fa-language fa-2x mr-1 my-auto"></i>
-        </div>
-        <div class="col-md-9 p-3 d-flex flex-column">
-            <span>Spoken Language</span>
-            <span>{{$profile_info->spoken_language}}</span>
-        </div>
-    </div>
-</div>
-<div class="col-md-3 col-xs-6 border rounded">
-    <div class="row">
-        <div class="col-md-3 d-flex">
-            <i class="far fa-clock mr-1 fa-2x mr-1 my-auto"></i>
-        </div>
-        <div class="col-md-9 p-3 d-flex flex-column">
-            <span>Work Hours</span>
-            <span>{{$profile_info->work_hours}}</span>
-        </div>
-    </div>
-</div>
-<div class="col-md-3 col-xs-6 border rounded">
-    <div class="row">
-        <div class="col-md-3 d-flex">
-            <i class="fas fa-stopwatch mr-1 fa-2x mr-1 my-auto"></i>
-        </div>
-        <div class="col-md-9 p-3 d-flex flex-column">
-            <span>Average Processing Time</span>
-            <span>{{$profile_info->avg_processing_time}}</span>
-        </div>
-    </div>
-</div>
 @endsection
