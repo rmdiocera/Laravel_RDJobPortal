@@ -21,7 +21,9 @@
                         <span class="card-text border-right px-2"><i class="em em-flag-{{$profile_info->country_code}}" aria-role="presentation" aria-label="{{$profile_info->country_name}} Flag"></i><span class="align-middle pl-2">{{$profile_info->country_name}}</span></span>
                         <span class="card-text px-2">{{$profile_info->nationality}}</span>
                     </div>
-                    <a href="/home/{{$profile_info->user_id}}/edit" class="btn btn-sm btn-primary ml-auto mt-auto"><i class="fas fa-edit mr-1"></i>Edit Profile</a>
+                    @if (Auth::guard('web')->check() && Auth::user()->id === $profile_info->user_id)
+                        <a href="/home/{{$profile_info->user_id}}/edit" class="btn btn-sm btn-primary ml-auto mt-auto"><i class="fas fa-edit mr-1"></i>Edit Profile</a>
+                    @endif
                 </div>
             </div>
         </div>
