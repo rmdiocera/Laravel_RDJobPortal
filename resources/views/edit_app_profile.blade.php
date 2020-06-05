@@ -82,7 +82,7 @@
                     <br>
                     <div class="form-inline mt-2">
                         {{Form::label('salary', 'Salary')}}
-                        <select class="selectpicker" name="currency" id="" data-live-search="true" title="Select a nationality">
+                        <select class="selectpicker ml-2" name="currency" id="" data-live-search="true" title="Select a nationality">
                             <option value="" selected>Select an option</option>
                             @foreach ($data['currencies'] as $currency)
                                 <option value="{{$currency->id}}" @if ($currency->id === $data['app_profile']['currency_id']) selected @endif>{{$currency->currency}}</option>
@@ -93,7 +93,7 @@
                                 @endif --}}
                             @endforeach
                         </select>
-                        {{Form::text('salary', $data['app_profile']['salary'], ['class' => 'form-control', 'placeholder' => 'Salary'])}}
+                        {{Form::text('salary', $data['app_profile']['salary'], ['class' => 'form-control ml-2', 'placeholder' => 'Salary'])}}
                     </div>
                     {{Form::label('tasks', 'Tasks')}}
                     {{Form::textarea('tasks', $data['app_profile']['tasks'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'List down your tasks and responsibilities here.', 'rows' => 10])}}
