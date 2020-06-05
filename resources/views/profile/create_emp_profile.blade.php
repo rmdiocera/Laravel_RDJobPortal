@@ -11,7 +11,7 @@
                     {{Form::label('company_overview', 'Overview')}}
                     {{Form::textarea('company_overview', '', ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Put details about your company here.', 'rows' => 10])}}
                     {{Form::label('industry', 'Industry', ['class' => 'mt-2'])}}
-                    <select name="industry" id="" class="custom-select">
+                    <select class="selectpicker form-control" name="industry" id="" data-live-search="true" title="Select an industry">
                         {{-- <option value="">Select an option</option> --}}
                         @foreach ($industries as $industry)
                             <option value="{{$industry->id}}">{{$industry->industry}}</option>
