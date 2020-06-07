@@ -112,6 +112,15 @@
                 success: function(data) {
                     let html = '';
                     
+                    // Redirect user to create profile page
+                    if (data.url) {
+                        $('#actionsModal').modal('hide');
+                        // console.log(data.url + "/0");
+                        window.location = data.url;
+                        // html = '<div class="alert alert-warning">' + data.message + '</div>';
+                        // $('#modal_alert').html(html).show().fadeOut(3000);
+                    }
+
                     if (data.success) {
                         $('#actionsModal').modal('hide');
                         window.scrollTo(0, 0);
@@ -196,6 +205,15 @@
                 },
                 success: function(data) {
                     let html = '';
+
+                    // Redirect user to create profile page
+                    if (data.url) {
+                        $('#actionsModal').modal('hide');
+                        // console.log(data.url + "/0");
+                        window.location = data.url;
+                        // html = '<div class="alert alert-warning">' + data.message + '</div>';
+                        // $('#modal_alert').html(html).show().fadeOut(3000);
+                    }
                     
                     if (data.success) {
                         $('#actionsModal').modal('hide');
