@@ -43,7 +43,7 @@ class EmployersController extends Controller
     public function index()
     {
         if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
-            return redirect(route('employer.create_profile'));
+            return redirect(route('employer.create_profile'))->with('warning', 'Please complete your company information to proceed.');
         }
 
         return view('employers.home');
@@ -122,7 +122,7 @@ class EmployersController extends Controller
     public function showEmployerProfile()
     {
         if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
-            return redirect(route('employer.create_profile'));
+            return redirect(route('employer.create_profile'))->with('warning', 'Please complete your company information to proceed.');
         }
 
         $emp_profile = DB::table('employer_infos')
@@ -137,7 +137,7 @@ class EmployersController extends Controller
     public function editEmployerProfile($comp_id)
     {
         if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
-            return redirect(route('employer.create_profile'));
+            return redirect(route('employer.create_profile'))->with('warning', 'Please complete your company information to proceed.');
         }
 
         if (auth()->user()->id != $comp_id) {

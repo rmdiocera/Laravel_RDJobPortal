@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\EmployerInfo;
 use App\EmpType;
 use App\Industry;
 use App\JobLevel;
 use App\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 
 class JobPostsController extends Controller
 {
@@ -25,6 +25,10 @@ class JobPostsController extends Controller
      */
     public function index()
     {
+        if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
+            return redirect(route('employer.create_profile'))->with('warning', 'Please complete your company information to proceed.');
+        }
+
         $job_posts = DB::table('job_posts')
                         ->select('job_posts.*', 'employer_infos.company_name', 'employer_infos.profile_picture', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
                         ->join('employer_infos', 'job_posts.comp_id', '=', 'employer_infos.comp_id')
@@ -46,6 +50,10 @@ class JobPostsController extends Controller
      */
     public function create()
     {
+        if (!EmployerInfo::where('comp_id', Auth::user()->id)->first()) {
+            return redirect(route('employer.create_profile'))->with('warning', 'Please complete your company information to proceed.');
+        }
+
         $industries = Industry::all();
         $emp_types = EmpType::all();
         $levels = JobLevel::all();

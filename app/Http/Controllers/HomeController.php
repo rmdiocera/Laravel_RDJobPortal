@@ -38,7 +38,7 @@ class HomeController extends Controller
     public function index()
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-            return redirect(route('user.create_profile'));
+            return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
         }
 
         return view('home');
@@ -67,6 +67,11 @@ class HomeController extends Controller
         ];
 
         return view('profile.create_app_profile')->with('data', $data);
+    }
+    
+    public function redirectToCreateApplicantProfile() 
+    {
+        return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
     }
 
     public function saveApplicantProfile(SaveApplicantProfile $request)
@@ -207,7 +212,7 @@ class HomeController extends Controller
     public function showApplicantProfile()
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-            return redirect(route('user.create_profile'));
+            return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
         }
 
         $app_profile = DB::table('applicant_infos')
@@ -237,7 +242,7 @@ class HomeController extends Controller
         //     echo "not equal";
         // }
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-            return redirect(route('user.create_profile'));
+            return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
         }
 
         if (auth()->user()->id != $user_id) {
@@ -373,7 +378,7 @@ class HomeController extends Controller
         if(request()->ajax())
         {
             if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-                return redirect(route('user.create_profile'));
+                return response()->json(['url' => route('user.redirect_to_create_profile')]);
             }
 
             // Check if job post already saved in job_posts_applications db
@@ -399,7 +404,7 @@ class HomeController extends Controller
     public function showActiveApplications()
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-            return redirect(route('user.create_profile'));
+            return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
         }
 
         $active_applications = DB::table('job_post_applications')
@@ -460,9 +465,9 @@ class HomeController extends Controller
     {
         if(request()->ajax())
         {
-            if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-                return redirect(route('user.create_profile'));
-            }
+            // if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            //     return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
+            // }
     
             $application = JobPostApplication::where(['id' => $job_post_app_id, 'user_id' => Auth::id()])->first();
             $application->delete();
@@ -477,7 +482,7 @@ class HomeController extends Controller
         if(request()->ajax())
         {
             if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-                return redirect(route('user.create_profile'));
+                return response()->json(['url' => route('user.redirect_to_create_profile')]);
             }
 
             // Check if job post already saved in saved_job_posts db
@@ -504,7 +509,7 @@ class HomeController extends Controller
     public function showSavedJobPosts()
     {
         if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-            return redirect(route('user.create_profile'));
+            return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
         }
 
         $saved_job_posts = DB::table('saved_job_posts')
@@ -523,9 +528,11 @@ class HomeController extends Controller
     {
         if(request()->ajax())
         {
-            if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
-                return redirect(route('user.create_profile'));
-            }
+            // if (!ApplicantInfo::where('user_id', Auth::user()->id)->first()) {
+            //     return redirect(route('user.create_profile'))->with('warning', 'Please complete your personal information to proceed.');
+            //     JSON response
+            //     return response()->json(['url' => route('user.create_profile'), 'message' => 'Please complete your personal information to proceed.']);
+            // }
 
             $job_post = SavedJobPost::where(['id' => $saved_job_post_id, 'user_id' => Auth::id()])->first();
             $job_post->delete();
