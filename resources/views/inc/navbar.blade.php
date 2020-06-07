@@ -69,6 +69,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('user.dashboard') }}" class="dropdown-item">Dashboard</a>
                             <a href="{{ route('user.show_profile') }}" class="dropdown-item">Profile</a>
                             <a class="dropdown-item" href="{{ route('user.logout') }}"
                             onclick="event.preventDefault();
@@ -94,6 +95,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('employer.dashboard') }}" class="dropdown-item">Dashboard</a>
                             <a href="{{ route('employer.show_profile') }}" class="dropdown-item">Profile</a>
                             <a class="dropdown-item" href="{{ route('employer.logout') }}"
                             onclick="event.preventDefault();
