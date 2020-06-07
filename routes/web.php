@@ -47,6 +47,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('user.dashboard');
 Route::get('/home/create-profile', 'HomeController@showCreateApplicantProfile')->name('user.create_profile');
+Route::get('/home/create-profile-redirect/', 'HomeController@redirectToCreateApplicantProfile')->name('user.redirect_to_create_profile');
 Route::post('/create-profile', 'HomeController@saveApplicantProfile')->name('user.create_profile.submit');
 Route::get('/home/show-profile', 'HomeController@showApplicantProfile')->name('user.show_profile');
 Route::get('/home/{id}/edit', 'HomeController@editApplicantProfile')->name('user.edit_profile');
@@ -68,6 +69,7 @@ Route::prefix('employer')->group(function()
     Route::post('login', 'Auth\EmployerLoginController@login')->name('employer.login.submit');
     Route::get('/register', 'Auth\EmployerRegisterController@showRegistrationForm')->name('employer.register');
     Route::post('register', 'Auth\EmployerRegisterController@register')->name('employer.register.submit');
+    Route::get('/', 'EmployersController@index')->name('employer.dashboard');
     Route::get('/create-profile', 'EmployersController@showCreateEmployerProfile')->name('employer.create_profile');
     Route::post('/create-profile', 'EmployersController@saveEmployerProfile')->name('employer.create_profile.submit');
     Route::get('/show-profile', 'EmployersController@showEmployerProfile')->name('employer.show_profile');
