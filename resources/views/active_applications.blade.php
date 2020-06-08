@@ -3,7 +3,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-        <h1 class="card-title">Active Applications</h1>
+        <h1 class="card-title mb-0">Active Applications</h1>
+        <hr class="modal-divider my-1">
             @if (count($applications) > 0)
                 <div class="row">
                     @foreach ($applications as $application)

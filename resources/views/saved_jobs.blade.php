@@ -3,7 +3,8 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">Saved Job Posts</h1>
+            <h1 class="card-title mb-0">Saved Job Posts</h1>
+            <hr class="modal-divider my-1">
             @if (count($job_posts) > 0)
                 <div class="row">
                     @foreach ($job_posts as $job_post)

@@ -33,7 +33,8 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h1 class="card-title">{{$job_post->title}}</h1>
+        <h1 class="card-title mb-0">{{$job_post->title}}</h1>
+        <hr class="modal-divider my-2">
         <table id="app-table" class="table table-bordered table-striped">
             <thead>
                 <tr>
