@@ -43,8 +43,14 @@ class EmployerRegisterController extends Controller
         // ]);
         $data = $request->all();
 
-        $this->validator($data)->validate();
+        $validation = $this->validator($data);
  
+        if ($validation->fails()) {
+            return redirect(route('employer.register'))
+                ->withErrors($validation)
+                ->withInput();
+        }
+
         $employer = $this->create($data);
        
         $this->guard()->login($employer);

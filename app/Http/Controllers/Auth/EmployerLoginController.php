@@ -40,7 +40,7 @@ class EmployerLoginController extends Controller
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
-        ]);
+        ])->redirectTo(route('employer.login'));
     }
 
     public function login(Request $request)
