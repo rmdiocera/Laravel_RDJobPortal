@@ -23,12 +23,12 @@ Route::get('/', 'PagesController@index')->name('site.main');
 Route::get('/about', 'PagesController@about')->name('site.about_us');
 Route::get('/contact-us', 'PagesController@contactUs')->name('site.contact_us');
 Route::get('/job-search', 'PagesController@showJobPosts')->name('site.job_search');
+Route::get('/job-post/{id}', 'PagesController@showJobPost');
 Route::get('/company/{id}', 'PagesController@viewCompanyProfile')->name('site.company_profile');
 // Route::get('/emp-info/{id}', 'PagesController@viewCompanyProfile');
 
 // Job Posts
 Route::get('/job-posts', 'JobPostsController@index')->name('employer.job_posts');
-Route::get('/job-post/{id}', 'JobPostsController@show');
 Route::get('/create-job-post', 'JobPostsController@create');
 Route::post('/job-search', 'JobPostsController@store');
 Route::get('/job-post/{id}/edit', 'JobPostsController@edit');
@@ -70,6 +70,7 @@ Route::prefix('employer')->group(function()
     Route::get('/register', 'Auth\EmployerRegisterController@showRegistrationForm')->name('employer.register');
     Route::post('register', 'Auth\EmployerRegisterController@register')->name('employer.register.submit');
     Route::get('/', 'EmployersController@index')->name('employer.dashboard');
+    Route::get('/job-post/{id}', 'JobPostsController@show')->name('job_post');
     Route::get('/create-profile', 'EmployersController@showCreateEmployerProfile')->name('employer.create_profile');
     Route::post('/create-profile', 'EmployersController@saveEmployerProfile')->name('employer.create_profile.submit');
     Route::get('/show-profile', 'EmployersController@showEmployerProfile')->name('employer.show_profile');
