@@ -6,7 +6,8 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="card col-md-12 mb-3 pb-3 pt-2">
-                    <h3 class="card-title">Company Information</h3>
+                    <h3 class="card-title mb-0">Company Information</h3>
+                    <hr class="modal-divider mb-2">
                     <div class="row">
                         <div class="col-md-3 d-flex">
                             <img src="/storage/emp_profile_pictures/{{$profile_info->profile_picture}}" class="emp-profile-pic mx-2 img-thumbnail" alt="">
@@ -25,7 +26,8 @@
                     </div>
                 </div>
                 <div class="card col-md-12 mb-3 pb-3 pt-2">
-                    <h3 class="card-title">Company Overview</h3>
+                    <h3 class="card-title mb-0">Company Overview</h3>
+                    <hr class="modal-divider mb-2">
                     <div class="row">
                         <div class="col">
                             <div>{!!$profile_info->company_overview!!}</div>
