@@ -16,7 +16,8 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['guest:web', 'guest:employer'])->except(['showJobPosts', 'viewCompanyProfile']);
+        $this->middleware('guest:web')->except(['showJobPosts', 'showJobPost', 'viewCompanyProfile']);
+        $this->middleware('guest:employer');
     }
 
     public function index()
@@ -192,6 +193,19 @@ class PagesController extends Controller
 
         // return view('pages.search_results');
         return view('pages.search_results')->withMessage('error', 'Your search has no results found. Please try again.');   
+    }
+
+    public function showJobPost($id)
+    {
+        $job_post = DB::table('job_posts')
+                ->select('job_posts.*', 'industries.industry', 'emp_types.emp_type', 'job_levels.job_level')
+                ->join('industries', 'job_posts.industry_id', '=', 'industries.id')
+                ->join('emp_types', 'job_posts.emp_type_id', '=', 'emp_types.id')
+                ->join('job_levels', 'job_posts.level_id', '=', 'job_levels.id')
+                ->where('job_posts.id', $id)
+                ->get();
+
+        return view('job_search.job_post')->with('job_post', $job_post);
     }
 
     // public function viewCompanyProfile($comp_id)
