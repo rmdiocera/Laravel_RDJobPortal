@@ -15,7 +15,7 @@ class JobPostsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:employer', ['except' => ['show']]);
+        $this->middleware('auth:employer');
     }
 
     /**
