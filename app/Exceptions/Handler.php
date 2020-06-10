@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -66,7 +67,7 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if($exception instanceof ViewException) {
+        if($exception instanceof ViewException || $exception instanceof ErrorException) {
             abort(404);
         }
 
