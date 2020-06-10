@@ -196,10 +196,11 @@
                                 <img class="jp-comp-img" src="storage/emp_profile_pictures/{{$job_post->profile_picture}}" style="width: 100%"  alt="">
                             </div>
                             <div class="col-md-9 col-sm-9 d-flex flex-column">
-                                <h3 class="card-title"><a href="/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
                                 @if (Auth::guard('employer')->check() && Auth::user()->id === $job_post->comp_id)
+                                    <h3 class="card-title"><a href="employer/job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
                                     <p class="font-weight-bold"><a href="/employer/show-profile">{{$job_post->company_name}}</a></p>
                                 @else
+                                    <h3 class="card-title"><a href="job-post/{{$job_post->id}}">{{$job_post->title}}</a></h3>
                                     <p class="font-weight-bold"><a href="/company/{{$job_post->comp_id}}">{{$job_post->company_name}}</a></p>
                                 @endif
                                 {{-- <p class="font-weight-bold"><a href="" id="{{$job_post->comp_id}}" class="show_emp_info">{{$job_post->company_name}}</a></p> --}}
