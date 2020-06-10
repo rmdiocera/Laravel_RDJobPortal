@@ -20,11 +20,18 @@ class EmployerLoginController extends Controller
 
     public function showLoginForm()
     {
+        $url_prev = url()->previous();
+        $parsedUrl = parse_url($url_prev);
+
+        if (isset($parsedUrl['query'])) {
+            $queryStr = "?".$parsedUrl['query'];
+        } else {
+            $queryStr = "";
+        }
+
         if(!session()->has('url.intended'))
         {
-            $url_prev = url()->previous();
-
-            if ($url_prev == url()->route('site.job_search')) {
+            if ($url_prev == url()->route('site.job_search') || $url_prev == url()->route('site.job_search').$queryStr) {
                 session(['url.intended' => url()->route('employer.job_posts')]);   
             } else if ($url_prev == url()->route('site.main').'/') {
                 session(['url.intended' => url()->route('employer.dashboard')]);
