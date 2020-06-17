@@ -5,7 +5,9 @@
         @foreach ($job_post as $job_post)
             <div class="card col-md-12 mb-2 pt-2">
                 <div class="card-body">
-                    <h3 class="card-title mb-0">{{$job_post->title}}</h3>
+                    <img src="/storage/emp_profile_pictures/{{$job_post->profile_picture}}" class="app-profile-pic mx-auto mb-1 img-thumbnail" alt="">
+                    <h3 class="card-title mb-1">{{$job_post->title}}</h3>
+                    <h5 class="card-title mb-0">{{$job_post->company_name}}</h5>
                     <hr class="modal-divider mb-2">
                     <p>{!! $job_post->desc !!}</p>
                     <div class="form-inline">
