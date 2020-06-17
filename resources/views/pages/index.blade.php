@@ -3,10 +3,10 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title mb-0">Welcome to the Job Portal</h1>
+            <h2 class="card-title mb-0">Sign up now! <small class="text-muted">Thousands of jobs to apply in at a single click.</small></h2>
             <hr class="modal-divider mb-2">
             <div class="row">
-                <div class="wrapper d-flex align-items-stretch">
+                <div class="wrapper mx-auto d-flex justify-content-around">
                     <div class="col-md-7">
                         <div class="jumbotron index-jumbotron d-flex align-items-center h-100">
                             <div class="jumbotron-content border rounded p-2">
