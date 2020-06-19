@@ -15,7 +15,6 @@
                         {{Form::textarea('company_overview', $data['emp_profile']['company_overview'], ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Put details about your company here.', 'rows' => 10])}}
                         {{Form::label('industry', 'Industry', ['class' => 'mt-2'])}}
                         <select class="selectpicker form-control" name="industry" id="" data-live-search="true" title="Select an industry">
-                            {{-- <option value="">Select an option</option> --}}
                             @foreach ($data['industries'] as $industry)
                                 @if ($industry->id === $data['emp_profile']['industry_id'])
                                     <option value="{{$industry->id}}" selected>{{$industry->industry}}</option>
@@ -52,7 +51,6 @@
                         {{Form::text('avg_processing_time', $data['emp_profile']['avg_processing_time'], ['class' => 'form-control', 'placeholder' => 'Average Processing Time'])}}
                     </div>
                     {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
-                    {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
                 </div>
             </div>
         {!! Form::close() !!}

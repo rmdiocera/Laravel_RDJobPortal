@@ -15,15 +15,12 @@
                         {{Form::textarea('company_overview', '', ['id' => 'multi_editor', 'class' => 'form-control', 'placeholder' => 'Put details about your company here.', 'rows' => 10])}}
                         {{Form::label('industry', 'Industry', ['class' => 'mt-2'])}}
                         <select class="selectpicker form-control" name="industry" id="" data-live-search="true" title="Select an industry">
-                            {{-- <option value="">Select an option</option> --}}
                             @foreach ($industries as $industry)
                                 <option value="{{$industry->id}}">{{$industry->industry}}</option>
                             @endforeach
                         </select>
                         {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
                         {{Form::text('address', '', ['class' => 'form-control', 'placeholder' => 'Address'])}}
-                        {{-- {{Form::label('description', 'Description')}}
-                        {{Form::textarea('description', '', ['class' => 'form-control', 'placeholder' => 'Enter the description here', 'rows' => 20])}} --}}
                     </div>
                     <div class="form-group">
                         {{Form::label('profile_picture', 'Add Company Logo', ['class' => 'mt-2'])}}
@@ -50,7 +47,6 @@
                         {{Form::text('avg_processing_time', '', ['class' => 'form-control', 'placeholder' => 'Average Processing Time'])}}
                     </div>
                     {{Form::button('<i class="fas fa-check-circle mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
-                    {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Post'])}} --}}
                 </div>
             </div>
         {!! Form::close() !!}

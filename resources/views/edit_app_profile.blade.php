@@ -19,11 +19,6 @@
                         <select class="selectpicker form-control" name="gender" id="" title="Select your gender">
                             @foreach ($data['genders'] as $gender)
                                 <option value="{{$gender->id}}" @if ($gender->id === $data['app_profile']['gender_id']) selected @endif>{{$gender->gender}}</option> 
-                                {{-- @if ($gender->id === $data['app_profile']['gender_id'])
-                                    <option value="{{$gender->id}}" selected>{{$gender->gender}}</option>    
-                                @else
-                                    <option value="{{$gender->id}}">{{$gender->gender}}</option>
-                                @endif         --}}
                             @endforeach
                         </select>
                         {{Form::label('address', 'Address', ['class' => 'mt-2'])}}
@@ -32,11 +27,6 @@
                         <select class="selectpicker form-control" name="country" id="country-select" data-live-search="true" title="Select a country">
                             @foreach ($data['countries'] as $country)
                                 <option data-content='<i class="em em-flag-{{$country->country_code}}" aria-role="presentation" aria-label="{{$country->country_name}} Flag"></i><span class="align-middle pl-2">{{$country->country_name}}</span>' value="{{$country->id}}" @if ($country->id === $data['app_profile']['country_id']) selected @endif></option>
-                                {{-- @if ($country->id === $data['app_profile']['country_id'])
-                                    <option selected data-content='<i class="em em-flag-{{$country->country_code}}" aria-role="presentation" aria-label="{{$country->country_name}} Flag"></i><span class="align-middle pl-2">{{$country->country_name}}</span>' value="{{$country->id}}"></option>    
-                                @else
-                                    <option data-content='<i class="em em-flag-{{$country->country_code}}" aria-role="presentation" aria-label="{{$country->country_name}} Flag"></i><span class="align-middle pl-2">{{$country->country_name}}</span>' value="{{$country->id}}"></option>
-                                @endif     --}}
                             @endforeach
                         </select>
                         {{Form::label('nationality', 'Nationality', ['class' => 'mt-2'])}}
@@ -44,11 +34,6 @@
                             <option value="" selected>Select an option</option>
                             @foreach ($data['nationalities'] as $nationality)
                                 <option value="{{$nationality->id}}" @if ($nationality->id === $data['app_profile']['nationality_id']) selected @endif>{{$nationality->nationality}}</option>  
-                                {{-- @if ($nationality->id === $data['app_profile']['nationality_id'])
-                                    <option value="{{$nationality->id}}" selected>{{$nationality->nationality}}</option>    
-                                @else
-                                    <option value="{{$nationality->id}}">{{$nationality->nationality}}</option>
-                                @endif --}}
                             @endforeach
                         </select>
                         {{Form::label('mobile_phone_no', 'Mobile Number', ['class' => 'mt-2'])}}
@@ -89,11 +74,6 @@
                                 <option value="" selected>Select an option</option>
                                 @foreach ($data['currencies'] as $currency)
                                     <option value="{{$currency->id}}" @if ($currency->id === $data['app_profile']['currency_id']) selected @endif>{{$currency->currency}}</option>
-                                    {{-- @if ($currency->id === $data['app_profile']['currency_id'])
-                                        <option value="{{$currency->id}}" selected>{{$currency->currency}}</option>
-                                    @else
-                                        <option value="{{$currency->id}}">{{$currency->currency}}</option>
-                                    @endif --}}
                                 @endforeach
                             </select>
                             {{Form::text('salary', $data['app_profile']['salary'], ['class' => 'form-control ml-2', 'placeholder' => 'Salary'])}}
@@ -112,11 +92,6 @@
                             <option value="" selected>Select an option</option>
                             @foreach ($data['degrees'] as $degree)
                                 <option value="{{$degree->id}}" @if ($degree->id === $data['app_profile']['degree_id']) selected @endif>{{$degree->degree}}</option>
-                                {{-- @if ($degree->id === $data['app_profile']['degree_id'])
-                                    <option value="{{$degree->id}}" selected>{{$degree->degree}}</option>
-                                @else
-                                    <option value="{{$degree->id}}">{{$degree->degree}}</option>
-                                @endif --}}
                             @endforeach
                         </select>
                         {{Form::label('course', 'Course')}}
@@ -124,11 +99,6 @@
                             <option value="" selected>Select an option</option>
                             @foreach ($data['courses'] as $course)
                                 <option value="{{$course->id}}" @if ($course->id === $data['app_profile']['course_id']) selected @endif>{{$course->course}}</option>
-                                {{-- @if ($course->id === $data['app_profile']['course_id'])
-                                    <option value="{{$course->id}}" selected>{{$course->course}}</option>
-                                @else
-                                    <option value="{{$course->id}}">{{$course->course}}</option>
-                                @endif --}}
                             @endforeach
                         </select>
                         {{Form::label('univ_start_date', 'Start Date', ['class' => 'mt-2'])}}
@@ -138,7 +108,6 @@
                     </div>
                     {{Form::hidden('app_info_id', $data['app_profile']['id'])}}
                     {{Form::button('<i class="fas fa-edit mr-1"></i>Save', ['type' => 'submit', 'class' => 'btn btn-primary'])}}
-                    {{-- {{Form::submit('Submit', ['class' => 'btn btn-primary', 'value' => 'Save'])}} --}}
                 </div>
             </div>
         {!! Form::close() !!}

@@ -13,19 +13,14 @@
                             <div class="card-body d-flex">
                                 <img src="/storage/emp_profile_pictures/{{$job_post->profile_picture}}" class="emp-profile-pic-sm d-block mr-4" alt="">
                                 <div>
-                                <h5 class="card-title mb-1"><a href="/job-post/{{$job_post->job_post_id}}">{!! Str::words($job_post->title, 4, '...') !!}</a></h5>
-                                <h6 class="card-title">{{$job_post->company_name}}</h6>
-                                <p class="card-text">Saved on {{ Carbon\Carbon::parse($job_post->created_at)->format('F j, Y')}}</p>
-                                <div class="mt-5">
-                                    <button data-saved-jp-id="{{$job_post->id}}" class="btn btn-sm btn-danger unsave-jp" type="button"><i class="fas fa-minus-circle mr-1"></i>Unsave Job Post</button>
-                                </div>
-                                {{-- {!! Form::open(['action' => ['HomeController@unsaveJobPost', $job_post->id], 'method' => 'DELETE']) !!}
-                                    {{Form::submit('Unsave Job Post', ['class' => 'btn btn-sm btn-danger'])}}
-                                {!! Form::close() !!} --}}
-                                {{-- <a href="/job-post/{{$job_post->id}}/unsave"><button class="btn btn-sm btn-primary" type="button">Unsave Job Post</button></a> --}}
+                                    <h5 class="card-title mb-1"><a href="/job-post/{{$job_post->job_post_id}}">{!! Str::words($job_post->title, 4, '...') !!}</a></h5>
+                                    <h6 class="card-title">{{$job_post->company_name}}</h6>
+                                    <p class="card-text">Saved on {{ Carbon\Carbon::parse($job_post->created_at)->format('F j, Y')}}</p>
+                                    <div class="mt-5">
+                                        <button data-saved-jp-id="{{$job_post->id}}" class="btn btn-sm btn-danger unsave-jp" type="button"><i class="fas fa-minus-circle mr-1"></i>Unsave Job Post</button>
+                                    </div>
                                 </div>
                             </div>
-                            {{-- <button data-saved-jp-id="{{$job_post->id}}" class="btn btn-sm btn-danger mr-2 mb-2 ml-auto unsave-jp" type="button"><i class="fas fa-minus-circle mr-1"></i>Unsave Job Post</button> --}}
                         </div>
                     </div>
                     @endforeach
