@@ -1,129 +1,152 @@
+/* Navbar */
 .navbar {
-    background-color: #1e824c;
-  }
-  .navbar .navbar-brand {
+  background-color: #1e824c;
+}
+.navbar {
+  color: #ecf0f1;
+}
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #ffffff;
+}
+.navbar .navbar-text {
+  color: #ecf0f1;
+}
+.navbar .navbar-text a {
+  color: #ffffff;
+}
+.navbar .navbar-text a:hover,
+.navbar .navbar-text a:focus {
+  color: #ffffff; 
+}
+.navbar .navbar-nav .nav-link {
+  color: #ecf0f1;
+  border-radius: .25rem;
+  margin: 0 0.25em;
+}
+.navbar .navbar-nav .nav-link:not(.disabled):hover,
+.navbar .navbar-nav .nav-link:not(.disabled):focus {
+  color: #ffffff;
+}
+/* .navbar .navbar-nav .nav-item.active .nav-link, */
+.navbar .navbar-nav .nav-item .nav-link:hover,
+.navbar .navbar-nav .nav-item .nav-link:focus,
+/* .navbar .navbar-nav .nav-item.show .nav-link, */
+.navbar .navbar-nav .nav-item.show .nav-link:hover,
+.navbar .navbar-nav .nav-item.show .nav-link:focus {
+  color: #ffffff;
+  background-color: #019875;
+}
+.navbar .navbar-toggle {
+  border-color: #019875;
+}
+.navbar .navbar-toggle:hover,
+.navbar .navbar-toggle:focus {
+  background-color: #019875;
+}
+.navbar .navbar-toggle .navbar-toggler-icon {
+  color: #ecf0f1;
+}
+.navbar .navbar-collapse,
+.navbar .navbar-form {
+  border-color: #ecf0f1;
+}
+.navbar .navbar-link {
+  color: #ecf0f1;
+}
+.navbar .navbar-link:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 575px) {
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
-  .navbar .navbar-brand:hover,
-  .navbar .navbar-brand:focus {
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
     color: #ffffff;
   }
-  .navbar .navbar-text {
-    color: #ecf0f1;
-  }
-  .navbar .navbar-text a {
-    color: #ffffff;
-  }
-  .navbar .navbar-text a:hover,
-  .navbar .navbar-text a:focus {
-    color: #ffffff; 
-  }
-  .navbar .navbar-nav .nav-link {
-    color: #ecf0f1;
-    border-radius: .25rem;
-    margin: 0 0.25em;
-  }
-  .navbar .navbar-nav .nav-link:not(.disabled):hover,
-  .navbar .navbar-nav .nav-link:not(.disabled):focus {
-    color: #ffffff;
-  }
-  /* .navbar .navbar-nav .nav-item.active .nav-link, */
-  .navbar .navbar-nav .nav-item .nav-link:hover,
-  .navbar .navbar-nav .nav-item .nav-link:focus,
-  /* .navbar .navbar-nav .nav-item.show .nav-link, */
-  .navbar .navbar-nav .nav-item.show .nav-link:hover,
-  .navbar .navbar-nav .nav-item.show .nav-link:focus {
+  .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
     color: #ffffff;
     background-color: #019875;
   }
-  .navbar .navbar-toggle {
-    border-color: #019875;
-  }
-  .navbar .navbar-toggle:hover,
-  .navbar .navbar-toggle:focus {
-    background-color: #019875;
-  }
-  .navbar .navbar-toggle .navbar-toggler-icon {
+}
+
+@media (max-width: 767px) {
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
     color: #ecf0f1;
   }
-  .navbar .navbar-collapse,
-  .navbar .navbar-form {
-    border-color: #ecf0f1;
-  }
-  .navbar .navbar-link {
-    color: #ecf0f1;
-  }
-  .navbar .navbar-link:hover {
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
     color: #ffffff;
   }
-  
-  @media (max-width: 575px) {
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #ffffff;
-    }
-    .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #ffffff;
-      background-color: #019875;
-    }
-  }
-  
-  @media (max-width: 767px) {
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #ffffff;
-    }
-    .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #ffffff;
-      background-color: #019875;
-    }
-  }
-  
-  @media (max-width: 991px) {
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #ffffff;
-    }
-    .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #ffffff;
-      background-color: #019875;
-    }
-  }
-  
-  @media (max-width: 1199px) {
-    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
-      color: #ecf0f1;
-    }
-    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-      color: #ffffff;
-    }
-    .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
-      color: #ffffff;
-      background-color: #019875;
-    }
-  }
-  
-  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #ecf0f1;
-  }
-  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
-  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #ffffff;
-  }
-  .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+  .navbar-expand-md .navbar-nav .show .dropdown-menu .dropdown-item.active {
     color: #ffffff;
     background-color: #019875;
   }
+}
+
+@media (max-width: 991px) {
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #ecf0f1;
+  }
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #ffffff;
+  }
+  .navbar-expand-lg .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #ffffff;
+    background-color: #019875;
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item {
+    color: #ecf0f1;
+  }
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+    color: #ffffff;
+  }
+  .navbar-expand-xl .navbar-nav .show .dropdown-menu .dropdown-item.active {
+    color: #ffffff;
+    background-color: #019875;
+  }
+}
+
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
+  color: #ecf0f1;
+}
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
+  color: #ffffff;
+}
+.navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
+  color: #ffffff;
+  background-color: #019875;
+}
+
+.title-font {
+  font-family: 'Righteous', cursive;
+}
+
+.navbar-brand {
+  color: #ffed4a;
+}
+
+/* Footer */
+body, .sticky-footer-wrapper {
+  min-height: 80vh;
+}
+
+/* Main Page */
+.wrapper {
+  height: 500px;
+}
+
+.toggle {
+  display: none;
+}
 
 /* View Applicant Info */
 /* Profile Picture */
@@ -132,8 +155,67 @@
   width: 200px;
 }
 
+.link-app-register, .link-emp-register {
+  position: relative;
+  top: 60px;
+}
+
+.index-auth {
+  overflow: hidden;
+}
+
+.index-jumbotron {
+  background: url('/storage/index-jumbotron-bg.jpg') no-repeat;
+  background-size: cover;
+}
+
+.jumbotron-content {
+  background-color:rgba(#ffffff, 0.7);
+}
+
+/* Job Search */
+.bootstrap-select .dropdown-toggle .filter-option {
+  color: #000000;
+}
+
+.jp-comp-img {
+  height: auto;
+  width: 100%;
+  object-fit: cover;
+  /* overflow: visible; */
+}
+
+/* Applicant/Employer Profile */
+.app-profile-pic, .emp-profile-pic {
+  min-height: 160px;
+  width: 160px;
+}
+
+.other-info-heading {
+  font-size: 0.90em;
+}
+
+.other-info-text {
+  font-size: 0.78em;
+}
+
+/* Active Applications/Saved Jobs/View Job Post Applicants */
+.emp-profile-pic-sm {
+  height: 100px;
+  width: 100px;
+}
+
+.app-status-text {
+  font-size: 0.85em !important;
+}
+
+/* .text {
+  display: inline-block;
+} */
+
+/* Others */
 /* Divider */
 .modal-divider {
   border: 1px solid rgb(242, 242, 242);
-  /* margin: 5px 10px; */
+  margin: 0;
 }
