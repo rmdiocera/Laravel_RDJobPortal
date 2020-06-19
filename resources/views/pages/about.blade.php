@@ -2,5 +2,5 @@
 
 @section('content')
     <h1>About Us</h1>
-    <p>Is a job portal</p>
+    <p>WorkForce strives to be one of the world's leading job portal website.</p>
 @endsection
