@@ -82,5 +82,5 @@ Route::prefix('employer')->group(function()
 
 // Fallback Route
 Route::fallback(function() {
-    return 'Hm, why did you land here somehow?';
+    abort(404);
 });

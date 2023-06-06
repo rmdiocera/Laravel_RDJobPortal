@@ -22,6 +22,7 @@ class CreateApplicantInfosTable extends Migration
             $table->string('address');
             $table->string('country');
             $table->string('nationality');
+            $table->string('mobile_phone_no', 11);
             $table->string('job_title');
             $table->string('company_name');
             $table->date('start_date');

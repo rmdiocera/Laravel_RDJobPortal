@@ -14,7 +14,7 @@ class AddProfilePictureToApplicantInfosTable extends Migration
     public function up()
     {
         Schema::table('applicant_infos', function (Blueprint $table) {
-            $table->string('profile_picture')->after('mobile_phone_no');
+            $table->string('profile_picture')->after('univ_end_date');
         });
     }
 

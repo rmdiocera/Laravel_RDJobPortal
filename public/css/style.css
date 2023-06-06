@@ -165,7 +165,7 @@ body, .sticky-footer-wrapper {
 }
 
 .index-jumbotron {
-  background: url('/storage/index-jumbotron-bg.jpg') no-repeat;
+  background: url('/storage/images/index-jumbotron-bg.jpg') no-repeat;
   background-size: cover;
 }
 
