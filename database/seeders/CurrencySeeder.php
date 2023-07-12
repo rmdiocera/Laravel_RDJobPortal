@@ -14,7 +14,7 @@ class CurrencySeeder extends Seeder
      */
     public function run()
     {
-        $currencies = json_decode(file_get_contents(public_path('storage\json\currencies.json')));
+        $currencies = json_decode(file_get_contents(public_path('storage/json/currencies.json')));
 
         foreach ($currencies as $code => $currency) {
             Currency::create(['currency' => $code]);
