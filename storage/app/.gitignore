@@ -1,3 +1,7 @@
 *
 !public/
+!public/json/
+!public/images/
+!public/json/*
+!public/images/*
 !.gitignore

@@ -1,2 +1,6 @@
 *
+!json/
+!images/
+!json/currencies.json
+!images/index-jumbotron-bg.jpg
 !.gitignore
